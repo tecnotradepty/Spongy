@@ -223,7 +223,6 @@
             </div>
 
             <div class="p-4 bg-white border-t border-[#e5e2db]">
-                
                 <div class="relative bg-white border border-[#c2beb5] rounded-xl focus-within:border-[#cc5a37] focus-within:ring-1 focus-within:ring-[#cc5a37]/30 transition-all shadow-sm">
                     <textarea id="chat-input" rows="2" placeholder="Pregúntale a Gemini sobre tus notas..." class="w-full bg-transparent py-3 pl-4 pr-12 text-sm text-[#191919] placeholder-[#8c8a81] resize-none focus:outline-none no-scrollbar" onkeydown="handleEnter(event)"></textarea>
                     <button onclick="sendToAgent()" class="absolute right-2 bottom-2 w-8 h-8 flex items-center justify-center rounded-lg bg-[#3b82f6] text-white hover:bg-blue-600 transition-colors shadow-sm">
@@ -251,7 +250,6 @@
         }
 
         // --- 2. Google AI Studio (Gemini Engine) ---
-        // Clave API inicializada desde localStorage o con valor por defecto corregido
         const DEFAULT_KEY = "AIzaSy" + "AQ_Ab8RN6JnQ3p0om4p8tc8nm6jMxmScj20pGBJ2jmL35urmeDHwQ";
         let GEMINI_KEY = localStorage.getItem('gemini_key') || DEFAULT_KEY;
         let tokenUsage = { gemini: 0 };
@@ -293,33 +291,48 @@
                        .replace(/- \[(x|X)\]/g, '<input type="checkbox" class="mr-2 text-[#cc5a37]" checked disabled>');
         }
 
-        // PETICIÓN TOTALMENTE CORREGIDA: Formato exacto requerido por Google Gemini API v1
+        // CORS PROXY DE RESPALDO: Usamos un proxy de CORS público en caso de bloqueo del navegador en GitHub Pages
         async function callGeminiAPI(userPrompt) {
             if(!GEMINI_KEY) {
                 alert("Por favor, ingresa tu API Key de Google AI Studio.");
                 throw new Error("Falta API Key");
             }
 
-            // Endpoint de producción robusto con compatibilidad total para tokens de AI Studio
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${GEMINI_KEY}`, {
+            const targetUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${GEMINI_KEY}`;
+            const payload = {
+                contents: [{
+                    role: "user",
+                    parts: [{ text: userPrompt }]
+                }]
+            };
+
+            // Intentamos llamada directa primero
+            try {
+                const response = await fetch(targetUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+                if (response.ok) return await response.json();
+            } catch (directError) {
+                console.warn("Llamada directa bloqueada por CORS. Intentando vía Proxy de Respaldo...");
+            }
+
+            // Fallback usando Proxy para evitar CORS en GitHub Pages
+            const proxyUrl = "https://api.allorigins.win/get?url=" + encodeURIComponent(targetUrl);
+            const proxyResponse = await fetch(proxyUrl, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    contents: [{
-                        role: "user",
-                        parts: [{ text: userPrompt }]
-                    }]
-                })
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
             });
 
-            if (!response.ok) {
-                const errJson = await response.json().catch(() => ({}));
-                console.error("Error detallado de Google API:", errJson);
-                throw new Error("Fallo en la API de Google");
+            if (!proxyResponse.ok) {
+                throw new Error("Ambos métodos de conexión (Directo y Proxy) fallaron.");
             }
-            return await response.json();
+
+            const proxyData = await proxyResponse.json();
+            // AllOrigins devuelve la respuesta dentro de una propiedad 'contents' como String de JSON
+            return JSON.parse(proxyData.contents);
         }
 
         async function sendToAgent() {
@@ -392,7 +405,7 @@
                 }
             } catch (error) {
                 if (document.getElementById(typingId)) document.getElementById(typingId).remove();
-                chatWindow.innerHTML += `<div class="text-xs text-red-700 bg-red-50 p-3 rounded-lg border border-red-200 my-2 mx-auto max-w-[85%] text-center">Fallo en la API de Google. Verifica tu clave de API e inténtalo nuevamente.</div>`;
+                chatWindow.innerHTML += `<div class="text-xs text-red-700 bg-red-50 p-3 rounded-lg border border-red-200 my-2 mx-auto max-w-[85%] text-center">Fallo de comunicación CORS. Por favor, abre la consola (F12) para ver los detalles del error del navegador.</div>`;
             }
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
