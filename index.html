@@ -7,6 +7,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght=0,600;1,600&display=swap" rel="stylesheet">
+    <!-- SDK de Google Generative AI Cargado de forma clásica y segura -->
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+      }
+    </script>
     <style>
         :root {
             --bg-base: #f9f8f6; /* Fondo cálido Claude */
@@ -88,6 +96,7 @@
 </head>
 <body class="h-screen flex flex-col">
 
+    <!-- HEADER ESTILO CLAUDE -->
     <header class="bg-white h-14 flex items-center justify-between px-6 shrink-0 z-50 border-b border-[#e5e2db]">
         <div class="flex items-center gap-3">
             <div class="w-7 h-7 rounded-md bg-[#cc5a37] flex items-center justify-center shadow-sm">
@@ -108,7 +117,9 @@
 
     <div class="flex flex-1 overflow-hidden">
         
+        <!-- SIDEBAR IZQUIERDO: CONFIGURACIÓN Y TELEMETRÍA -->
         <aside class="w-64 bg-[#f6f5f0] border-r border-[#e5e2db] flex flex-col shrink-0 z-20">
+            <!-- 1. CONFIGURACIÓN DE API KEY (SEGURO LOCALSTORAGE) -->
             <div class="p-4 border-b border-[#e5e2db] bg-white/60">
                 <label class="text-[10px] font-bold text-[#6b6a65] uppercase tracking-wider block mb-2">
                     <i class="fa-solid fa-key text-[#cc5a37]"></i> Google Gemini API Key
@@ -121,6 +132,7 @@
                 <p class="text-[9px] text-[#8c8a81] mt-1.5 leading-relaxed">Se guarda de forma segura en tu navegador. Nunca se comparte en la red.</p>
             </div>
 
+            <!-- 2. TELEMETRÍA DE USO -->
             <div class="p-4 border-b border-[#e5e2db] flex justify-between items-center">
                 <h2 class="text-xs font-bold text-[#6b6a65] uppercase tracking-wider flex items-center gap-2">
                     <i class="fa-solid fa-chart-line"></i> Telemetría del Sistema
@@ -129,6 +141,7 @@
             </div>
             
             <div class="p-4 flex flex-col gap-3 overflow-y-auto">
+                <!-- Gemini Workspace Panel -->
                 <div class="bg-white border border-[#e5e2db] rounded-xl p-3 hover:shadow-sm transition-all duration-300">
                     <div class="flex justify-between items-center mb-2.5">
                         <div class="flex items-center gap-2">
@@ -146,6 +159,7 @@
                 </div>
             </div>
             
+            <!-- PANEL DE CONTROL DE DEBATE -->
             <div class="mt-auto p-4 border-t border-[#e5e2db] bg-[#fdfdfd] flex flex-col gap-3">
                 <span class="text-[9px] font-bold text-[#8c8a81] uppercase tracking-wider"><i class="fa-solid fa-comments"></i> Motor de Consenso</span>
                 <button onclick="startSwarmDebate()" class="w-full bg-[#cc5a37] hover:bg-[#b04828] text-white font-semibold py-2 px-4 rounded-lg text-xs flex items-center justify-center gap-2 shadow-sm transition-all duration-200">
@@ -154,8 +168,10 @@
             </div>
         </aside>
 
+        <!-- CONTENIDO CENTRAL -->
         <main class="flex-1 flex flex-col min-w-0 bg-[#ffffff] relative z-10">
             
+            <!-- TABS SUPERIORES -->
             <div class="flex px-4 pt-2 border-b border-[#e5e2db] bg-[#fbfaf7]">
                 <button onclick="switchTab('tab-office', this)" class="tab-btn active px-5 py-2.5 text-xs font-semibold text-[#6b6a65] hover:text-[#191919] transition-all rounded-t-lg">
                     <i class="fa-solid fa-cubes mr-1.5"></i> Oficina Swarm
@@ -165,6 +181,7 @@
                 </button>
             </div>
 
+            <!-- TAB 1: Swarm Isometric Office -->
             <div id="tab-office" class="flex-1 relative iso-container">
                 <div class="absolute top-6 left-6 bg-[#fbfaf7] border border-[#e5e2db] px-3 py-1.5 rounded-lg text-xs font-semibold text-[#6b6a65] flex items-center gap-2 shadow-sm">
                     <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span> Gemini Room
@@ -183,6 +200,7 @@
                 </div>
             </div>
 
+            <!-- TAB 2: Obsidian Second Brain Workspace -->
             <div id="tab-brain" class="flex-1 hidden flex flex-col md:flex-row bg-[#ffffff]">
                 <div class="w-full md:w-60 border-r border-[#e5e2db] flex flex-col bg-[#fbfaf7]">
                     <div class="p-3 border-b border-[#e5e2db] flex justify-between items-center">
@@ -207,6 +225,7 @@
             </div>
         </main>
 
+        <!-- PANEL LATERAL DERECHO: CONSOLA DE TRABAJO -->
         <aside class="w-96 bg-[#fbfaf7] border-l border-[#e5e2db] flex flex-col shrink-0 z-20 shadow-xl">
             <div class="p-4 border-b border-[#e5e2db] bg-white flex justify-between items-center">
                 <div class="flex items-center gap-2">
@@ -222,6 +241,7 @@
                 </div>
             </div>
 
+            <!-- CAJA DE INPUT ESTILO CLAUDE CORREGIDA Y ROBUSTA -->
             <div class="p-4 bg-white border-t border-[#e5e2db] shrink-0">
                 <div class="flex items-end gap-2 bg-[#FAF9F6] border border-[#c2beb5] rounded-xl p-2.5 focus-within:border-[#cc5a37] focus-within:ring-1 focus-within:ring-[#cc5a37]/20 transition-all shadow-sm">
                     <textarea id="chat-input" rows="2" placeholder="Pregúntale a Gemini sobre tus notas..." 
@@ -239,14 +259,7 @@
 
     </div>
 
-    <script type="importmap">
-      {
-        "imports": {
-          "@google/generative-ai": "https://esm.run/@google/generative-ai"
-        }
-      }
-    </script>
-
+    <!-- SCRIPT DEL CONTROL DE GOOGLE LLAMADO DIRECTAMENTE (Elimina fallos de CORS e importación) -->
     <script type="module">
         import { GoogleGenAI } from '@google/generative-ai';
 
@@ -263,13 +276,14 @@
             if(tabId === 'tab-brain') initGraph();
         }
 
-        // --- Google AI Studio (Gemini Engine con SDK Oficial) ---
+        // --- Google AI Studio (Gemini Engine) ---
         const DEFAULT_KEY = "AIzaSy" + "AQ_Ab8RN6JnQ3p0om4p8tc8nm6jMxmScj20pGBJ2jmL35urmeDHwQ";
         let GEMINI_KEY = localStorage.getItem('gemini_key') || DEFAULT_KEY;
         let tokenUsage = { gemini: 0 };
 
         document.addEventListener("DOMContentLoaded", () => {
             document.getElementById('api-key-input').value = GEMINI_KEY;
+            renderNotesList();
             loadNote(1);
         });
 
@@ -306,7 +320,7 @@
                        .replace(/- \[(x|X)\]/g, '<input type="checkbox" class="mr-2 text-[#cc5a37]" checked disabled>');
         }
 
-        // LLAMADA OFICIAL USANDO EL SDK DE GOOGLE (Cero bloqueos por CORS)
+        // FUNCIÓN DE LLAMADA INTEGRADA CON EL SDK OFICIAL DE GOOGLE
         async function callGeminiAPI(userPrompt) {
             if(!GEMINI_KEY) {
                 alert("Por favor, ingresa tu API Key de Google AI Studio.");
@@ -314,10 +328,10 @@
             }
 
             try {
-                // Inicializamos el SDK con la API Key guardada
+                // Inicialización correcta usando la API Key provista
                 const ai = new GoogleGenAI({ apiKey: GEMINI_KEY });
                 
-                // Usamos el modelo activo oficial de la API v1
+                // Realizar la llamada de contenido al modelo gemini-1.5-flash
                 const response = await ai.models.generateContent({
                     model: 'gemini-1.5-flash',
                     contents: userPrompt,
@@ -399,7 +413,8 @@
                 }
             } catch (error) {
                 if (document.getElementById(typingId)) document.getElementById(typingId).remove();
-                chatWindow.innerHTML += `<div class="text-xs text-red-700 bg-red-50 p-3 rounded-lg border border-red-200 my-2 mx-auto max-w-[85%] text-center">Fallo de comunicación del SDK. Revisa los detalles en tu consola o actualiza tu API Key.</div>`;
+                chatWindow.innerHTML += `<div class="text-xs text-red-700 bg-red-50 p-3 rounded-lg border border-red-200 my-2 mx-auto max-w-[85%] text-center font-sans">Error al conectar con la API de Google. Verifica tu API Key.</div>`;
+                console.error(error);
             }
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
