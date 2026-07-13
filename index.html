@@ -222,14 +222,18 @@
                 </div>
             </div>
 
-            <div class="p-4 bg-white border-t border-[#e5e2db]">
-                <div class="relative bg-white border border-[#c2beb5] rounded-xl focus-within:border-[#cc5a37] focus-within:ring-1 focus-within:ring-[#cc5a37]/30 transition-all shadow-sm">
-                    <textarea id="chat-input" rows="2" placeholder="Pregúntale a Gemini sobre tus notas..." class="w-full bg-transparent py-3 pl-4 pr-12 text-sm text-[#191919] placeholder-[#8c8a81] resize-none focus:outline-none no-scrollbar" onkeydown="handleEnter(event)"></textarea>
-                    <button onclick="sendToAgent()" class="absolute right-2 bottom-2 w-8 h-8 flex items-center justify-center rounded-lg bg-[#3b82f6] text-white hover:bg-blue-600 transition-colors shadow-sm">
-                        <i class="fa-solid fa-arrow-up text-xs"></i>
+            <div class="p-4 bg-white border-t border-[#e5e2db] shrink-0">
+                <div class="flex items-end gap-2 bg-[#FAF9F6] border border-[#c2beb5] rounded-xl p-2.5 focus-within:border-[#cc5a37] focus-within:ring-1 focus-within:ring-[#cc5a37]/20 transition-all shadow-sm">
+                    <textarea id="chat-input" rows="2" placeholder="Pregúntale a Gemini sobre tus notas..." 
+                              class="flex-1 bg-transparent text-sm text-[#191919] placeholder-[#8c8a81] resize-none focus:outline-none leading-relaxed no-scrollbar" 
+                              onkeydown="handleEnter(event)"></textarea>
+                    
+                    <button onclick="sendToAgent()" 
+                            class="w-10 h-10 flex items-center justify-center rounded-lg bg-[#3b82f6] text-white hover:bg-blue-600 transition-all active:scale-95 shadow-md shrink-0 mb-0.5">
+                        <i class="fa-solid fa-arrow-up text-sm"></i>
                     </button>
                 </div>
-                <div class="text-[9px] text-[#8c8a81] text-center mt-2">Corriendo sobre Gemini 1.5 Flash (Google SDK Oficial)</div>
+                <div class="text-[9px] text-[#8c8a81] text-center mt-2.5">Corriendo sobre Gemini 1.5 Flash (Google SDK Oficial)</div>
             </div>
         </aside>
 
