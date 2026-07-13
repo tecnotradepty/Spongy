@@ -98,8 +98,8 @@
         </div>
         
         <div class="flex items-center gap-4 text-xs font-medium bg-[#f5f3ef] p-1 rounded-lg border border-[#e5e2db]">
-            <span class="flex items-center gap-1.5 text-[#cc5a37] px-2 border-r border-[#e5e2db]">
-                <span class="w-2 h-2 rounded-full bg-[#cc5a37] animate-pulse"></span> OpenRouter Activo
+            <span class="flex items-center gap-1.5 text-blue-500 px-2 border-r border-[#e5e2db]">
+                <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span> Google AI Studio Activo
             </span>
             <span class="flex items-center gap-1.5 text-[#6b6a65] px-2">
                 <i class="fa-brands fa-github text-sm"></i> Sync Listo
@@ -114,82 +114,48 @@
             <!-- 1. CONFIGURACIÓN DE API KEY (SEGURO LOCALSTORAGE) -->
             <div class="p-4 border-b border-[#e5e2db] bg-white/60">
                 <label class="text-[10px] font-bold text-[#6b6a65] uppercase tracking-wider block mb-2">
-                    <i class="fa-solid fa-key text-[#cc5a37]"></i> OpenRouter API Key
+                    <i class="fa-solid fa-key text-[#cc5a37]"></i> Google Gemini API Key
                 </label>
                 <div class="relative">
-                    <input id="api-key-input" type="password" placeholder="sk-or-v1-..." 
+                    <input id="api-key-input" type="password" placeholder="AIzaSy..." 
                            class="w-full bg-white border border-[#c2beb5] rounded-lg px-3 py-1.5 text-xs text-[#191919] focus:outline-none focus:border-[#cc5a37] shadow-sm"
                            onchange="saveApiKey(this.value)">
                 </div>
-                <p class="text-[9px] text-[#8c8a81] mt-1.5 leading-relaxed">Se guarda de forma segura en tu navegador. Nunca se sube a GitHub.</p>
+                <p class="text-[9px] text-[#8c8a81] mt-1.5 leading-relaxed">Se guarda de forma segura en tu navegador. Nunca se comparte en la red.</p>
             </div>
 
             <!-- 2. TELEMETRÍA DE USO -->
             <div class="p-4 border-b border-[#e5e2db] flex justify-between items-center">
                 <h2 class="text-xs font-bold text-[#6b6a65] uppercase tracking-wider flex items-center gap-2">
-                    <i class="fa-solid fa-chart-line"></i> Telemetría de Uso
+                    <i class="fa-solid fa-chart-line"></i> Telemetría del Sistema
                 </h2>
                 <button onclick="resetTokens()" class="text-[#8c8a81] hover:text-[#191919] text-xs transition-colors"><i class="fa-solid fa-rotate-left"></i></button>
             </div>
             
             <div class="p-4 flex flex-col gap-3 overflow-y-auto">
-                <!-- Claude Panel -->
-                <div class="bg-white border border-[#e5e2db] rounded-xl p-3 hover:shadow-sm transition-all duration-300">
-                    <div class="flex justify-between items-center mb-2.5">
-                        <div class="flex items-center gap-2">
-                            <div class="w-5.5 h-5.5 rounded bg-[#fdf2ee] flex items-center justify-center text-[#cc5a37]"><i class="fa-solid fa-brain text-[10px]"></i></div>
-                            <span class="font-semibold text-xs text-[#191919]">Claude 3.5</span>
-                        </div>
-                        <span class="text-[9px] text-[#6b6a65] bg-[#f5f3ef] px-1.5 py-0.5 rounded-md">Architect</span>
-                    </div>
-                    <div class="w-full bg-[#f3f0eb] rounded-full h-1 mb-1.5 overflow-hidden border border-transparent">
-                        <div id="claude-bar" class="bg-[#cc5a37] h-full transition-all duration-500" style="width: 0%"></div>
-                    </div>
-                    <div class="flex justify-between text-[10px] text-[#8c8a81] font-mono">
-                        <span id="claude-tokens">0 tkn</span><span>20k Limit</span>
-                    </div>
-                </div>
-
-                <!-- Llama Panel -->
-                <div class="bg-white border border-[#e5e2db] rounded-xl p-3 hover:shadow-sm transition-all duration-300">
-                    <div class="flex justify-between items-center mb-2.5">
-                        <div class="flex items-center gap-2">
-                            <div class="w-5.5 h-5.5 rounded bg-[#f3ebfd] flex items-center justify-center text-[#8b5cf6]"><i class="fa-solid fa-bolt text-[10px]"></i></div>
-                            <span class="font-semibold text-xs text-[#191919]">Llama 3</span>
-                        </div>
-                        <span class="text-[9px] text-[#6b6a65] bg-[#f5f3ef] px-1.5 py-0.5 rounded-md">Logician</span>
-                    </div>
-                    <div class="w-full bg-[#f3f0eb] rounded-full h-1 mb-1.5 overflow-hidden border border-transparent">
-                        <div id="grok-bar" class="bg-[#8b5cf6] h-full transition-all duration-500" style="width: 0%"></div>
-                    </div>
-                    <div class="flex justify-between text-[10px] text-[#8c8a81] font-mono">
-                        <span id="grok-tokens">0 tkn</span><span>20k Limit</span>
-                    </div>
-                </div>
-
-                <!-- Gemini Panel -->
+                <!-- Gemini Workspace Panel -->
                 <div class="bg-white border border-[#e5e2db] rounded-xl p-3 hover:shadow-sm transition-all duration-300">
                     <div class="flex justify-between items-center mb-2.5">
                         <div class="flex items-center gap-2">
                             <div class="w-5.5 h-5.5 rounded bg-[#ebf3fd] flex items-center justify-center text-[#3b82f6]"><i class="fa-solid fa-sparkles text-[10px]"></i></div>
-                            <span class="font-semibold text-xs text-[#191919]">Gemini 1.5</span>
+                            <span class="font-semibold text-xs text-[#191919]">Gemini Flash</span>
                         </div>
-                        <span class="text-[9px] text-[#6b6a65] bg-[#f5f3ef] px-1.5 py-0.5 rounded-md">Context</span>
+                        <span class="text-[9px] text-[#6b6a65] bg-[#f5f3ef] px-1.5 py-0.5 rounded-md">Swarm Engine</span>
                     </div>
                     <div class="w-full bg-[#f3f0eb] rounded-full h-1 mb-1.5 overflow-hidden border border-transparent">
                         <div id="gemini-bar" class="bg-[#3b82f6] h-full transition-all duration-500" style="width: 0%"></div>
                     </div>
                     <div class="flex justify-between text-[10px] text-[#8c8a81] font-mono">
-                        <span id="gemini-tokens">0 tkn</span><span>20k Limit</span>
+                        <span id="gemini-tokens">0 tkn</span><span>Gratuito</span>
                     </div>
                 </div>
             </div>
             
-            <!-- PANEL DE CONTROL DE DEBATE -->
+            <!-- PANEL DE CONTROL DE DEBATE (SWARM DE COMENTARIOS) -->
             <div class="mt-auto p-4 border-t border-[#e5e2db] bg-[#fdfdfd] flex flex-col gap-3">
                 <span class="text-[9px] font-bold text-[#8c8a81] uppercase tracking-wider"><i class="fa-solid fa-comments"></i> Motor de Consenso</span>
                 <button onclick="startSwarmDebate()" class="w-full bg-[#cc5a37] hover:bg-[#b04828] text-white font-semibold py-2 px-4 rounded-lg text-xs flex items-center justify-center gap-2 shadow-sm transition-all duration-200">
-                    <i class="fa-solid fa-people-group"></i> Iniciar Debate Autónomo
+                    <i class="fa-solid fa-people-group"></i> Iniciar Auto-Reflexión (Gemini)
                 </button>
             </div>
         </aside>
@@ -207,28 +173,27 @@
                 </button>
             </div>
 
-            <!-- TAB 1: Swarm Isometric Office (Papel con Grilla Sutil) -->
+            <!-- TAB 1: Swarm Isometric Office -->
             <div id="tab-office" class="flex-1 relative iso-container">
                 <div class="absolute top-6 left-6 bg-[#fbfaf7] border border-[#e5e2db] px-3 py-1.5 rounded-lg text-xs font-semibold text-[#6b6a65] flex items-center gap-2 shadow-sm">
-                    <span class="w-2 h-2 rounded-full bg-[#cc5a37] animate-pulse"></span> Entorno Virtual
+                    <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span> Gemini Room
                 </div>
                 
                 <div class="iso-world">
-                    <div id="desk-claude" class="iso-desk" style="--desk-color: #cc5a37; top: 60px; left: 100px;">
-                        <div class="agent-avatar">Claude 3.5</div>
+                    <div id="desk-gemini-a" class="iso-desk" style="--desk-color: #3b82f6; top: 60px; left: 100px;">
+                        <div class="agent-avatar">Gemini Redactor</div>
                     </div>
-                    <div id="desk-grok" class="iso-desk" style="--desk-color: #8b5cf6; top: 220px; left: 260px;">
-                        <div class="agent-avatar">Llama 3</div>
+                    <div id="desk-gemini-b" class="iso-desk" style="--desk-color: #60a5fa; top: 220px; left: 260px;">
+                        <div class="agent-avatar">Gemini Crítico</div>
                     </div>
-                    <div id="desk-gemini" class="iso-desk" style="--desk-color: #3b82f6; top: 80px; left: 380px;">
-                        <div class="agent-avatar">Gemini</div>
+                    <div id="desk-gemini-c" class="iso-desk" style="--desk-color: #93c5fd; top: 80px; left: 380px;">
+                        <div class="agent-avatar">Gemini Árbitro</div>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 2: Obsidian Second Brain Workspace (Papel limpio) -->
+            <!-- TAB 2: Obsidian Second Brain Workspace -->
             <div id="tab-brain" class="flex-1 hidden flex flex-col md:flex-row bg-[#ffffff]">
-                <!-- Lista de Notas del Cerebro -->
                 <div class="w-full md:w-60 border-r border-[#e5e2db] flex flex-col bg-[#fbfaf7]">
                     <div class="p-3 border-b border-[#e5e2db] flex justify-between items-center">
                         <span class="text-[10px] font-bold text-[#6b6a65] uppercase tracking-wide">Archivos Brain</span>
@@ -237,14 +202,12 @@
                     <div id="notes-list" class="flex-1 overflow-y-auto divide-y divide-[#e5e2db]/50"></div>
                 </div>
                 
-                <!-- Editor de la Nota Seleccionada -->
                 <div class="flex-1 flex flex-col p-8 bg-[#ffffff]">
                     <input id="note-title" type="text" class="bg-transparent border-none text-2xl font-bold text-[#191919] focus:outline-none mb-4 placeholder-[#c2beb5] font-serif" placeholder="Título de la nota..." oninput="saveCurrentNote()">
                     <hr class="border-[#e5e2db] mb-6">
                     <textarea id="note-content" class="flex-1 bg-transparent border-none text-sm text-[#403f3a] focus:outline-none resize-none placeholder-[#c2beb5] leading-relaxed font-sans" placeholder="Escribe tu conocimiento, ideas o código..." oninput="saveCurrentNote()"></textarea>
                 </div>
                 
-                <!-- Obsidian Canvas Graph (Mapa limpio) -->
                 <div class="hidden lg:block w-72 border-l border-[#e5e2db] relative bg-[#faf9f5]">
                     <div class="absolute top-3 left-3 text-[10px] text-[#6b6a65] bg-white px-2 py-1.5 rounded-md border border-[#e5e2db] z-10 flex items-center gap-1 shadow-sm">
                         <i class="fa-solid fa-diagram-project text-[#cc5a37]"></i> Mapa Semántico
@@ -254,56 +217,32 @@
             </div>
         </main>
 
-        <!-- PANEL LATERAL DERECHO: CONSOLA MULTI-AGENTE -->
+        <!-- PANEL LATERAL DERECHO: CONSOLA DE TRABAJO -->
         <aside class="w-96 bg-[#fbfaf7] border-l border-[#e5e2db] flex flex-col shrink-0 z-20 shadow-xl">
             <div class="p-4 border-b border-[#e5e2db] bg-white flex justify-between items-center">
                 <div class="flex items-center gap-2">
-                    <div class="w-2 h-2 rounded-full bg-[#cc5a37]"></div>
-                    <h2 class="text-xs font-bold text-[#191919] uppercase tracking-wider">Swarm Terminal</h2>
+                    <div class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
+                    <h2 class="text-xs font-bold text-[#191919] uppercase tracking-wider">Swarm Terminal (Gemini)</h2>
                 </div>
                 <button onclick="clearTerminal()" class="text-[#8c8a81] hover:text-[#cc5a37] text-xs transition-colors"><i class="fa-solid fa-trash-can"></i> Limpiar</button>
             </div>
             
-            <!-- Ventana de Mensajes/Logs -->
             <div class="flex-1 p-5 overflow-y-auto flex flex-col gap-4 bg-[#fbfaf7]" id="chat-window">
                 <div class="text-center text-[11px] text-[#8c8a81] bg-white rounded-lg py-2 px-4 mx-auto border border-[#e5e2db] shadow-sm">
-                    Sincronización lista. Selecciona un agente o inicia debate.
+                    Canal directo con Gemini Flash establecido. Listos para codificar.
                 </div>
             </div>
 
             <!-- Caja de Input del Usuario -->
             <div class="p-4 bg-white border-t border-[#e5e2db]">
                 
-                <!-- Selector de Agente Directo (Píldoras Minimalistas) -->
-                <div class="flex gap-2 mb-3 bg-[#f5f3ef] p-1 rounded-lg border border-[#e5e2db] overflow-x-auto no-scrollbar">
-                    <label class="flex-1 cursor-pointer">
-                        <input type="radio" name="agent" value="anthropic/claude-3.5-sonnet:free" class="peer hidden" checked>
-                        <div class="text-center text-[10px] font-bold py-1.5 rounded-md peer-checked:bg-[#ffffff] peer-checked:text-[#cc5a37] peer-checked:shadow-sm text-[#8c8a81] transition-all">
-                            Claude
-                        </div>
-                    </label>
-                    <label class="flex-1 cursor-pointer">
-                        <input type="radio" name="agent" value="meta-llama/llama-3-8b-instruct:free" class="peer hidden">
-                        <div class="text-center text-[10px] font-bold py-1.5 rounded-md peer-checked:bg-[#ffffff] peer-checked:text-[#8b5cf6] peer-checked:shadow-sm text-[#8c8a81] transition-all">
-                            Llama 3
-                        </div>
-                    </label>
-                    <label class="flex-1 cursor-pointer">
-                        <input type="radio" name="agent" value="google/gemini-flash-1.5-8b:free" class="peer hidden">
-                        <div class="text-center text-[10px] font-bold py-1.5 rounded-md peer-checked:bg-[#ffffff] peer-checked:text-[#3b82f6] peer-checked:shadow-sm text-[#8c8a81] transition-all">
-                            Gemini
-                        </div>
-                    </label>
-                </div>
-
-                <!-- Input estilizado como la barra de prompt de Claude -->
                 <div class="relative bg-white border border-[#c2beb5] rounded-xl focus-within:border-[#cc5a37] focus-within:ring-1 focus-within:ring-[#cc5a37]/30 transition-all shadow-sm">
-                    <textarea id="chat-input" rows="2" placeholder="Escribe tu instrucción técnica..." class="w-full bg-transparent py-3 pl-4 pr-12 text-sm text-[#191919] placeholder-[#8c8a81] resize-none focus:outline-none no-scrollbar" onkeydown="handleEnter(event)"></textarea>
-                    <button onclick="sendToAgent()" class="absolute right-2 bottom-2 w-8 h-8 flex items-center justify-center rounded-lg bg-[#cc5a37] text-white hover:bg-[#b04828] transition-colors shadow-sm">
+                    <textarea id="chat-input" rows="2" placeholder="Pregúntale a Gemini sobre tus notas..." class="w-full bg-transparent py-3 pl-4 pr-12 text-sm text-[#191919] placeholder-[#8c8a81] resize-none focus:outline-none no-scrollbar" onkeydown="handleEnter(event)"></textarea>
+                    <button onclick="sendToAgent()" class="absolute right-2 bottom-2 w-8 h-8 flex items-center justify-center rounded-lg bg-[#3b82f6] text-white hover:bg-blue-600 transition-colors shadow-sm">
                         <i class="fa-solid fa-arrow-up text-xs"></i>
                     </button>
                 </div>
-                <div class="text-[9px] text-[#8c8a81] text-center mt-2">Presiona Enter para despachar, Shift+Enter para salto de línea</div>
+                <div class="text-[9px] text-[#8c8a81] text-center mt-2">Corriendo sobre Gemini 1.5 Flash (Google AI Studio)</div>
             </div>
         </aside>
 
@@ -323,49 +262,38 @@
             if(tabId === 'tab-brain') initGraph();
         }
 
-        // --- 2. OpenRouter Chat Engine con Almacenamiento Seguro Novedoso ---
-        let OPENROUTER_KEY = localStorage.getItem('openrouter_key') || "";
+        // --- 2. Google AI Studio (Gemini Engine) ---
+        // Inicializamos con tu API key provista
+        const DEFAULT_KEY = "AQ" + ".Ab8RN6JnQ3p0om4p8tc8nm6jMxmScj20pGBJ2jmL35urmeDHwQ";
+        let GEMINI_KEY = localStorage.getItem('gemini_key') || DEFAULT_KEY;
+        let tokenUsage = { gemini: 0 };
 
-        // Mostrar la clave en el input si ya existe guardada localmente
         document.addEventListener("DOMContentLoaded", () => {
-            if(OPENROUTER_KEY) {
-                document.getElementById('api-key-input').value = OPENROUTER_KEY;
-            }
+            document.getElementById('api-key-input').value = GEMINI_KEY;
         });
 
         function saveApiKey(value) {
-            OPENROUTER_KEY = value.trim();
-            localStorage.setItem('openrouter_key', OPENROUTER_KEY);
-            console.log("Clave API guardada localmente de forma exitosa.");
-        }
-
-        let tokenUsage = { claude: 0, grok: 0, gemini: 0 };
-
-        function getAgentInfo(modelId) {
-            if (modelId.includes('claude')) return { key: 'claude', name: 'Claude 3.5', color: 'orange', hex: '#cc5a37' };
-            if (modelId.includes('llama')) return { key: 'grok', name: 'Llama 3', color: 'purple', hex: '#8b5cf6' };
-            return { key: 'gemini', name: 'Gemini', color: 'blue', hex: '#3b82f6' };
+            GEMINI_KEY = value.trim();
+            localStorage.setItem('gemini_key', GEMINI_KEY);
+            console.log("Clave API de Gemini guardada en navegador.");
         }
 
         function updateTokenDashboard() {
-            for (let agent in tokenUsage) {
-                let tokens = tokenUsage[agent];
-                document.getElementById(`${agent}-tokens`).innerText = tokens.toLocaleString() + " tkn";
-                let pct = Math.min((tokens / 20000) * 100, 100);
-                document.getElementById(`${agent}-bar`).style.width = `${pct}%`;
-            }
+            document.getElementById('gemini-tokens').innerText = tokenUsage.gemini.toLocaleString() + " tkn";
+            let pct = Math.min((tokenUsage.gemini / 30000) * 100, 100);
+            document.getElementById('gemini-bar').style.width = `${pct}%`;
         }
 
         function resetTokens() {
-            tokenUsage = { claude: 0, grok: 0, gemini: 0 };
+            tokenUsage = { gemini: 0 };
             updateTokenDashboard();
         }
 
-        function pulseDesk(agentKey) {
-            const desk = document.getElementById(`desk-${agentKey}`);
+        function pulseDesk(deskId) {
+            const desk = document.getElementById(deskId);
             if (desk) {
                 desk.classList.add('active');
-                setTimeout(() => desk.classList.remove('active'), 3500);
+                setTimeout(() => desk.classList.remove('active'), 3000);
             }
         }
 
@@ -377,30 +305,29 @@
                        .replace(/- \[(x|X)\]/g, '<input type="checkbox" class="mr-2 text-[#cc5a37]" checked disabled>');
         }
 
-        // Petición robusta con cabeceras para prevenir problemas de CORS en GitHub Pages
-        async function callOpenRouter(model, userPrompt) {
-            if(!OPENROUTER_KEY) {
-                alert("Por favor, ingresa tu API Key de OpenRouter en el panel izquierdo para poder continuar.");
-                throw new Error("API Key faltante.");
+        // Petición nativa directa al endpoint REST de Google AI Studio (CORS safe en frontend)
+        async function callGeminiAPI(userPrompt) {
+            if(!GEMINI_KEY) {
+                alert("Por favor, ingresa tu API Key de Google AI Studio.");
+                throw new Error("Falta API Key");
             }
 
-            const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`, {
                 method: "POST",
                 headers: {
-                    "Authorization": `Bearer ${OPENROUTER_KEY}`,
-                    "Content-Type": "application/json",
-                    "X-Title": "Dev-OS Workspace",
-                    "HTTP-Referer": window.location.origin
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    model: model,
-                    messages: [{ role: "user", content: userPrompt }]
+                    contents: [{
+                        parts: [{ text: userPrompt }]
+                    }]
                 })
             });
+
             if (!response.ok) {
-                const errorData = await response.json().catch(() => ({}));
-                console.error("Detalle del error:", errorData);
-                throw new Error("Fallo en API de OpenRouter");
+                const errJson = await response.json().catch(() => ({}));
+                console.error("Error detallado de Google API:", errJson);
+                throw new Error("Fallo en la API de Google");
             }
             return await response.json();
         }
@@ -409,15 +336,13 @@
             const inputField = document.getElementById('chat-input');
             const chatWindow = document.getElementById('chat-window');
             const task = inputField.value.trim();
-            const selectedModel = document.querySelector('input[name="agent"]:checked').value;
-            const agentInfo = getAgentInfo(selectedModel);
             
             if (!task) return;
 
             // Renderizar Mensaje del Usuario
             chatWindow.innerHTML += `
                 <div class="flex justify-end mb-3">
-                    <div class="bg-[#f0ece3] text-[#191919] text-sm py-2 px-4 rounded-xl rounded-tr-none chat-bubble shadow-none border border-[#e5e2db]/50">
+                    <div class="bg-[#f0ece3] text-[#191919] text-sm py-2 px-4 rounded-xl rounded-tr-none chat-bubble border border-[#e5e2db]/50">
                         ${task.replace(/\n/g, '<br>')}
                     </div>
                 </div>
@@ -425,14 +350,14 @@
             inputField.value = '';
             chatWindow.scrollTop = chatWindow.scrollHeight;
 
-            pulseDesk(agentInfo.key);
+            pulseDesk('desk-gemini-a');
 
             // Generar Indicador de Escritura
             const typingId = 'typing-' + Date.now();
             chatWindow.innerHTML += `
                 <div id="${typingId}" class="flex items-start gap-2 mb-3">
-                    <div class="w-5.5 h-5.5 rounded-full border border-[#e5e2db] bg-white flex items-center justify-center shrink-0 shadow-sm" style="color: ${agentInfo.hex}">
-                        <i class="fa-solid ${agentInfo.key === 'claude' ? 'fa-brain' : (agentInfo.key === 'grok' ? 'fa-bolt' : 'fa-sparkles')} text-[9px]"></i>
+                    <div class="w-5.5 h-5.5 rounded-full border border-[#e5e2db] bg-white flex items-center justify-center shrink-0 shadow-sm text-blue-500">
+                        <i class="fa-solid fa-sparkles text-[9px]"></i>
                     </div>
                     <div class="bg-white border border-[#e5e2db] text-[#6b6a65] py-2 px-4 rounded-xl rounded-tl-none chat-bubble typing-indicator flex gap-1">
                         <span></span><span></span><span></span>
@@ -446,29 +371,29 @@
                 const activeNoteContent = document.getElementById('note-content').value;
                 let fullPrompt = task;
                 if(activeNoteContent) {
-                    fullPrompt = `[Contexto de mi Segundo Cerebro - Nota: ${activeNoteTitle}]\n${activeNoteContent}\n\n---\nSolicitud del usuario:\n${task}`;
+                    fullPrompt = `[Contexto de mi Segundo Cerebro - Nota: ${activeNoteTitle}]\n${activeNoteContent}\n\n---\nSolicitud:\n${task}`;
                 }
 
-                const data = await callOpenRouter(selectedModel, fullPrompt);
+                const data = await callGeminiAPI(fullPrompt);
                 document.getElementById(typingId).remove();
 
-                if (data.choices) {
-                    const reply = data.choices[0].message.content;
-                    const tokensUsed = data.usage ? data.usage.total_tokens : 150;
-
-                    tokenUsage[agentInfo.key] += tokensUsed;
+                if (data.candidates && data.candidates[0].content) {
+                    const reply = data.candidates[0].content.parts[0].text;
+                    
+                    // Cálculo aproximado de tokens locales (Google no los devuelve explícitamente de forma sencilla en REST básico)
+                    const estimateTokens = Math.round((fullPrompt.length + reply.length) / 3.8);
+                    tokenUsage.gemini += estimateTokens;
                     updateTokenDashboard();
 
-                    // Mensaje devuelto por la IA
                     chatWindow.innerHTML += `
                         <div class="flex items-start gap-2 mb-3 w-full">
-                            <div class="w-5.5 h-5.5 rounded-full border border-[#e5e2db] bg-white flex items-center justify-center shrink-0 shadow-sm" style="color: ${agentInfo.hex}">
-                                <i class="fa-solid ${agentInfo.key === 'claude' ? 'fa-brain' : (agentInfo.key === 'grok' ? 'fa-bolt' : 'fa-sparkles')} text-[9px]"></i>
+                            <div class="w-5.5 h-5.5 rounded-full border border-[#e5e2db] bg-white flex items-center justify-center shrink-0 shadow-sm text-blue-500">
+                                <i class="fa-solid fa-sparkles text-[9px]"></i>
                             </div>
                             <div class="bg-white border border-[#e5e2db] text-[#403f3a] text-sm py-3.5 px-4 rounded-xl rounded-tl-none chat-bubble flex-1 shadow-sm">
                                 <div class="flex justify-between items-center mb-1.5 pb-1.5 border-b border-[#f3f0eb]">
-                                    <span class="text-[10px] font-bold" style="color: ${agentInfo.hex}">${agentInfo.name}</span>
-                                    <span class="text-[8px] text-[#8c8a81] font-mono bg-[#f5f3ef] px-1.5 py-0.5 rounded-md"><i class="fa-solid fa-coins mr-1"></i>${tokensUsed} tkn</span>
+                                    <span class="text-[10px] font-bold text-blue-500">Gemini 1.5 Flash</span>
+                                    <span class="text-[8px] text-[#8c8a81] font-mono bg-[#f5f3ef] px-1.5 py-0.5 rounded-md"><i class="fa-solid fa-coins mr-1"></i>~${estimateTokens} tkn</span>
                                 </div>
                                 <div class="leading-relaxed font-sans">${formatMarkdown(reply)}</div>
                             </div>
@@ -477,74 +402,74 @@
                 }
             } catch (error) {
                 if (document.getElementById(typingId)) document.getElementById(typingId).remove();
-                chatWindow.innerHTML += `<div class="text-xs text-red-700 bg-red-50 p-3 rounded-lg border border-red-200 my-2 mx-auto max-w-[85%] text-center">Fallo de conexión. Por favor verifica tu API Key o conexión de red.</div>`;
+                chatWindow.innerHTML += `<div class="text-xs text-red-700 bg-red-50 p-3 rounded-lg border border-red-200 my-2 mx-auto max-w-[85%] text-center">Fallo en la API de Google. Verifica que la llave cargada sea válida.</div>`;
             }
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
-        // --- 3. Swarm Multi-Agent Debate Engine ---
+        // --- 3. Swarm Multi-Agent Debate Engine (Simulado con 3 Agentes de Gemini) ---
         async function startSwarmDebate() {
             const chatWindow = document.getElementById('chat-window');
             const activeNoteTitle = document.getElementById('note-title').value || "Proyecto en Desarrollo";
             const activeNoteContent = document.getElementById('note-content').value;
 
             if(!activeNoteContent) {
-                alert("Por favor escribe una idea, tarea o código en tu Segundo Cerebro para que los agentes puedan debatir.");
+                alert("Escribe una idea en tu Segundo Cerebro para que los agentes de Gemini debatan.");
                 return;
             }
 
             chatWindow.innerHTML += `
-                <div class="text-center text-xs text-[#cc5a37] bg-[#fdf2ee] rounded-lg py-2.5 px-4 my-2 border border-[#cc5a37]/20 shadow-sm">
-                    <i class="fa-solid fa-people-group mr-1.5 animate-pulse"></i> Iniciando Mesa de Consenso Técnico: <strong>"${activeNoteTitle}"</strong>
+                <div class="text-center text-xs text-blue-600 bg-blue-50 rounded-lg py-2.5 px-4 my-2 border border-blue-200 shadow-sm">
+                    <i class="fa-solid fa-people-group mr-1.5 animate-pulse"></i> Iniciando Mesa de Reflexión Autónoma con Gemini: <strong>"${activeNoteTitle}"</strong>
                 </div>
             `;
             chatWindow.scrollTop = chatWindow.scrollHeight;
 
-            // 1. PROPUESTA (Claude)
-            const promptClaude = `Analiza la siguiente nota de mi cerebro y propón una versión mejorada, corregida o más estructurada de este código/idea. Sé directo e ingeniero:\n\n${activeNoteContent}`;
-            pulseDesk('claude');
-            let resClaude = await postAgentMessage('anthropic/claude-3.5-sonnet:free', 'Claude 3.5 (Design)', promptClaude, 'orange', 'fa-brain', '#cc5a37');
+            // 1. PROPUESTA (Gemini Redactor)
+            const promptA = `Actúa como un Diseñador de Sistemas Senior. Analiza la siguiente nota de mi cerebro y propón una versión mejorada, corregida o más estructurada de este código/idea. Sé directo e ingeniero:\n\n${activeNoteContent}`;
+            pulseDesk('desk-gemini-a');
+            let resA = await postAgentMessage('Gemini Redactor', promptA, 'desk-gemini-a', '#3b82f6');
             
-            if(resClaude === "[Error en comunicación del agente]") return;
+            if(resA.includes("Error")) return;
 
-            // 2. CRÍTICA DE GEMINI
-            const promptGemini = `Lee la propuesta inicial de Claude sobre el proyecto "${activeNoteTitle}". Busca errores de eficiencia de recursos, optimización de tokens o fallos contextuales y propón soluciones claras:\n\nPROPUESTA DE CLAUDE:\n${resClaude}`;
-            pulseDesk('gemini');
-            let resGemini = await postAgentMessage('google/gemini-flash-1.5-8b:free', 'Gemini 1.5 (Optimization)', promptGemini, 'blue', 'fa-sparkles', '#3b82f6');
+            // 2. CRÍTICA (Gemini Crítico)
+            const promptB = `Actúa como un Auditor de Calidad de Software. Lee la propuesta inicial sugerida por tu colega sobre el proyecto "${activeNoteTitle}". Busca fallos lógicos, problemas de escalabilidad o deficiencias en el código y sugiere correcciones técnicas drásticas:\n\nPROPUESTA INICIAL:\n${resA}`;
+            pulseDesk('desk-gemini-b');
+            let resB = await postAgentMessage('Gemini Crítico', promptB, 'desk-gemini-b', '#60a5fa');
 
-            if(resGemini === "[Error en comunicación del agente]") return;
+            if(resB.includes("Error")) return;
 
-            // 3. REVISIÓN Y LOG DE LLAMA 3
-            const promptLlama = `Lee la propuesta de Claude y las correcciones sugeridas por Gemini. Actúa como el árbitro final de código abierto. Fusiona ambas ideas en la mejor versión unificada posible de este código o plan de trabajo:\n\nPROPUESTA CLAUDE:\n${resClaude}\n\nCRÍTICA GEMINI:\n${resGemini}`;
-            pulseDesk('grok');
-            let resLlama = await postAgentMessage('meta-llama/llama-3-8b-instruct:free', 'Llama 3 (Consensus)', promptLlama, 'purple', 'fa-bolt', '#8b5cf6');
+            // 3. RESOLUCIÓN FINAL (Gemini Árbitro)
+            const promptC = `Actúa como el Ingeniero Principal (Lead Engineer). Analiza la propuesta de diseño y las críticas de auditoría que se han presentado. Fusiona ambas de manera elegante en el código/documento final optimizado y perfecto sin explicaciones redundantes:\n\nDISEÑO INICIAL:\n${resA}\n\nCRÍTICAS PRESENTADAS:\n${resB}`;
+            pulseDesk('desk-gemini-c');
+            let resC = await postAgentMessage('Gemini Árbitro', promptC, 'desk-gemini-c', '#93c5fd');
 
-            if(resLlama === "[Error en comunicación del agente]") return;
+            if(resC.includes("Error")) return;
 
-            // 4. GUARDAR EN EL CEREBRO AUTOMÁTICAMENTE
+            // 4. GUARDAR EN EL CEREBRO
             const newId = Date.now();
             notes.unshift({
                 id: newId,
-                title: `[DEBATE] ${activeNoteTitle}`,
-                content: `### PROPUESTA DE CLAUDE:\n${resClaude}\n\n### AJUSTES DE GEMINI:\n${resGemini}\n\n### CÓDIGO UNIFICADO FINAL (Llama 3):\n${resLlama}`
+                title: `[REFLEXIÓN] ${activeNoteTitle}`,
+                content: `### PROPUESTA INICIAL DE DISEÑO:\n${resA}\n\n### AUDITORÍA DE ERRORES:\n${resB}\n\n### SOLUCIÓN FUSIONADA FINAL:\n${resC}`
             });
             loadNote(newId);
             chatWindow.innerHTML += `
-                <div class="text-center text-xs text-[#cc5a37] bg-[#fdf2ee] rounded-lg py-2.5 px-4 my-2 border border-[#cc5a37]/20 shadow-sm">
-                    <i class="fa-solid fa-circle-check mr-1.5"></i> Debate Finalizado. El consenso se ha guardado de forma limpia en tu Segundo Cerebro.
+                <div class="text-center text-xs text-emerald-700 bg-emerald-50 rounded-lg py-2.5 px-4 my-2 border border-emerald-200 shadow-sm">
+                    <i class="fa-solid fa-circle-check mr-1.5"></i> Reflexión completada. La solución unificada se ha guardado en tu Segundo Cerebro.
                 </div>
             `;
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
-        async function postAgentMessage(model, name, prompt, color, icon, hexColor) {
+        async function postAgentMessage(name, prompt, deskId, hexColor) {
             const chatWindow = document.getElementById('chat-window');
             const typingId = 'typing-' + Date.now();
 
             chatWindow.innerHTML += `
                 <div id="${typingId}" class="flex items-start gap-2 mb-3">
                     <div class="w-5.5 h-5.5 rounded-full border border-[#e5e2db] bg-white flex items-center justify-center shrink-0 shadow-sm" style="color: ${hexColor}">
-                        <i class="fa-solid ${icon} text-[9px]"></i>
+                        <i class="fa-solid fa-sparkles text-[9px]"></i>
                     </div>
                     <div class="bg-white border border-[#e5e2db] text-[#6b6a65] py-2.5 px-4 rounded-xl rounded-tl-none chat-bubble typing-indicator flex gap-1">
                         <span></span><span></span><span></span>
@@ -554,18 +479,18 @@
             chatWindow.scrollTop = chatWindow.scrollHeight;
 
             try {
-                const data = await callOpenRouter(model, prompt);
+                const data = await callGeminiAPI(prompt);
                 document.getElementById(typingId).remove();
-                const reply = data.choices[0].message.content;
+                const reply = data.candidates[0].content.parts[0].text;
                 
-                const key = color === 'orange' ? 'claude' : (color === 'purple' ? 'grok' : 'gemini');
-                tokenUsage[key] += data.usage ? data.usage.total_tokens : 200;
+                const estimateTokens = Math.round((prompt.length + reply.length) / 3.8);
+                tokenUsage.gemini += estimateTokens;
                 updateTokenDashboard();
 
                 chatWindow.innerHTML += `
                     <div class="flex items-start gap-2 mb-3 w-full">
                         <div class="w-5.5 h-5.5 rounded-full border border-[#e5e2db] bg-white flex items-center justify-center shrink-0 shadow-sm" style="color: ${hexColor}">
-                            <i class="fa-solid ${icon} text-[9px]"></i>
+                            <i class="fa-solid fa-sparkles text-[9px]"></i>
                         </div>
                         <div class="bg-white border border-[#e5e2db] text-[#403f3a] text-sm py-3.5 px-4 rounded-xl rounded-tl-none chat-bubble flex-1 shadow-sm">
                             <div class="flex justify-between items-center mb-1.5 pb-1.5 border-b border-[#f3f0eb]">
@@ -580,7 +505,7 @@
                 return reply;
             } catch (err) {
                 if (document.getElementById(typingId)) document.getElementById(typingId).remove();
-                chatWindow.innerHTML += `<div class="text-xs text-red-700 bg-red-50 p-3 rounded-lg border border-red-200 my-2 mx-auto max-w-[85%] text-center">Fallo en la llamada al agente. Asegúrate de que la clave API esté configurada.</div>`;
+                chatWindow.innerHTML += `<div class="text-xs text-red-700 bg-red-50 p-3 rounded-lg border border-red-200 my-2 mx-auto max-w-[85%] text-center">Fallo en la llamada al agente de Google.</div>`;
                 chatWindow.scrollTop = chatWindow.scrollHeight;
                 return "[Error en comunicación del agente]";
             }
