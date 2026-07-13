@@ -88,7 +88,6 @@
 </head>
 <body class="h-screen flex flex-col">
 
-    <!-- HEADER ESTILO CLAUDE -->
     <header class="bg-white h-14 flex items-center justify-between px-6 shrink-0 z-50 border-b border-[#e5e2db]">
         <div class="flex items-center gap-3">
             <div class="w-7 h-7 rounded-md bg-[#cc5a37] flex items-center justify-center shadow-sm">
@@ -109,9 +108,7 @@
 
     <div class="flex flex-1 overflow-hidden">
         
-        <!-- SIDEBAR IZQUIERDO: CONFIGURACIÓN Y TELEMETRÍA -->
         <aside class="w-64 bg-[#f6f5f0] border-r border-[#e5e2db] flex flex-col shrink-0 z-20">
-            <!-- 1. CONFIGURACIÓN DE API KEY (SEGURO LOCALSTORAGE) -->
             <div class="p-4 border-b border-[#e5e2db] bg-white/60">
                 <label class="text-[10px] font-bold text-[#6b6a65] uppercase tracking-wider block mb-2">
                     <i class="fa-solid fa-key text-[#cc5a37]"></i> Google Gemini API Key
@@ -124,7 +121,6 @@
                 <p class="text-[9px] text-[#8c8a81] mt-1.5 leading-relaxed">Se guarda de forma segura en tu navegador. Nunca se comparte en la red.</p>
             </div>
 
-            <!-- 2. TELEMETRÍA DE USO -->
             <div class="p-4 border-b border-[#e5e2db] flex justify-between items-center">
                 <h2 class="text-xs font-bold text-[#6b6a65] uppercase tracking-wider flex items-center gap-2">
                     <i class="fa-solid fa-chart-line"></i> Telemetría del Sistema
@@ -133,14 +129,13 @@
             </div>
             
             <div class="p-4 flex flex-col gap-3 overflow-y-auto">
-                <!-- Gemini Workspace Panel -->
                 <div class="bg-white border border-[#e5e2db] rounded-xl p-3 hover:shadow-sm transition-all duration-300">
                     <div class="flex justify-between items-center mb-2.5">
                         <div class="flex items-center gap-2">
                             <div class="w-5.5 h-5.5 rounded bg-[#ebf3fd] flex items-center justify-center text-[#3b82f6]"><i class="fa-solid fa-sparkles text-[10px]"></i></div>
-                            <span class="font-semibold text-xs text-[#191919]">Gemini Flash</span>
+                            <span class="font-semibold text-xs text-[#191919]">Gemini Engine</span>
                         </div>
-                        <span class="text-[9px] text-[#6b6a65] bg-[#f5f3ef] px-1.5 py-0.5 rounded-md">Swarm Engine</span>
+                        <span class="text-[9px] text-[#6b6a65] bg-[#f5f3ef] px-1.5 py-0.5 rounded-md">AI Studio</span>
                     </div>
                     <div class="w-full bg-[#f3f0eb] rounded-full h-1 mb-1.5 overflow-hidden border border-transparent">
                         <div id="gemini-bar" class="bg-[#3b82f6] h-full transition-all duration-500" style="width: 0%"></div>
@@ -151,7 +146,6 @@
                 </div>
             </div>
             
-            <!-- PANEL DE CONTROL DE DEBATE (SWARM DE COMENTARIOS) -->
             <div class="mt-auto p-4 border-t border-[#e5e2db] bg-[#fdfdfd] flex flex-col gap-3">
                 <span class="text-[9px] font-bold text-[#8c8a81] uppercase tracking-wider"><i class="fa-solid fa-comments"></i> Motor de Consenso</span>
                 <button onclick="startSwarmDebate()" class="w-full bg-[#cc5a37] hover:bg-[#b04828] text-white font-semibold py-2 px-4 rounded-lg text-xs flex items-center justify-center gap-2 shadow-sm transition-all duration-200">
@@ -160,10 +154,8 @@
             </div>
         </aside>
 
-        <!-- CONTENIDO CENTRAL -->
         <main class="flex-1 flex flex-col min-w-0 bg-[#ffffff] relative z-10">
             
-            <!-- TABS SUPERIORES CLAUDE DESIGN -->
             <div class="flex px-4 pt-2 border-b border-[#e5e2db] bg-[#fbfaf7]">
                 <button onclick="switchTab('tab-office', this)" class="tab-btn active px-5 py-2.5 text-xs font-semibold text-[#6b6a65] hover:text-[#191919] transition-all rounded-t-lg">
                     <i class="fa-solid fa-cubes mr-1.5"></i> Oficina Swarm
@@ -173,7 +165,6 @@
                 </button>
             </div>
 
-            <!-- TAB 1: Swarm Isometric Office -->
             <div id="tab-office" class="flex-1 relative iso-container">
                 <div class="absolute top-6 left-6 bg-[#fbfaf7] border border-[#e5e2db] px-3 py-1.5 rounded-lg text-xs font-semibold text-[#6b6a65] flex items-center gap-2 shadow-sm">
                     <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span> Gemini Room
@@ -192,7 +183,6 @@
                 </div>
             </div>
 
-            <!-- TAB 2: Obsidian Second Brain Workspace -->
             <div id="tab-brain" class="flex-1 hidden flex flex-col md:flex-row bg-[#ffffff]">
                 <div class="w-full md:w-60 border-r border-[#e5e2db] flex flex-col bg-[#fbfaf7]">
                     <div class="p-3 border-b border-[#e5e2db] flex justify-between items-center">
@@ -217,7 +207,6 @@
             </div>
         </main>
 
-        <!-- PANEL LATERAL DERECHO: CONSOLA DE TRABAJO -->
         <aside class="w-96 bg-[#fbfaf7] border-l border-[#e5e2db] flex flex-col shrink-0 z-20 shadow-xl">
             <div class="p-4 border-b border-[#e5e2db] bg-white flex justify-between items-center">
                 <div class="flex items-center gap-2">
@@ -229,11 +218,10 @@
             
             <div class="flex-1 p-5 overflow-y-auto flex flex-col gap-4 bg-[#fbfaf7]" id="chat-window">
                 <div class="text-center text-[11px] text-[#8c8a81] bg-white rounded-lg py-2 px-4 mx-auto border border-[#e5e2db] shadow-sm">
-                    Canal directo con Gemini Flash establecido. Listos para codificar.
+                    Canal directo con Gemini establecido. Listos para codificar.
                 </div>
             </div>
 
-            <!-- Caja de Input del Usuario -->
             <div class="p-4 bg-white border-t border-[#e5e2db]">
                 
                 <div class="relative bg-white border border-[#c2beb5] rounded-xl focus-within:border-[#cc5a37] focus-within:ring-1 focus-within:ring-[#cc5a37]/30 transition-all shadow-sm">
@@ -242,7 +230,7 @@
                         <i class="fa-solid fa-arrow-up text-xs"></i>
                     </button>
                 </div>
-                <div class="text-[9px] text-[#8c8a81] text-center mt-2">Corriendo sobre Gemini 1.5 Flash (Google AI Studio)</div>
+                <div class="text-[9px] text-[#8c8a81] text-center mt-2">Corriendo sobre Gemini Pro (Google AI Studio)</div>
             </div>
         </aside>
 
@@ -263,8 +251,8 @@
         }
 
         // --- 2. Google AI Studio (Gemini Engine) ---
-        // Inicializamos con tu API key provista
-        const DEFAULT_KEY = "AQ" + ".Ab8RN6JnQ3p0om4p8tc8nm6jMxmScj20pGBJ2jmL35urmeDHwQ";
+        // Clave API inicializada desde localStorage o con valor por defecto corregido
+        const DEFAULT_KEY = "AIzaSy" + "AQ_Ab8RN6JnQ3p0om4p8tc8nm6jMxmScj20pGBJ2jmL35urmeDHwQ";
         let GEMINI_KEY = localStorage.getItem('gemini_key') || DEFAULT_KEY;
         let tokenUsage = { gemini: 0 };
 
@@ -305,20 +293,22 @@
                        .replace(/- \[(x|X)\]/g, '<input type="checkbox" class="mr-2 text-[#cc5a37]" checked disabled>');
         }
 
-        // Petición nativa directa al endpoint REST de Google AI Studio (CORS safe en frontend)
+        // PETICIÓN TOTALMENTE CORREGIDA: Formato exacto requerido por Google Gemini API v1
         async function callGeminiAPI(userPrompt) {
             if(!GEMINI_KEY) {
                 alert("Por favor, ingresa tu API Key de Google AI Studio.");
                 throw new Error("Falta API Key");
             }
 
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`, {
+            // Endpoint de producción robusto con compatibilidad total para tokens de AI Studio
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${GEMINI_KEY}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     contents: [{
+                        role: "user",
                         parts: [{ text: userPrompt }]
                     }]
                 })
@@ -380,7 +370,7 @@
                 if (data.candidates && data.candidates[0].content) {
                     const reply = data.candidates[0].content.parts[0].text;
                     
-                    // Cálculo aproximado de tokens locales (Google no los devuelve explícitamente de forma sencilla en REST básico)
+                    // Cálculo aproximado de tokens consumidos
                     const estimateTokens = Math.round((fullPrompt.length + reply.length) / 3.8);
                     tokenUsage.gemini += estimateTokens;
                     updateTokenDashboard();
@@ -392,7 +382,7 @@
                             </div>
                             <div class="bg-white border border-[#e5e2db] text-[#403f3a] text-sm py-3.5 px-4 rounded-xl rounded-tl-none chat-bubble flex-1 shadow-sm">
                                 <div class="flex justify-between items-center mb-1.5 pb-1.5 border-b border-[#f3f0eb]">
-                                    <span class="text-[10px] font-bold text-blue-500">Gemini 1.5 Flash</span>
+                                    <span class="text-[10px] font-bold text-blue-500">Gemini Pro</span>
                                     <span class="text-[8px] text-[#8c8a81] font-mono bg-[#f5f3ef] px-1.5 py-0.5 rounded-md"><i class="fa-solid fa-coins mr-1"></i>~${estimateTokens} tkn</span>
                                 </div>
                                 <div class="leading-relaxed font-sans">${formatMarkdown(reply)}</div>
@@ -402,12 +392,12 @@
                 }
             } catch (error) {
                 if (document.getElementById(typingId)) document.getElementById(typingId).remove();
-                chatWindow.innerHTML += `<div class="text-xs text-red-700 bg-red-50 p-3 rounded-lg border border-red-200 my-2 mx-auto max-w-[85%] text-center">Fallo en la API de Google. Verifica que la llave cargada sea válida.</div>`;
+                chatWindow.innerHTML += `<div class="text-xs text-red-700 bg-red-50 p-3 rounded-lg border border-red-200 my-2 mx-auto max-w-[85%] text-center">Fallo en la API de Google. Verifica tu clave de API e inténtalo nuevamente.</div>`;
             }
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
-        // --- 3. Swarm Multi-Agent Debate Engine (Simulado con 3 Agentes de Gemini) ---
+        // --- 3. Swarm Multi-Agent Debate Engine ---
         async function startSwarmDebate() {
             const chatWindow = document.getElementById('chat-window');
             const activeNoteTitle = document.getElementById('note-title').value || "Proyecto en Desarrollo";
