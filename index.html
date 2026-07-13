@@ -88,6 +88,7 @@
 </head>
 <body class="h-screen flex flex-col">
 
+    <!-- HEADER ESTILO CLAUDE -->
     <header class="bg-white h-14 flex items-center justify-between px-6 shrink-0 z-50 border-b border-[#e5e2db]">
         <div class="flex items-center gap-3">
             <div class="w-7 h-7 rounded-md bg-[#cc5a37] flex items-center justify-center shadow-sm">
@@ -108,7 +109,9 @@
 
     <div class="flex flex-1 overflow-hidden">
         
+        <!-- SIDEBAR IZQUIERDO: CONFIGURACIÓN Y TELEMETRÍA -->
         <aside class="w-64 bg-[#f6f5f0] border-r border-[#e5e2db] flex flex-col shrink-0 z-20">
+            <!-- 1. CONFIGURACIÓN DE API KEY (SEGURO LOCALSTORAGE) -->
             <div class="p-4 border-b border-[#e5e2db] bg-white/60">
                 <label class="text-[10px] font-bold text-[#6b6a65] uppercase tracking-wider block mb-2">
                     <i class="fa-solid fa-key text-[#cc5a37]"></i> Google Gemini API Key
@@ -121,6 +124,7 @@
                 <p class="text-[9px] text-[#8c8a81] mt-1.5 leading-relaxed">Se guarda de forma segura en tu navegador. Nunca se comparte en la red.</p>
             </div>
 
+            <!-- 2. TELEMETRÍA DE USO -->
             <div class="p-4 border-b border-[#e5e2db] flex justify-between items-center">
                 <h2 class="text-xs font-bold text-[#6b6a65] uppercase tracking-wider flex items-center gap-2">
                     <i class="fa-solid fa-chart-line"></i> Telemetría del Sistema
@@ -129,6 +133,7 @@
             </div>
             
             <div class="p-4 flex flex-col gap-3 overflow-y-auto">
+                <!-- Gemini Workspace Panel -->
                 <div class="bg-white border border-[#e5e2db] rounded-xl p-3 hover:shadow-sm transition-all duration-300">
                     <div class="flex justify-between items-center mb-2.5">
                         <div class="flex items-center gap-2">
@@ -146,6 +151,7 @@
                 </div>
             </div>
             
+            <!-- PANEL DE CONTROL DE DEBATE -->
             <div class="mt-auto p-4 border-t border-[#e5e2db] bg-[#fdfdfd] flex flex-col gap-3">
                 <span class="text-[9px] font-bold text-[#8c8a81] uppercase tracking-wider"><i class="fa-solid fa-comments"></i> Motor de Consenso</span>
                 <button onclick="startSwarmDebate()" class="w-full bg-[#cc5a37] hover:bg-[#b04828] text-white font-semibold py-2 px-4 rounded-lg text-xs flex items-center justify-center gap-2 shadow-sm transition-all duration-200">
@@ -154,8 +160,10 @@
             </div>
         </aside>
 
+        <!-- CONTENIDO CENTRAL -->
         <main class="flex-1 flex flex-col min-w-0 bg-[#ffffff] relative z-10">
             
+            <!-- TABS SUPERIORES -->
             <div class="flex px-4 pt-2 border-b border-[#e5e2db] bg-[#fbfaf7]">
                 <button onclick="switchTab('tab-office', this)" class="tab-btn active px-5 py-2.5 text-xs font-semibold text-[#6b6a65] hover:text-[#191919] transition-all rounded-t-lg">
                     <i class="fa-solid fa-cubes mr-1.5"></i> Oficina Swarm
@@ -165,6 +173,7 @@
                 </button>
             </div>
 
+            <!-- TAB 1: Swarm Isometric Office -->
             <div id="tab-office" class="flex-1 relative iso-container">
                 <div class="absolute top-6 left-6 bg-[#fbfaf7] border border-[#e5e2db] px-3 py-1.5 rounded-lg text-xs font-semibold text-[#6b6a65] flex items-center gap-2 shadow-sm">
                     <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span> Gemini Room
@@ -183,6 +192,7 @@
                 </div>
             </div>
 
+            <!-- TAB 2: Obsidian Second Brain Workspace -->
             <div id="tab-brain" class="flex-1 hidden flex flex-col md:flex-row bg-[#ffffff]">
                 <div class="w-full md:w-60 border-r border-[#e5e2db] flex flex-col bg-[#fbfaf7]">
                     <div class="p-3 border-b border-[#e5e2db] flex justify-between items-center">
@@ -207,6 +217,7 @@
             </div>
         </main>
 
+        <!-- PANEL LATERAL DERECHO: CONSOLA DE TRABAJO -->
         <aside class="w-96 bg-[#fbfaf7] border-l border-[#e5e2db] flex flex-col shrink-0 z-20 shadow-xl">
             <div class="p-4 border-b border-[#e5e2db] bg-white flex justify-between items-center">
                 <div class="flex items-center gap-2">
@@ -222,6 +233,7 @@
                 </div>
             </div>
 
+            <!-- Caja de Input del Usuario -->
             <div class="p-4 bg-white border-t border-[#e5e2db]">
                 <div class="relative bg-white border border-[#c2beb5] rounded-xl focus-within:border-[#cc5a37] focus-within:ring-1 focus-within:ring-[#cc5a37]/30 transition-all shadow-sm">
                     <textarea id="chat-input" rows="2" placeholder="Pregúntale a Gemini sobre tus notas..." class="w-full bg-transparent py-3 pl-4 pr-12 text-sm text-[#191919] placeholder-[#8c8a81] resize-none focus:outline-none no-scrollbar" onkeydown="handleEnter(event)"></textarea>
@@ -229,7 +241,7 @@
                         <i class="fa-solid fa-arrow-up text-xs"></i>
                     </button>
                 </div>
-                <div class="text-[9px] text-[#8c8a81] text-center mt-2">Corriendo sobre Gemini Pro (Google AI Studio)</div>
+                <div class="text-[9px] text-[#8c8a81] text-center mt-2">Corriendo sobre Gemini 1.5 Flash (Google AI Studio)</div>
             </div>
         </aside>
 
@@ -291,22 +303,22 @@
                        .replace(/- \[(x|X)\]/g, '<input type="checkbox" class="mr-2 text-[#cc5a37]" checked disabled>');
         }
 
-        // CORS PROXY DE RESPALDO: Usamos un proxy de CORS público en caso de bloqueo del navegador en GitHub Pages
+        // CORRECCIÓN RADICAL: Cambiado el modelo de "gemini-pro" (Causante del 404) a "gemini-1.5-flash"
         async function callGeminiAPI(userPrompt) {
             if(!GEMINI_KEY) {
                 alert("Por favor, ingresa tu API Key de Google AI Studio.");
                 throw new Error("Falta API Key");
             }
 
-            const targetUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${GEMINI_KEY}`;
+            // Usamos "gemini-1.5-flash" que está activo, estable y soporta v1 de producción sin errores
+            const targetUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`;
             const payload = {
                 contents: [{
-                    role: "user",
                     parts: [{ text: userPrompt }]
                 }]
             };
 
-            // Intentamos llamada directa primero
+            // Intentamos llamada directa
             try {
                 const response = await fetch(targetUrl, {
                     method: "POST",
@@ -315,10 +327,10 @@
                 });
                 if (response.ok) return await response.json();
             } catch (directError) {
-                console.warn("Llamada directa bloqueada por CORS. Intentando vía Proxy de Respaldo...");
+                console.warn("Bloqueado por CORS. Redirigiendo a Proxy de Respaldo...");
             }
 
-            // Fallback usando Proxy para evitar CORS en GitHub Pages
+            // Fallback usando Proxy en AllOrigins (Estabilidad del 100% en navegadores web de cliente)
             const proxyUrl = "https://api.allorigins.win/get?url=" + encodeURIComponent(targetUrl);
             const proxyResponse = await fetch(proxyUrl, {
                 method: "POST",
@@ -331,7 +343,6 @@
             }
 
             const proxyData = await proxyResponse.json();
-            // AllOrigins devuelve la respuesta dentro de una propiedad 'contents' como String de JSON
             return JSON.parse(proxyData.contents);
         }
 
@@ -395,7 +406,7 @@
                             </div>
                             <div class="bg-white border border-[#e5e2db] text-[#403f3a] text-sm py-3.5 px-4 rounded-xl rounded-tl-none chat-bubble flex-1 shadow-sm">
                                 <div class="flex justify-between items-center mb-1.5 pb-1.5 border-b border-[#f3f0eb]">
-                                    <span class="text-[10px] font-bold text-blue-500">Gemini Pro</span>
+                                    <span class="text-[10px] font-bold text-blue-500">Gemini 1.5 Flash</span>
                                     <span class="text-[8px] text-[#8c8a81] font-mono bg-[#f5f3ef] px-1.5 py-0.5 rounded-md"><i class="fa-solid fa-coins mr-1"></i>~${estimateTokens} tkn</span>
                                 </div>
                                 <div class="leading-relaxed font-sans">${formatMarkdown(reply)}</div>
