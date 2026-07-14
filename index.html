@@ -6,7 +6,7 @@
     <title>Dev-OS | Gemini Terminal Premium</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&swap" rel="stylesheet">
     <style>
         body { background-color: #f9f8f6; color: #191919; font-family: 'Plus Jakarta Sans', sans-serif; overflow: hidden; }
         .log-line { font-family: 'JetBrains Mono', monospace; font-size: 11px; border-bottom: 1px solid #e5e2db; padding: 4px 0; }
@@ -21,10 +21,10 @@
             <div class="w-6 h-6 rounded bg-[#cc5a37] flex items-center justify-center shadow-sm">
                 <i class="fa-solid fa-sparkles text-white text-[10px]"></i>
             </div>
-            <span class="font-bold text-sm tracking-tight">Gemini Workspace v4</span>
+            <span class="font-bold text-sm tracking-tight">Gemini Workspace v5</span>
         </div>
         <div class="text-xs font-mono bg-[#f5f3ef] border border-[#e5e2db] px-2.5 py-1 rounded-md text-[#6b6a65]">
-            Model: gemini-1.5-flash
+            Model: gemini-1.5-flash-latest
         </div>
     </header>
 
@@ -152,8 +152,8 @@
             chatWindow.innerHTML += `<div id="${typingId}" class="flex items-start gap-2 mb-3"><div class="w-5.5 h-5.5 rounded-full border border-[#e5e2db] bg-white flex items-center justify-center text-blue-500 shadow-sm"><i class="fa-solid fa-sparkles text-[9px]"></i></div><div class="bg-white border border-[#e5e2db] text-[#6b6a65] py-2 px-4 rounded-xl rounded-tl-none chat-bubble typing-indicator flex gap-1"><span></span><span></span><span></span></div></div>`;
             chatWindow.scrollTop = chatWindow.scrollHeight;
 
-            // CORRECCIÓN CLAVE: Cambiado de /v1/ a /v1beta/ para dar soporte nativo absoluto a claves de Google Cloud Console
-            let url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + API_KEY;
+            // CONFIGURACIÓN AJUSTADA: Usamos el identificador absoluto 'gemini-1.5-flash-latest' requerido por v1beta
+            let url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=" + API_KEY;
             
             let payload = {
                 contents: [{
