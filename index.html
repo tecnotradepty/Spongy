@@ -21,7 +21,7 @@
             <div class="w-6 h-6 rounded bg-[#cc5a37] flex items-center justify-center shadow-sm">
                 <i class="fa-solid fa-sparkles text-white text-[10px]"></i>
             </div>
-            <span class="font-bold text-sm tracking-tight">Gemini Workspace v3</span>
+            <span class="font-bold text-sm tracking-tight">Gemini Workspace v4</span>
         </div>
         <div class="text-xs font-mono bg-[#f5f3ef] border border-[#e5e2db] px-2.5 py-1 rounded-md text-[#6b6a65]">
             Model: gemini-1.5-flash
@@ -35,7 +35,7 @@
             <div class="p-3 bg-[#fbfaf7] border-b border-[#e5e2db] flex flex-col sm:flex-row items-center gap-2">
                 <span class="text-xs font-semibold text-[#6b6a65] shrink-0"><i class="fa-solid fa-key mr-1"></i> Configurar API Key:</span>
                 <input id="key-input-field" type="password" placeholder="Ingresa tu clave de Google AI Studio (AIzaSy...)" 
-                       class="flex-1 bg-white border border-[#c2beb5] rounded-lg px-3 py-1 text-xs text-[#191919] focus:outline-none focus:border-[#cc5a37]">
+                       class="w-full bg-white border border-[#c2beb5] rounded-lg px-3 py-1 text-xs text-[#191919] focus:outline-none focus:border-[#cc5a37]">
                 <button onclick="updateManualKey()" class="bg-[#3b82f6] hover:bg-blue-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow-sm transition-all cursor-pointer">
                     <i class="fa-solid fa-floppy-disk mr-1"></i> Guardar Clave
                 </button>
@@ -78,16 +78,15 @@
     </div>
 
     <script>
-        // Carga dinámica limpia desde localStorage
         let API_KEY = localStorage.getItem('gemini_terminal_key') || "";
         let lastErrorPayload = null;
 
         document.addEventListener("DOMContentLoaded", function() {
             if(API_KEY) {
                 document.getElementById('key-input-field').value = API_KEY;
-                writeLog("INFO", "Clave API cargada desde el almacenamiento local del navegador.");
+                writeLog("INFO", "Clave API cargada desde el almacenamiento local.");
             } else {
-                writeLog("INFO", "Ninguna clave API detectada. Por favor ingresa una llave válida de Google AI Studio.");
+                writeLog("INFO", "Por favor ingresa tu API Key para comenzar.");
             }
         });
 
@@ -96,7 +95,7 @@
             if(val) {
                 API_KEY = val;
                 localStorage.setItem('gemini_terminal_key', API_KEY);
-                writeLog("SUCCESS", "Nueva API Key guardada exitosamente en este navegador.");
+                writeLog("SUCCESS", "API Key guardada exitosamente en el navegador.");
             } else {
                 alert("Por favor ingresa una clave antes de guardar.");
             }
@@ -114,7 +113,7 @@
             let logHTML = `<div class="log-line ${colorClass}">[${timestamp}] [${type}] ${message}</div>`;
             
             if (details) {
-                lastErrorPayload = details; // Almacenamos el error para el botón de copiar
+                lastErrorPayload = details;
                 logHTML += `<pre class="bg-black/40 p-2 rounded text-[10px] my-1 text-zinc-500 overflow-x-auto whitespace-pre-wrap border border-zinc-800">${JSON.stringify(details, null, 2)}</pre>`;
             }
             
@@ -124,20 +123,17 @@
 
         function copyLastLog() {
             if (!lastErrorPayload) {
-                alert("No hay ningún error registrado en este momento para copiar.");
+                alert("No hay errores para copiar.");
                 return;
             }
-            let textToCopy = JSON.stringify(lastErrorPayload, null, 2);
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                writeLog("INFO", "¡Información del error copiada al portapapeles exitosamente!");
-            }).catch(err => {
-                alert("No se pudo copiar automáticamente. Por favor selecciónalo manualmente en la consola.");
+            navigator.clipboard.writeText(JSON.stringify(lastErrorPayload, null, 2)).then(() => {
+                writeLog("INFO", "¡Información del error copiada al portapapeles!");
             });
         }
 
         function clearLogs() {
             lastErrorPayload = null;
-            document.getElementById('log-console').innerHTML = `<div class="text-emerald-400 text-xs">[SISTEMA] Consola limpia y lista.</div>`;
+            document.getElementById('log-console').innerHTML = `<div class="text-emerald-400 text-xs">[SISTEMA] Consola limpia.</div>`;
         }
 
         async function sendPrompt() {
@@ -156,8 +152,8 @@
             chatWindow.innerHTML += `<div id="${typingId}" class="flex items-start gap-2 mb-3"><div class="w-5.5 h-5.5 rounded-full border border-[#e5e2db] bg-white flex items-center justify-center text-blue-500 shadow-sm"><i class="fa-solid fa-sparkles text-[9px]"></i></div><div class="bg-white border border-[#e5e2db] text-[#6b6a65] py-2 px-4 rounded-xl rounded-tl-none chat-bubble typing-indicator flex gap-1"><span></span><span></span><span></span></div></div>`;
             chatWindow.scrollTop = chatWindow.scrollHeight;
 
-            // Endpoint de producción REST unificado para Gemini 1.5 Flash
-            let url = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=" + API_KEY;
+            // CORRECCIÓN CLAVE: Cambiado de /v1/ a /v1beta/ para dar soporte nativo absoluto a claves de Google Cloud Console
+            let url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + API_KEY;
             
             let payload = {
                 contents: [{
@@ -192,7 +188,7 @@
                 }
             } catch (err) {
                 if (document.getElementById(typingId)) document.getElementById(typingId).remove();
-                writeLog("ERROR", `Excepción de red atrapada en ejecución: ${err.message}`);
+                writeLog("ERROR", `Excepción de red: ${err.message}`);
                 chatWindow.innerHTML += `<div class="text-xs text-red-700 bg-red-50 p-3 rounded-lg border border-red-200 my-2 mx-auto max-w-[85%] text-center font-sans">Error de autenticación o comunicación de red.</div>`;
             }
             chatWindow.scrollTop = chatWindow.scrollHeight;
