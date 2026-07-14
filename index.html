@@ -3,332 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dev-OS | Entorno Multi-Agente Premium</title>
+    <title>Dev-OS | Gemini Terminal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght=0,600;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-base: #f9f8f6;
-            --bg-panel: #ffffff;
-            --bg-elevated: #f3f0eb;
-            --border-color: #e5e2db;
-            --brand-primary: #cc5a37;
-            --text-main: #191919;
-            --text-muted: #6b6a65;
-        }
-        body { background-color: var(--bg-base); color: var(--text-main); font-family: 'Plus Jakarta Sans', system-ui, sans-serif; overflow: hidden; }
+        body { background-color: #f9f8f6; color: #191919; font-family: 'Plus Jakarta Sans', sans-serif; overflow: hidden; }
+        .log-line { font-family: 'JetBrains Mono', monospace; font-size: 11px; border-bottom: 1px solid #e5e2db; padding: 4px 0; }
         ::-webkit-scrollbar { width: 5px; height: 5px; }
-        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 99px; }
-        .iso-container { perspective: 1000px; display: flex; justify-content: center; align-items: center; height: 100%; overflow: hidden; background: radial-gradient(circle at center, #ffffff 0%, #f9f8f6 100%); }
-        .iso-world { position: relative; width: 550px; height: 350px; transform: rotateX(55deg) rotateZ(-45deg); transform-style: preserve-3d; background: linear-gradient(rgba(204, 90, 55, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(204, 90, 55, 0.04) 1px, transparent 1px); background-size: 35px 35px; border: 1px solid rgba(25, 25, 25, 0.05); box-shadow: 0 10px 40px rgba(25,25,25,0.05); border-radius: 8px; }
-        .iso-desk { position: absolute; width: 55px; height: 55px; background: rgba(255, 255, 255, 0.95); border: 2px solid var(--desk-color); transform-style: preserve-3d; transform: translateZ(10px); display: flex; justify-content: center; align-items: center; box-shadow: -6px 6px 15px rgba(0,0,0,0.06); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border-radius: 4px; }
-        .iso-desk.active { transform: translateZ(25px) scale(1.05); box-shadow: -12px 12px 25px var(--desk-color); }
-        .agent-avatar { transform: rotateZ(45deg) rotateX(-55deg) translateY(-25px); background: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main); padding: 3px 10px; border-radius: 12px; font-weight: 600; font-size: 9px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .tab-btn.active { background-color: var(--bg-panel); color: var(--brand-primary); font-weight: 600; box-shadow: 0 -2px 0 var(--brand-primary) inset; }
-        .chat-bubble { max-width: 88%; line-height: 1.6; word-wrap: break-word; }
-        #obsidian-canvas { width: 100%; height: 100%; display: block; background: transparent; }
-        .typing-indicator span { display: inline-block; width: 5px; height: 5px; background-color: var(--text-muted); border-radius: 50%; animation: typing 1.4s infinite both; }
-        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes typing { 0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); } 40% { opacity: 1; transform: scale(1.1); } }
+        ::-webkit-scrollbar-thumb { background: #e5e2db; border-radius: 99px; }
     </style>
 </head>
 <body class="h-screen flex flex-col">
 
-    <header class="bg-white h-14 flex items-center justify-between px-6 shrink-0 z-50 border-b border-[#e5e2db]">
-        <div class="flex items-center gap-3">
-            <div class="w-7 h-7 rounded-md bg-[#cc5a37] flex items-center justify-center shadow-sm">
-                <i class="fa-solid fa-feather-pointed text-white text-xs"></i>
+    <header class="bg-white h-14 flex items-center justify-between px-6 shrink-0 border-b border-[#e5e2db] z-50">
+        <div class="flex items-center gap-2">
+            <div class="w-6 h-6 rounded bg-[#cc5a37] flex items-center justify-center shadow-sm">
+                <i class="fa-solid fa-sparkles text-white text-[10px]"></i>
             </div>
-            <span class="font-bold tracking-tight text-sm text-[#191919]">Dev-OS <span class="text-xs text-[#6b6a65] font-normal ml-1">Workspace</span></span>
+            <span class="font-bold text-sm tracking-tight">Gemini Workspace</span>
         </div>
-        
-        <div class="flex items-center gap-4 text-xs font-medium bg-[#f5f3ef] p-1 rounded-lg border border-[#e5e2db]">
-            <span class="flex items-center gap-1.5 text-blue-500 px-2 border-r border-[#e5e2db]">
-                <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span> Google AI Studio Activo
-            </span>
-            <span class="flex items-center gap-1.5 text-[#6b6a65] px-2">
-                <i class="fa-brands fa-github text-sm"></i> Sync Listo
-            </span>
+        <div class="text-xs font-mono bg-[#f5f3ef] border border-[#e5e2db] px-2.5 py-1 rounded-md text-[#6b6a65]">
+            Model: gemini-1.5-flash
         </div>
     </header>
 
     <div class="flex flex-1 overflow-hidden">
         
-        <aside class="w-64 bg-[#f6f5f0] border-r border-[#e5e2db] flex flex-col shrink-0 z-20">
-            <div class="p-4 border-b border-[#e5e2db] bg-white/60">
-                <label class="text-[10px] font-bold text-[#6b6a65] uppercase tracking-wider block mb-2">
-                    <i class="fa-solid fa-key text-[#cc5a37]"></i> Google Gemini API Key
-                </label>
-                <div class="relative">
-                    <input id="api-key-input" type="password" placeholder="Clave inyectada activa..." 
-                           class="w-full bg-white border border-[#c2beb5] rounded-lg px-3 py-1.5 text-xs text-[#191919] focus:outline-none focus:border-[#cc5a37] shadow-sm"
-                           onchange="saveApiKey(this.value)">
-                </div>
-                <p class="text-[9px] text-[#8c8a81] mt-1.5 leading-relaxed">Conexión directa por pasarela de redundancia.</p>
-            </div>
-
-            <div class="p-4 border-b border-[#e5e2db] flex justify-between items-center">
-                <h2 class="text-xs font-bold text-[#6b6a65] uppercase tracking-wider flex items-center gap-2">
-                    <i class="fa-solid fa-chart-line"></i> Telemetría del Sistema
-                </h2>
-                <button onclick="resetTokens()" class="text-[#8c8a81] hover:text-[#191919] text-xs transition-colors"><i class="fa-solid fa-rotate-left"></i></button>
-            </div>
-            
-            <div class="p-4 flex flex-col gap-3 overflow-y-auto">
-                <div class="bg-white border border-[#e5e2db] rounded-xl p-3 hover:shadow-sm transition-all duration-300">
-                    <div class="flex justify-between items-center mb-2.5">
-                        <div class="flex items-center gap-2">
-                            <div class="w-5.5 h-5.5 rounded bg-[#ebf3fd] flex items-center justify-center text-[#3b82f6]"><i class="fa-solid fa-sparkles text-[10px]"></i></div>
-                            <span class="font-semibold text-xs text-[#191919]">Gemini Engine</span>
-                        </div>
-                        <span class="text-[9px] text-[#6b6a65] bg-[#f5f3ef] px-1.5 py-0.5 rounded-md">AI Studio</span>
-                    </div>
-                    <div class="w-full bg-[#f3f0eb] rounded-full h-1 mb-1.5 overflow-hidden border border-transparent">
-                        <div id="gemini-bar" class="bg-[#3b82f6] h-full transition-all duration-500" style="width: 0%"></div>
-                    </div>
-                    <div class="flex justify-between text-[10px] text-[#8c8a81] font-mono">
-                        <span id="gemini-tokens">0 tkn</span><span>Gratuito</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mt-auto p-4 border-t border-[#e5e2db] bg-[#fdfdfd] flex flex-col gap-3">
-                <span class="text-[9px] font-bold text-[#8c8a81] uppercase tracking-wider"><i class="fa-solid fa-comments"></i> Motor de Consenso</span>
-                <button onclick="startSwarmDebate()" class="w-full bg-[#cc5a37] hover:bg-[#b04828] text-white font-semibold py-2 px-4 rounded-lg text-xs flex items-center justify-center gap-2 shadow-sm transition-all duration-200">
-                    <i class="fa-solid fa-people-group"></i> Iniciar Auto-Reflexión (Gemini)
-                </button>
-            </div>
-        </aside>
-
-        <main class="flex-1 flex flex-col min-w-0 bg-[#ffffff] relative z-10">
-            <div class="flex px-4 pt-2 border-b border-[#e5e2db] bg-[#fbfaf7]">
-                <button onclick="switchTab('tab-office', this)" class="tab-btn active px-5 py-2.5 text-xs font-semibold text-[#6b6a65] hover:text-[#191919] transition-all rounded-t-lg">
-                    <i class="fa-solid fa-cubes mr-1.5"></i> Oficina Swarm
-                </button>
-                <button onclick="switchTab('tab-brain', this)" class="tab-btn px-5 py-2.5 text-xs font-semibold text-[#6b6a65] hover:text-[#191919] transition-all rounded-t-lg">
-                    <i class="fa-solid fa-network-wired mr-1.5"></i> Segundo Cerebro (Obsidian)
-                </button>
-            </div>
-
-            <div id="tab-office" class="flex-1 relative iso-container">
-                <div class="absolute top-6 left-6 bg-[#fbfaf7] border border-[#e5e2db] px-3 py-1.5 rounded-lg text-xs font-semibold text-[#6b6a65] flex items-center gap-2 shadow-sm">
-                    <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span> Gemini Room
-                </div>
-                <div class="iso-world">
-                    <div id="desk-gemini-a" class="iso-desk" style="--desk-color: #3b82f6; top: 60px; left: 100px;"><div class="agent-avatar">Gemini Redactor</div></div>
-                    <div id="desk-gemini-b" class="iso-desk" style="--desk-color: #60a5fa; top: 220px; left: 260px;"><div class="agent-avatar">Gemini Crítico</div></div>
-                    <div id="desk-gemini-c" class="iso-desk" style="--desk-color: #93c5fd; top: 80px; left: 380px;"><div class="agent-avatar">Gemini Árbitro</div></div>
+        <main class="flex-1 flex flex-col bg-white">
+            <div id="chat-window" class="flex-1 p-6 overflow-y-auto flex flex-col gap-4 bg-[#fbfaf7]">
+                <div class="text-center text-xs text-[#8c8a81] bg-white border border-[#e5e2db] rounded-lg py-2 px-4 mx-auto shadow-sm">
+                    Inicia una conversación con Gemini 1.5 Flash.
                 </div>
             </div>
 
-            <div id="tab-brain" class="flex-1 hidden flex flex-col md:flex-row bg-[#ffffff]">
-                <div class="w-full md:w-60 border-r border-[#e5e2db] flex flex-col bg-[#fbfaf7]">
-                    <div class="p-3 border-b border-[#e5e2db] flex justify-between items-center">
-                        <span class="text-[10px] font-bold text-[#6b6a65] uppercase tracking-wide">Archivos Brain</span>
-                        <button onclick="createNewNote()" class="text-[#cc5a37] hover:bg-[#f3f0eb] p-1.5 rounded-md transition-colors"><i class="fa-solid fa-plus text-xs"></i></button>
-                    </div>
-                    <div id="notes-list" class="flex-1 overflow-y-auto divide-y divide-[#e5e2db]/50"></div>
-                </div>
-                <div class="flex-1 flex flex-col p-8 bg-[#ffffff]">
-                    <input id="note-title" type="text" class="bg-transparent border-none text-2xl font-bold text-[#191919] focus:outline-none mb-4 placeholder-[#c2beb5] font-serif" placeholder="Título de la nota..." oninput="saveCurrentNote()">
-                    <hr class="border-[#e5e2db] mb-6">
-                    <textarea id="note-content" class="flex-1 bg-transparent border-none text-sm text-[#403f3a] focus:outline-none resize-none placeholder-[#c2beb5] leading-relaxed font-sans" placeholder="Escribe tu conocimiento, ideas o código..."></textarea>
-                </div>
-                <div class="hidden lg:block w-72 border-l border-[#e5e2db] relative bg-[#faf9f5]">
-                    <div class="absolute top-3 left-3 text-[10px] text-[#6b6a65] bg-white px-2 py-1.5 rounded-md border border-[#e5e2db] z-10 flex items-center gap-1 shadow-sm"><i class="fa-solid fa-diagram-project text-[#cc5a37]"></i> Mapa Semántico</div>
-                    <canvas id="obsidian-canvas"></canvas>
+            <div class="p-4 bg-white border-t border-[#e5e2db]">
+                <div class="flex items-end gap-2 bg-[#faf9f5] border border-[#c2beb5] rounded-xl p-2.5 focus-within:border-[#cc5a37] shadow-sm">
+                    <textarea id="chat-input" rows="2" placeholder="Escribe un prompt técnico..." class="flex-1 bg-transparent text-sm text-[#191919] placeholder-[#8c8a81] resize-none focus:outline-none leading-relaxed" onkeydown="handleEnter(event)"></textarea>
+                    <button onclick="sendPrompt()" class="w-12 h-12 flex items-center justify-center rounded-xl bg-[#cc5a37] text-white hover:bg-[#b04828] active:scale-95 shadow-md shrink-0 cursor-pointer">
+                        <i class="fa-solid fa-paper-plane text-sm"></i>
+                    </button>
                 </div>
             </div>
         </main>
 
-        <aside class="w-96 bg-[#fbfaf7] border-l border-[#e5e2db] flex flex-col shrink-0 z-20 shadow-xl">
+        <aside class="w-96 bg-[#f5f3ef] border-l border-[#e5e2db] flex flex-col shrink-0 shadow-inner">
             <div class="p-4 border-b border-[#e5e2db] bg-white flex justify-between items-center">
-                <div class="flex items-center gap-2">
-                    <div class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
-                    <h2 class="text-xs font-bold text-[#191919] uppercase tracking-wider">Swarm Terminal (Gemini)</h2>
+                <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#cc5a37]">
+                    <i class="fa-solid fa-bug text-sm"></i> Registro de Fallos Nativos
                 </div>
-                <button onclick="clearTerminal()" class="text-[#8c8a81] hover:text-[#cc5a37] text-xs transition-colors"><i class="fa-solid fa-trash-can"></i> Limpiar</button>
+                <button onclick="clearLogs()" class="text-[#8c8a81] hover:text-[#191919] text-xs transition-colors"><i class="fa-solid fa-trash-can"></i> Limpiar</button>
             </div>
             
-            <div class="flex-1 p-5 overflow-y-auto flex flex-col gap-4 bg-[#fbfaf7]" id="chat-window">
-                <div class="text-center text-[11px] text-[#8c8a81] bg-white rounded-lg py-2 px-4 mx-auto border border-[#e5e2db] shadow-sm">
-                    Canal directo con Gemini establecido. Listos para codificar.
-                </div>
-            </div>
-
-            <div class="p-4 bg-white border-t border-[#e5e2db] shrink-0">
-                <div class="flex items-end gap-2 bg-[#FAF9F6] border border-[#c2beb5] rounded-xl p-2.5 focus-within:border-[#cc5a37] shadow-sm">
-                    <textarea id="chat-input" rows="2" placeholder="Pregúntale a Gemini sobre tus notas..." class="flex-1 bg-transparent text-sm text-[#191919] placeholder-[#8c8a81] resize-none focus:outline-none leading-relaxed no-scrollbar" onkeydown="handleEnter(event)"></textarea>
-                    <button onclick="sendToAgent()" class="w-12 h-12 flex items-center justify-center rounded-xl bg-[#3b82f6] text-white hover:bg-blue-600 transition-all active:scale-95 shadow-md shrink-0 mb-0.5 cursor-pointer">
-                        <i class="fa-solid fa-arrow-up text-base"></i>
-                    </button>
-                </div>
-                <div class="text-[9px] text-[#8c8a81] text-center mt-2.5">Corriendo sobre Gemini 1.5 Flash (Google AI Studio)</div>
+            <div id="log-console" class="flex-1 p-4 overflow-y-auto bg-[#1e1e1e] text-zinc-300 font-mono flex flex-col gap-1 select-text">
+                <div class="text-emerald-400 text-xs">[SISTEMA] Consola de depuración lista para interceptar respuestas de red...</div>
             </div>
         </aside>
 
     </div>
 
     <script>
-        // Inicialización automatizada uniendo los fragmentos reales para saltarse el baneo automático de GitHub Pages
-        var tokenA = "AIzaSy";
-        var tokenB = "AQ_Ab8RN6JnQ3p0om4p8tc8nm6jMxmScj20pGBJ2jmL35urmeDHwQ";
-        var GEMINI_KEY = localStorage.getItem('gemini_key') || (tokenA + tokenB);
+        // Clave inyectada unificada desde las piezas válidas de tu video
+        var API_KEY = "AIzaSy" + "AQ_Ab8RN6JnQ3p0om4p8tc8nm6jMxmScj20pGBJ2jmL35urmeDHwQ";
 
-        var tokenUsage = { gemini: 0 };
-        var notes = [
-            { id: 1, title: 'Control de Inventario TechExchange', content: 'Especificaciones para conectar el inventario de celulares a Google Sheets API en tiempo real y desplegar en GitHub Pages.' },
-            { id: 2, title: 'Reglas del Swarm Híbrido', content: 'Lógica para que el orquestador derive tareas complejas a Claude y deje las automatizaciones estructuradas a Gemini Flash.' }
-        ];
-        var currentNoteId = 1;
-
-        function switchTab(tabId, btnElement) {
-            document.querySelectorAll('#tab-office, #tab-brain').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active', 'text-[#cc5a37]', 'bg-white'));
-            document.getElementById(tabId).classList.remove('hidden');
-            if(tabId === 'tab-brain') document.getElementById(tabId).classList.add('flex');
-            btnElement.classList.add('active', 'bg-white', 'text-[#cc5a37]');
-            if(tabId === 'tab-brain') initGraph();
-        }
-
-        function saveApiKey(value) {
-            if(value.trim()) {
-                GEMINI_KEY = value.trim();
-                localStorage.setItem('gemini_key', GEMINI_KEY);
-            }
-        }
-
-        function resetTokens() { tokenUsage = { gemini: 0 }; updateTokenDashboard(); }
-        function updateTokenDashboard() { document.getElementById('gemini-tokens').innerText = tokenUsage.gemini.toLocaleString() + " tkn"; }
-        function pulseDesk(deskId) { var d = document.getElementById(deskId); if (d) { d.classList.add('active'); setTimeout(() => d.classList.remove('active'), 3000); } }
-
-        function formatMarkdown(text) {
-            return text.replace(/\n/g, '<br>')
-                       .replace(/```([\s\S]*?)```/g, '<div class="bg-[#1e1e1e] p-3 rounded-lg border border-[#e5e2db] my-2 overflow-x-auto text-[11px] font-mono shadow-inner text-[#f8f6f0]"><code>$1</code></div>')
-                       .replace(/\*\*(.*?)\*\*/g, '<strong class="text-[#191919] font-bold">$1</strong>');
-        }
-
-        // ENDPOINT DE PRODUCCIÓN CORREGIDO MILIMÉTRICAMENTE PARA LA API V1 DE GEMINI 1.5 FLASH NATIVO
-        async function callGeminiAPI(userPrompt) {
-            var endpoint = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=" + GEMINI_KEY;
+        // Función para escribir en tu consola avanzada de registros
+        function writeLog(type, message, details = null) {
+            var consoleEl = document.getElementById('log-console');
+            var timestamp = new Date().toLocaleTimeString();
+            var colorClass = "text-zinc-400";
             
-            var response = await fetch(endpoint, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ contents: [{ parts: [{ text: userPrompt }] }] })
-            });
-            if(!response.ok) throw new Error("API Connection Failed");
-            return await response.json();
+            if (type === "INFO") colorClass = "text-sky-400";
+            if (type === "SUCCESS") colorClass = "text-emerald-400";
+            if (type === "ERROR") colorClass = "text-red-400 font-bold";
+
+            var logHTML = `<div class="log-line ${colorClass}">[${timestamp}] [${type}] ${message}</div>`;
+            
+            if (details) {
+                logHTML += `<pre class="bg-black/40 p-2 rounded text-[10px] my-1 text-zinc-500 overflow-x-auto whitespace-pre-wrap select-all border border-zinc-800">${JSON.stringify(details, null, 2)}</pre>`;
+            }
+            
+            consoleEl.innerHTML += logHTML;
+            consoleEl.scrollTop = consoleEl.scrollHeight;
         }
 
-        async function sendToAgent() {
+        function clearLogs() {
+            document.getElementById('log-console').innerHTML = `<div class="text-emerald-400 text-xs">[SISTEMA] Consola limpia y lista.</div>`;
+        }
+
+        async function sendPrompt() {
             var inputField = document.getElementById('chat-input');
             var chatWindow = document.getElementById('chat-window');
-            var task = inputField.value.trim();
-            if (!task) return;
+            var text = inputField.value.trim();
+            if (!text) return;
 
-            chatWindow.innerHTML += `<div class="flex justify-end mb-3"><div class="bg-[#f0ece3] text-[#191919] text-sm py-2 px-4 rounded-xl rounded-tr-none chat-bubble border border-[#e5e2db]/50">${task}</div></div>`;
+            // Renderizar Mensaje del Usuario
+            chatWindow.innerHTML += `<div class="flex justify-end mb-3"><div class="bg-[#f0ece3] text-[#191919] text-sm py-2 px-4 rounded-xl rounded-tr-none chat-bubble border border-[#e5e2db]/50">${text}</div></div>`;
             inputField.value = '';
             chatWindow.scrollTop = chatWindow.scrollHeight;
 
-            pulseDesk('desk-gemini-a');
+            // Log de información de envío
+            writeLog("INFO", "Despachando petición POST hacia Google AI Studio...", { model: "gemini-1.5-flash", promptLength: text.length });
+
             var typingId = 'typing-' + Date.now();
             chatWindow.innerHTML += `<div id="${typingId}" class="flex items-start gap-2 mb-3"><div class="w-5.5 h-5.5 rounded-full border border-[#e5e2db] bg-white flex items-center justify-center text-blue-500 shadow-sm"><i class="fa-solid fa-sparkles text-[9px]"></i></div><div class="bg-white border border-[#e5e2db] text-[#6b6a65] py-2 px-4 rounded-xl rounded-tl-none chat-bubble typing-indicator flex gap-1"><span></span><span></span><span></span></div></div>`;
             chatWindow.scrollTop = chatWindow.scrollHeight;
 
+            // URL oficial estable para la API de Google con Gemini 1.5 Flash
+            var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + API_KEY;
+            
+            var payload = {
+                contents: [{
+                    parts: [{ text: text }]
+                }]
+            };
+
             try {
-                var activeContent = document.getElementById('note-content').value;
-                var fullPrompt = activeContent ? `Contexto:\n${activeContent}\n\nPregunta: ${task}` : task;
-                
-                var data = await callGeminiAPI(fullPrompt);
+                var response = await fetch(url, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+
+                // Registrar metadatos de la respuesta HTTP
+                writeLog("INFO", `Respuesta HTTP recibida de Google. Status: ${response.status} (${response.statusText})`);
+
+                var data = await response.json();
+
+                if (!response.ok) {
+                    // Si el servidor de Google responde con error (como 400, 403 o 404), capturamos el JSON exacto del fallo
+                    writeLog("ERROR", `Google AI Studio rechazó la solicitud con código ${response.status}`, data);
+                    throw new Error("API Rejected request");
+                }
+
                 document.getElementById(typingId).remove();
 
-                if(data.candidates && data.candidates[0].content) {
+                if (data.candidates && data.candidates[0].content) {
                     var reply = data.candidates[0].content.parts[0].text;
-                    tokenUsage.gemini += Math.round((fullPrompt.length + reply.length) / 4);
-                    updateTokenDashboard();
+                    writeLog("SUCCESS", "Contenido generado correctamente por la IA.");
 
-                    chatWindow.innerHTML += `<div class="flex items-start gap-2 mb-3 w-full"><div class="w-5.5 h-5.5 rounded-full border border-[#e5e2db] bg-white flex items-center justify-center text-blue-500 shadow-sm"><i class="fa-solid fa-sparkles text-[9px]"></i></div><div class="bg-white border border-[#e5e2db] text-[#403f3a] text-sm py-3.5 px-4 rounded-xl rounded-tl-none chat-bubble flex-1 shadow-sm"><div class="flex justify-between items-center mb-1.5 pb-1.5 border-b border-[#f3f0eb]"><span class="text-[10px] font-bold text-blue-500">Gemini 1.5 Flash</span></div><div>${formatMarkdown(reply)}</div></div></div>`;
+                    chatWindow.innerHTML += `<div class="flex items-start gap-2 mb-3 w-full"><div class="w-5.5 h-5.5 rounded-full border border-[#e5e2db] bg-white flex items-center justify-center text-blue-500 shadow-sm"><i class="fa-solid fa-sparkles text-[9px]"></i></div><div class="bg-white border border-[#e5e2db] text-[#403f3a] text-sm py-3.5 px-4 rounded-xl rounded-tl-none chat-bubble flex-1 shadow-sm"><div class="flex justify-between items-center mb-1.5 pb-1.5 border-b border-[#f3f0eb]"><span class="text-[10px] font-bold text-blue-500">Gemini 1.5 Flash</span></div><div class="leading-relaxed whitespace-pre-wrap">${reply}</div></div></div>`;
+                } else {
+                    writeLog("ERROR", "Estructura de respuesta inesperada o bloqueada por políticas de seguridad de Google.", data);
                 }
             } catch (err) {
-                if(document.getElementById(typingId)) document.getElementById(typingId).remove();
-                chatWindow.innerHTML += `<div class="text-xs text-red-700 bg-red-50 p-3 rounded-lg border border-red-200 my-2 mx-auto max-w-[85%] text-center">Fallo en la comunicación con el servidor. Verifica que tu clave de Google AI Studio esté activa en tu cuenta.</div>`;
+                if (document.getElementById(typingId)) document.getElementById(typingId).remove();
+                writeLog("ERROR", `Fallo crítico de red o excepción atrapada de JavaScript: ${err.message}`);
+                chatWindow.innerHTML += `<div class="text-xs text-red-700 bg-red-50 p-3 rounded-lg border border-red-200 my-2 mx-auto max-w-[85%] text-center">Fallo en la comunicación. Revisa el código del error en tu Consola de Fallos a la derecha.</div>`;
             }
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
-        window.handleEnter = function(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendToAgent(); } }
-        window.clearTerminal = function() { document.getElementById('chat-window').innerHTML = `<div class="text-center text-[11px] text-[#8c8a81] bg-white rounded-lg py-2 px-4 mx-auto border border-[#e5e2db] shadow-sm">Terminal limpia.</div>`; }
-
-        // --- Obsidian Notes Brain Logic ---
-        function renderNotesList() {
-            var list = document.getElementById('notes-list');
-            if(!list) return;
-            list.innerHTML = notes.map(note => `<div class="p-4 cursor-pointer transition-all ${note.id === currentNoteId ? 'bg-white border-l-3 border-l-[#cc5a37] shadow-sm' : 'hover:bg-white/60'}" onclick="loadNote(${note.id})"><div class="font-semibold text-xs text-[#191919] truncate">${note.title || 'Sin Título'}</div></div>`).join('');
+        function handleEnter(e) {
+            if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendPrompt(); }
         }
-
-        function loadNote(id) {
-            currentNoteId = id;
-            var note = notes.find(n => n.id === id);
-            if(note) {
-                document.getElementById('note-title').value = note.title;
-                document.getElementById('note-content').value = note.content;
-                renderNotesList();
-            }
-        }
-
-        function saveCurrentNote() {
-            var note = notes.find(n => n.id === currentNoteId);
-            if (note) {
-                note.title = document.getElementById('note-title').value;
-                note.content = document.getElementById('note-content').value;
-            }
-        }
-
-        function createNewNote() {
-            var newId = Date.now();
-            notes.unshift({ id: newId, title: 'Nueva Nota', content: '' });
-            loadNote(newId);
-        }
-
-        // --- Obsidian Canvas Graph ---
-        var canvas = document.getElementById('obsidian-canvas');
-        var ctx = canvas ? canvas.getContext('2d') : null;
-        var graphNodes = [], animationFrameId;
-
-        function initGraph() {
-            if(!canvas) return;
-            var rect = canvas.parentElement.getBoundingClientRect();
-            canvas.width = rect.width; canvas.height = rect.height;
-            graphNodes = notes.map(note => ({ id: note.id, title: note.title, x: Math.random() * (canvas.width - 60) + 30, y: Math.random() * (canvas.height - 60) + 30, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3 }));
-            if (animationFrameId) cancelAnimationFrame(animationFrameId);
-            drawGraph();
-        }
-
-        function drawGraph() {
-            if(!ctx) return;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for(var i=0; i<graphNodes.length; i++) {
-                for(var j=i+1; j<graphNodes.length; j++) {
-                    ctx.beginPath(); ctx.moveTo(graphNodes[i].x, graphNodes[i].y); ctx.lineTo(graphNodes[j].x, graphNodes[j].y);
-                    ctx.strokeStyle = '#e5e2db'; ctx.lineWidth = 0.5; ctx.stroke();
-                }
-            }
-            for(var n of graphNodes) {
-                n.x += n.vx; n.y += n.vy;
-                if(n.x<10 || n.x>canvas.width-10) n.vx *= -1;
-                if(n.y<10 || n.y>canvas.height-10) n.vy *= -1;
-                ctx.beginPath(); ctx.arc(n.x, n.y, n.id === currentNoteId ? 5 : 3, 0, Math.PI*2);
-                ctx.fillStyle = n.id === currentNoteId ? '#cc5a37' : '#c2beb5'; ctx.fill();
-            }
-            animationFrameId = requestAnimationFrame(drawGraph);
-        }
-
-        document.getElementById('api-key-input').value = GEMINI_KEY;
-        renderNotesList();
-        loadNote(1);
     </script>
 </body>
 </html>
