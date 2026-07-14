@@ -21,7 +21,7 @@
             <div class="w-6 h-6 rounded bg-[#cc5a37] flex items-center justify-center shadow-sm">
                 <i class="fa-solid fa-sparkles text-white text-[10px]"></i>
             </div>
-            <span class="font-bold text-sm tracking-tight">Gemini Workspace v2</span>
+            <span class="font-bold text-sm tracking-tight">Gemini Workspace v3</span>
         </div>
         <div class="text-xs font-mono bg-[#f5f3ef] border border-[#e5e2db] px-2.5 py-1 rounded-md text-[#6b6a65]">
             Model: gemini-1.5-flash
@@ -34,7 +34,7 @@
             
             <div class="p-3 bg-[#fbfaf7] border-b border-[#e5e2db] flex flex-col sm:flex-row items-center gap-2">
                 <span class="text-xs font-semibold text-[#6b6a65] shrink-0"><i class="fa-solid fa-key mr-1"></i> Configurar API Key:</span>
-                <input id="key-input-field" type="password" placeholder="Pega tu clave AIzaSy... aquí si la inyectada falla" 
+                <input id="key-input-field" type="password" placeholder="Ingresa tu clave de Google AI Studio (AIzaSy...)" 
                        class="flex-1 bg-white border border-[#c2beb5] rounded-lg px-3 py-1 text-xs text-[#191919] focus:outline-none focus:border-[#cc5a37]">
                 <button onclick="updateManualKey()" class="bg-[#3b82f6] hover:bg-blue-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow-sm transition-all cursor-pointer">
                     <i class="fa-solid fa-floppy-disk mr-1"></i> Guardar Clave
@@ -43,13 +43,13 @@
 
             <div id="chat-window" class="flex-1 p-6 overflow-y-auto flex flex-col gap-4 bg-[#fbfaf7]">
                 <div class="text-center text-xs text-[#8c8a81] bg-white border border-[#e5e2db] rounded-lg py-2 px-4 mx-auto shadow-sm">
-                    Inicia una conversación con Gemini 1.5 Flash.
+                    Ingresa tu API Key arriba e inicia una conversación con Gemini 1.5 Flash.
                 </div>
             </div>
 
             <div class="p-4 bg-white border-t border-[#e5e2db]">
                 <div class="flex items-end gap-2 bg-[#faf9f5] border border-[#c2beb5] rounded-xl p-2.5 focus-within:border-[#cc5a37] shadow-sm">
-                    <textarea id="chat-input" rows="2" placeholder="Escribe un prompt técnico..." class="flex-1 bg-transparent text-sm text-[#191919] placeholder-[#8c8a81] resize-none focus:outline-none leading-relaxed" onkeydown="handleEnter(event)"></textarea>
+                    <textarea id="chat-input" rows="2" placeholder="Escribe un prompt técnico..." class="flex-1 bg-transparent text-sm text-[#191919] placeholder-[#8c8a81] resize-none focus:outline-none leading-relaxed font-sans" onkeydown="handleEnter(event)"></textarea>
                     <button onclick="sendPrompt()" class="w-12 h-12 flex items-center justify-center rounded-xl bg-[#cc5a37] text-white hover:bg-[#b04828] active:scale-95 shadow-md shrink-0 cursor-pointer">
                         <i class="fa-solid fa-paper-plane text-sm"></i>
                     </button>
@@ -60,126 +60,145 @@
         <aside class="w-96 bg-[#f5f3ef] border-l border-[#e5e2db] flex flex-col shrink-0 shadow-inner">
             <div class="p-4 border-b border-[#e5e2db] bg-white flex justify-between items-center">
                 <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#cc5a37]">
-                    <i class="fa-solid fa-bug text-sm"></i> Registro de Fallos Nativos
+                    <i class="fa-solid fa-bug text-sm"></i> Registro de Fallos
                 </div>
-                <button onclick="clearLogs()" class="text-[#8c8a81] hover:text-[#191919] text-xs transition-colors"><i class="fa-solid fa-trash-can"></i> Limpiar</button>
+                <div class="flex items-center gap-1.5">
+                    <button onclick="copyLastLog()" class="bg-[#f3f0eb] hover:bg-[#e5e2db] text-[#191919] text-[11px] font-semibold px-2.5 py-1 rounded border border-[#border-color] transition-colors flex items-center gap-1">
+                        <i class="fa-solid fa-copy"></i> Copiar Error
+                    </button>
+                    <button onclick="clearLogs()" class="text-[#8c8a81] hover:text-[#191919] text-xs transition-colors p-1"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
             </div>
             
             <div id="log-console" class="flex-1 p-4 overflow-y-auto bg-[#1e1e1e] text-zinc-300 font-mono flex flex-col gap-1 select-text">
-                <div class="text-emerald-400 text-xs">[SISTEMA] Consola de depuración lista para interceptar respuestas de red...</div>
+                <div class="text-emerald-400 text-xs">[SISTEMA] Consola lista para interceptar respuestas de red...</div>
             </div>
         </aside>
 
     </div>
 
     <script>
-        // Clave inyectada por defecto (armada en texto plano)
-        var API_KEY = "AIzaSy" + "AQ_Ab8RN6JnQ3p0om4p8tc8nm6jMxmScj20pGBJ2jmL35urmeDHwQ";
-        
-        // Si el usuario ya guardó una clave en su navegador anteriormente, la usamos prioritariamente
-        if(localStorage.getItem('gemini_terminal_key')) {
-            API_KEY = localStorage.getItem('gemini_terminal_key');
-        }
+        // Carga dinámica limpia desde localStorage
+        let API_KEY = localStorage.getItem('gemini_terminal_key') || "";
+        let lastErrorPayload = null;
 
         document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById('key-input-field').value = API_KEY;
-            writeLog("INFO", "Clave API cargada e inicializada en memoria corporativa.");
+            if(API_KEY) {
+                document.getElementById('key-input-field').value = API_KEY;
+                writeLog("INFO", "Clave API cargada desde el almacenamiento local del navegador.");
+            } else {
+                writeLog("INFO", "Ninguna clave API detectada. Por favor ingresa una llave válida de Google AI Studio.");
+            }
         });
 
         function updateManualKey() {
-            var val = document.getElementById('key-input-field').value.trim();
+            let val = document.getElementById('key-input-field').value.trim();
             if(val) {
                 API_KEY = val;
                 localStorage.setItem('gemini_terminal_key', API_KEY);
-                writeLog("SUCCESS", "Nueva API Key registrada con éxito en el almacenamiento de tu navegador.");
+                writeLog("SUCCESS", "Nueva API Key guardada exitosamente en este navegador.");
             } else {
-                alert("Por favor ingresa una clave válida.");
+                alert("Por favor ingresa una clave antes de guardar.");
             }
         }
 
         function writeLog(type, message, details = null) {
-            var consoleEl = document.getElementById('log-console');
-            var timestamp = new Date().toLocaleTimeString();
-            var colorClass = "text-zinc-400";
+            let consoleEl = document.getElementById('log-console');
+            let timestamp = new Date().toLocaleTimeString();
+            let colorClass = "text-zinc-400";
             
             if (type === "INFO") colorClass = "text-sky-400";
             if (type === "SUCCESS") colorClass = "text-emerald-400";
             if (type === "ERROR") colorClass = "text-red-400 font-bold";
 
-            var logHTML = `<div class="log-line ${colorClass}">[${timestamp}] [${type}] ${message}</div>`;
+            let logHTML = `<div class="log-line ${colorClass}">[${timestamp}] [${type}] ${message}</div>`;
             
             if (details) {
-                logHTML += `<pre class="bg-black/40 p-2 rounded text-[10px] my-1 text-zinc-500 overflow-x-auto whitespace-pre-wrap select-all border border-zinc-800">${JSON.stringify(details, null, 2)}</pre>`;
+                lastErrorPayload = details; // Almacenamos el error para el botón de copiar
+                logHTML += `<pre class="bg-black/40 p-2 rounded text-[10px] my-1 text-zinc-500 overflow-x-auto whitespace-pre-wrap border border-zinc-800">${JSON.stringify(details, null, 2)}</pre>`;
             }
             
             consoleEl.innerHTML += logHTML;
             consoleEl.scrollTop = consoleEl.scrollHeight;
         }
 
+        function copyLastLog() {
+            if (!lastErrorPayload) {
+                alert("No hay ningún error registrado en este momento para copiar.");
+                return;
+            }
+            let textToCopy = JSON.stringify(lastErrorPayload, null, 2);
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                writeLog("INFO", "¡Información del error copiada al portapapeles exitosamente!");
+            }).catch(err => {
+                alert("No se pudo copiar automáticamente. Por favor selecciónalo manualmente en la consola.");
+            });
+        }
+
         function clearLogs() {
+            lastErrorPayload = null;
             document.getElementById('log-console').innerHTML = `<div class="text-emerald-400 text-xs">[SISTEMA] Consola limpia y lista.</div>`;
         }
 
         async function sendPrompt() {
-            var inputField = document.getElementById('chat-input');
-            var chatWindow = document.getElementById('chat-window');
-            var text = inputField.value.trim();
+            let inputField = document.getElementById('chat-input');
+            let chatWindow = document.getElementById('chat-window');
+            let text = inputField.value.trim();
             if (!text) return;
 
             chatWindow.innerHTML += `<div class="flex justify-end mb-3"><div class="bg-[#f0ece3] text-[#191919] text-sm py-2 px-4 rounded-xl rounded-tr-none chat-bubble border border-[#e5e2db]/50">${text}</div></div>`;
             inputField.value = '';
             chatWindow.scrollTop = chatWindow.scrollHeight;
 
-            writeLog("INFO", "Despachando petición POST hacia Google AI Studio...", { targetLength: text.length });
+            writeLog("INFO", "Enviando payload POST hacia Google AI Studio...", { targetLength: text.length });
 
-            var typingId = 'typing-' + Date.now();
+            let typingId = 'typing-' + Date.now();
             chatWindow.innerHTML += `<div id="${typingId}" class="flex items-start gap-2 mb-3"><div class="w-5.5 h-5.5 rounded-full border border-[#e5e2db] bg-white flex items-center justify-center text-blue-500 shadow-sm"><i class="fa-solid fa-sparkles text-[9px]"></i></div><div class="bg-white border border-[#e5e2db] text-[#6b6a65] py-2 px-4 rounded-xl rounded-tl-none chat-bubble typing-indicator flex gap-1"><span></span><span></span><span></span></div></div>`;
             chatWindow.scrollTop = chatWindow.scrollHeight;
 
-            // URL del endpoint REST de la API de Google AI v1beta
-            var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + API_KEY;
+            // Endpoint de producción REST unificado para Gemini 1.5 Flash
+            let url = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=" + API_KEY;
             
-            var payload = {
+            let payload = {
                 contents: [{
                     parts: [{ text: text }]
                 }]
             };
 
             try {
-                var response = await fetch(url, {
+                let response = await fetch(url, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload)
                 });
 
-                writeLog("INFO", `Respuesta HTTP recibida de Google. Status: ${response.status} (${response.statusText})`);
-
-                var data = await response.json();
+                writeLog("INFO", `Respuesta del servidor. Status Code: ${response.status}`);
+                let data = await response.json();
 
                 if (!response.ok) {
-                    writeLog("ERROR", `Google AI Studio rechazó la solicitud con código ${response.status}`, data);
-                    throw new Error("API Rejected request");
+                    writeLog("ERROR", "Google AI Studio rechazó el token o los argumentos.", data);
+                    throw new Error("API Connection Rejected");
                 }
 
                 document.getElementById(typingId).remove();
 
                 if (data.candidates && data.candidates[0].content) {
-                    var reply = data.candidates[0].content.parts[0].text;
-                    writeLog("SUCCESS", "Contenido generado correctamente por la IA.");
+                    let reply = data.candidates[0].content.parts[0].text;
+                    writeLog("SUCCESS", "Respuesta procesada correctamente.");
 
                     chatWindow.innerHTML += `<div class="flex items-start gap-2 mb-3 w-full"><div class="w-5.5 h-5.5 rounded-full border border-[#e5e2db] bg-white flex items-center justify-center text-blue-500 shadow-sm"><i class="fa-solid fa-sparkles text-[9px]"></i></div><div class="bg-white border border-[#e5e2db] text-[#403f3a] text-sm py-3.5 px-4 rounded-xl rounded-tl-none chat-bubble flex-1 shadow-sm"><div class="flex justify-between items-center mb-1.5 pb-1.5 border-b border-[#f3f0eb]"><span class="text-[10px] font-bold text-blue-500">Gemini 1.5 Flash</span></div><div class="leading-relaxed whitespace-pre-wrap font-sans">${reply}</div></div></div>`;
                 } else {
-                    writeLog("ERROR", "Estructura de respuesta inesperada.", data);
+                    writeLog("ERROR", "Estructura de respuesta inesperada del servidor.", data);
                 }
             } catch (err) {
                 if (document.getElementById(typingId)) document.getElementById(typingId).remove();
-                writeLog("ERROR", `Fallo crítico de red o excepción atrapada: ${err.message}`);
-                chatWindow.innerHTML += `<div class="text-xs text-red-700 bg-red-50 p-3 rounded-lg border border-red-200 my-2 mx-auto max-w-[85%] text-center">Fallo en la comunicación. Revisa el código del error en tu Consola de Fallos a la derecha.</div>`;
+                writeLog("ERROR", `Excepción de red atrapada en ejecución: ${err.message}`);
+                chatWindow.innerHTML += `<div class="text-xs text-red-700 bg-red-50 p-3 rounded-lg border border-red-200 my-2 mx-auto max-w-[85%] text-center font-sans">Error de autenticación o comunicación de red.</div>`;
             }
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
-        function handleEnter(e) {
+        window.handleEnter = function(e) {
             if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendPrompt(); }
         }
     </script>
