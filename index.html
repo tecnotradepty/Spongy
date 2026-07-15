@@ -4,73 +4,217 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mobile Hub | TechExchange PTY</title>
-    <!-- Tailwind CSS para un diseño ágil y limpio -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/styles.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
-<body class="bg-gray-900 text-gray-100 min-h-screen font-sans">
+<body class="bg-gray-950 text-gray-100 min-h-screen font-sans flex flex-col">
 
-    <!-- HEADER / NAVEGACIÓN -->
-    <header class="border-b border-gray-800 bg-gray-900 sticky top-0 z-50">
+    <header class="border-b border-gray-800 bg-gray-900/80 backdrop-blur sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-2">
-                <span class="text-xl font-bold tracking-wider text-teal-400">MOBILE HUB</span>
-                <span class="text-xs text-gray-500 bg-gray-800 px-2 py-0.5 rounded">TechExchange PTY</span>
+                <i class="ph ph-device-mobile text-teal-400 text-2xl"></i>
+                <div class="flex flex-col">
+                    <span class="text-md font-bold tracking-wider text-teal-400 leading-none">MOBILE HUB</span>
+                    <span class="text-[10px] text-gray-500 font-mono">TechExchange PTY</span>
+                </div>
             </div>
-            <!-- Menú de Navegación del Cliente -->
-            <nav class="hidden md:flex space-x-6 text-sm font-medium">
-                <button id="nav-repairs" class="text-teal-400 hover:text-teal-300 transition">Seguimiento</button>
-                <button id="nav-shop" class="text-gray-400 hover:text-gray-200 transition">Tienda</button>
-                <button id="nav-quote" class="text-gray-400 hover:text-gray-200 transition">Cotizar</button>
-                <button id="nav-info" class="text-gray-400 hover:text-gray-200 transition">Contacto</button>
+            
+            <nav class="flex space-x-2 md:space-x-4 text-xs md:text-sm font-medium">
+                <button id="nav-repairs" class="px-3 py-2 rounded-lg text-teal-400 bg-teal-950/40 border border-teal-800/30 transition">Seguimiento</button>
+                <button id="nav-shop" class="px-3 py-2 rounded-lg text-gray-400 hover:text-gray-200 transition">Tienda</button>
+                <button id="nav-quote" class="px-3 py-2 rounded-lg text-gray-400 hover:text-gray-200 transition">Cotizar</button>
+                <button id="nav-info" class="px-3 py-2 rounded-lg text-gray-400 hover:text-gray-200 transition">Contacto</button>
             </nav>
         </div>
     </header>
 
-    <!-- CONTENEDOR PRINCIPAL (Aquí se inyectará la vista activa de forma dinámica) -->
-    <main id="main-content" class="max-w-4xl mx-auto px-4 py-12">
+    <main id="main-content" class="flex-grow max-w-6xl w-full mx-auto px-4 py-8">
         
-        <!-- SECCIÓN: SEGUIMIENTO DE REPARACIONES (Por defecto activa) -->
-        <section id="section-repairs" class="space-y-6">
-            <div class="text-center max-w-md mx-auto space-y-3">
-                <h1 class="text-3xl font-extrabold tracking-tight sm:text-4xl">Consulta tu Reparación</h1>
-                <p class="text-gray-400 text-sm">Ingresa el código único que se te entregó en la sucursal física para revisar el progreso en tiempo real.</p>
+        <section id="section-repairs" class="space-y-8 max-w-md mx-auto">
+            <div class="text-center space-y-2">
+                <h1 class="text-3xl font-extrabold tracking-tight text-white">Consulta tu Equipo</h1>
+                <p class="text-gray-400 text-sm">Digita el código de tu ticket de soporte técnico.</p>
             </div>
 
-            <!-- Formulario con Máquina de Estados Integrada en la UI -->
-            <div class="max-w-md mx-auto bg-gray-800 border border-gray-700 p-6 rounded-2xl shadow-xl">
+            <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl space-y-6">
                 <form id="repair-search-form" class="space-y-4">
                     <div>
-                        <label for="repair-code" class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Código de Ticket</label>
-                        <input 
-                            type="text" 
-                            id="repair-code" 
-                            placeholder="Ej: TX-1045" 
-                            class="w-full bg-gray-900 border border-gray-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-teal-400 transition placeholder-gray-600 font-mono uppercase"
-                            required
-                        >
+                        <label for="repair-code" class="block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">Código de Ticket</label>
+                        <div class="relative">
+                            <i class="ph ph-hash absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-lg"></i>
+                            <input 
+                                type="text" 
+                                id="repair-code" 
+                                placeholder="Ej: TX-1045" 
+                                class="w-full bg-gray-950 border border-gray-800 rounded-xl pl-11 pr-4 py-3.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition placeholder-gray-700 font-mono uppercase text-lg"
+                                required
+                            >
+                        </div>
                     </div>
                     
-                    <!-- Botón de Envío -->
                     <button 
                         type="submit" 
                         id="btn-search-repair"
-                        class="w-full bg-teal-500 hover:bg-teal-400 text-gray-900 font-bold py-3 px-4 rounded-xl transition duration-200 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                        class="w-full bg-teal-500 hover:bg-teal-400 text-gray-950 font-bold py-3.5 px-4 rounded-xl transition duration-200 flex items-center justify-center space-x-2 disabled:opacity-50"
                     >
+                        <i class="ph ph-magnifying-glass font-bold"></i>
                         <span>Buscar Estado</span>
                     </button>
                 </form>
 
-                <!-- CONTENEDOR DE RESULTADOS (Dinámico) -->
-                <div id="repair-result-container" class="mt-6 hidden">
-                    <!-- Aquí el JavaScript renderizará las tarjetas de Éxito o Error de forma aislada -->
+                <div id="repair-result-container" class="hidden border-t border-gray-800 pt-6">
+                    </div>
+            </div>
+        </section>
+
+
+        <section id="section-shop" class="space-y-8 hidden">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <h1 class="text-3xl font-extrabold tracking-tight text-white">Catálogo de Equipos</h1>
+                    <p class="text-gray-400 text-sm">Dispositivos garantizados y accesorios originales en stock.</p>
+                </div>
+                <div class="flex space-x-2">
+                    <button class="px-4 py-1.5 rounded-full text-xs font-semibold bg-teal-500 text-gray-950">Todos</button>
+                    <button class="px-4 py-1.5 rounded-full text-xs font-semibold bg-gray-800 text-gray-400 hover:text-white">Celulares</button>
+                    <button class="px-4 py-1.5 rounded-full text-xs font-semibold bg-gray-800 text-gray-400 hover:text-white">Accesorios</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden shadow-lg flex flex-col">
+                    <div class="h-48 bg-gray-950 flex items-center justify-center p-6 relative">
+                        <span class="absolute top-3 left-3 bg-teal-500/10 text-teal-400 text-[10px] font-bold px-2 py-1 rounded">Seminuevo A+</span>
+                        <i class="ph ph-device-mobile text-6xl text-gray-700"></i>
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="font-bold text-lg text-white">Samsung Galaxy S25 Ultra</h3>
+                            <p class="text-xs text-gray-500">256GB | Black Onyx | Pantalla Dinámica</p>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-mono font-bold text-teal-400">$899.00</span>
+                            <button class="bg-gray-800 hover:bg-gray-700 text-white p-2.5 rounded-xl transition">
+                                <i class="ph ph-shopping-cart-simple text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden shadow-lg flex flex-col">
+                    <div class="h-48 bg-gray-950 flex items-center justify-center p-6 relative">
+                        <span class="absolute top-3 left-3 bg-purple-500/10 text-purple-400 text-[10px] font-bold px-2 py-1 rounded">Original</span>
+                        <i class="ph ph-earphones text-6xl text-gray-700"></i>
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="font-bold text-lg text-white">Cargador Rápido 45W</h3>
+                            <p class="text-xs text-gray-500">Tipo C | Carga Súper Rápida 2.0</p>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-mono font-bold text-teal-400">$25.00</span>
+                            <button class="bg-gray-800 hover:bg-gray-700 text-white p-2.5 rounded-xl transition">
+                                <i class="ph ph-shopping-cart-simple text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="section-quote" class="space-y-8 max-w-2xl mx-auto hidden">
+            <div class="text-center space-y-2">
+                <h1 class="text-3xl font-extrabold tracking-tight text-white">Cotiza tu Reparación</h1>
+                <p class="text-gray-400 text-sm">Obtén un estimado instantáneo del costo de reparación para tu dispositivo.</p>
+            </div>
+
+            <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl">
+                <form id="quote-form" class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Marca</label>
+                            <select class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-teal-500 transition">
+                                <option>Apple</option>
+                                <option>Samsung</option>
+                                <option>Honor</option>
+                                <option>Google</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Modelo</label>
+                            <input type="text" placeholder="Ej: iPhone 15 Pro Max" class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-teal-500 transition placeholder-gray-700">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">¿Qué tipo de daño presenta?</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label class="border border-gray-800 hover:border-teal-500/50 bg-gray-950/50 p-4 rounded-xl cursor-pointer flex items-center space-x-3 transition">
+                                <input type="radio" name="damage-type" class="text-teal-500 focus:ring-0 bg-gray-900 border-gray-700">
+                                <span class="text-sm font-medium text-gray-300">Pantalla rota / Rayada</span>
+                            </label>
+                            <label class="border border-gray-800 hover:border-teal-500/50 bg-gray-950/50 p-4 rounded-xl cursor-pointer flex items-center space-x-3 transition">
+                                <input type="radio" name="damage-type" class="text-teal-500 focus:ring-0 bg-gray-900 border-gray-700">
+                                <span class="text-sm font-medium text-gray-300">Cambio de Batería</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="w-full bg-teal-500 hover:bg-teal-400 text-gray-950 font-bold py-3.5 rounded-xl transition">
+                        Calcular Estimado
+                    </button>
+                </form>
+            </div>
+        </section>
+
+
+        <section id="section-info" class="space-y-8 max-w-4xl mx-auto hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <h2 class="text-3xl font-extrabold text-white">Encuéntranos en Panamá</h2>
+                    <p class="text-gray-400 text-sm">Visita nuestra sucursal física. Ofrecemos diagnóstico de hardware al instante y asesoría personalizada para la compra y venta de tus equipos.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3 text-gray-300">
+                            <i class="ph ph-map-pin text-teal-400 text-xl"></i>
+                            <span class="text-sm">Panamá (Cerca de estaciones de Metro y centros comerciales clave)</span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-gray-300">
+                            <i class="ph ph-clock text-teal-400 text-xl"></i>
+                            <span class="text-sm">Lunes a Sábado: 9:00 AM - 7:00 PM</span>
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-4 pt-4">
+                        <a href="https://instagram.com" target="_blank" class="bg-gray-900 hover:bg-gray-800 border border-gray-800 px-4 py-2 rounded-xl text-sm font-medium flex items-center space-x-2 transition">
+                            <i class="ph ph-instagram-logo text-pink-500 text-lg"></i>
+                            <span>Instagram</span>
+                        </a>
+                        <a href="https://wa.me" target="_blank" class="bg-gray-900 hover:bg-gray-800 border border-gray-800 px-4 py-2 rounded-xl text-sm font-medium flex items-center space-x-2 transition">
+                            <i class="ph ph-whatsapp-logo text-green-500 text-lg"></i>
+                            <span>WhatsApp</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 border border-gray-800 rounded-2xl h-64 md:h-full min-h-[300px] flex flex-col items-center justify-center p-6 text-center space-y-4">
+                    <i class="ph ph-map-trifold text-4xl text-gray-600"></i>
+                    <div>
+                        <h4 class="font-bold text-white">Mapa de Ubicación</h4>
+                        <p class="text-xs text-gray-500 max-w-xs mt-1">Ubicación estratégica en la Ciudad de Panamá.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- ARCHIVO MAESTRO DE JAVASCRIPT: Declarado como tipo Módulo para usar Import/Export -->
+    <footer class="border-t border-gray-800 bg-gray-950 py-6 text-center text-xs text-gray-600">
+        <p>&copy; 2026 TechExchange PTY. Todos los derechos reservados. Desarrollado con ⚡ y Clean Code.</p>
+    </footer>
+
     <script type="module" src="js/app.js"></script>
 </body>
 </html>
