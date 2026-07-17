@@ -3,218 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile Hub | TechExchange PTY</title>
+    <title>Menú Interactivo - PatioTime Bistro</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-</head>
-<body class="bg-gray-950 text-gray-100 min-h-screen font-sans flex flex-col">
+    
+    <!-- Fuentes Elegantes (Serif para títulos, Sans para lectura) -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <header class="border-b border-gray-800 bg-gray-900/80 backdrop-blur sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-                <i class="ph ph-device-mobile text-teal-400 text-2xl"></i>
-                <div class="flex flex-col">
-                    <span class="text-md font-bold tracking-wider text-teal-400 leading-none">MOBILE HUB</span>
-                    <span class="text-[10px] text-gray-500 font-mono">TechExchange PTY</span>
-                </div>
-            </div>
-            
-            <nav class="flex space-x-1 md:space-x-4 text-xs md:text-sm font-medium">
-                <button id="nav-repairs" class="px-3 py-2 rounded-lg text-teal-400 bg-teal-950/40 border border-teal-800/30 transition">Seguimiento</button>
-                <button id="nav-shop" class="px-3 py-2 rounded-lg text-gray-400 hover:text-gray-200 transition">Tienda</button>
-                <button id="nav-quote" class="px-3 py-2 rounded-lg text-gray-400 hover:text-gray-200 transition">Cotizar</button>
-                <button id="nav-info" class="px-3 py-2 rounded-lg text-gray-400 hover:text-gray-200 transition">Contacto</button>
-            </nav>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Lato', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-black': '#0a0a0a',
+                        'brand-gold': '#c5a059',
+                        'brand-gray': '#2a2a2a'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #0a0a0a; color: #f5f5f5; }
+        .hero-bg {
+            background-image: linear-gradient(rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 1)), url('https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        /* Scrollbar oculta para mejor look en móvil */
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="font-sans antialiased pb-24">
+
+    <!-- BARRA DE ESTADO (Mesa y Fidelidad) -->
+    <div class="fixed top-0 w-full z-50 bg-brand-black/90 backdrop-blur-sm border-b border-brand-gray px-4 py-3 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+            <i class="fa-solid fa-location-dot text-brand-gold"></i>
+            <span class="text-sm font-semibold tracking-wider">MESA #05</span>
         </div>
+        <div class="flex items-center gap-3">
+            <button onclick="alert('Sistema de Puntos: Tienes 150 pts acumulados. ¡Te falta poco para una pizza gratis!')" class="text-xs bg-brand-gold/20 text-brand-gold px-3 py-1 rounded-full border border-brand-gold/50">
+                <i class="fa-solid fa-star mr-1"></i> 150 Pts
+            </button>
+            <button onclick="alert('Llamando al mesero a la mesa 5...')" class="text-brand-gold hover:text-white transition">
+                <i class="fa-solid fa-bell text-xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <header class="hero-bg h-[60vh] flex flex-col items-center justify-center text-center px-4 pt-12">
+        <p class="text-brand-gold tracking-[0.3em] text-sm mb-4 uppercase">Welcome to</p>
+        <h1 class="font-serif text-5xl md:text-7xl font-bold mb-4 tracking-wide">PATIOTIME<br>BISTRO</h1>
+        <p class="text-gray-400 font-light tracking-widest text-sm uppercase">Pizza · Burger · Coffee · Wine</p>
     </header>
 
-    <main id="main-content" class="flex-grow max-w-6xl w-full mx-auto px-4 py-8">
-        
-        <section id="section-repairs" class="space-y-8 max-w-md mx-auto">
-            <div class="text-center space-y-2">
-                <h1 class="text-3xl font-extrabold tracking-tight text-white">Consulta tu Equipo</h1>
-                <p class="text-gray-400 text-sm">Digita el código de tu ticket de soporte técnico.</p>
-            </div>
+    <!-- SOBRE NOSOTROS (Mini intro) -->
+    <section class="max-w-2xl mx-auto text-center px-6 py-12 border-b border-brand-gray">
+        <h2 class="font-serif text-2xl text-brand-gold mb-4 italic">Nuestra Historia</h2>
+        <p class="text-gray-400 font-light text-sm leading-relaxed">
+            Un espacio diseñado para conectar. Disfruta de la auténtica gastronomía con ingredientes locales frescos, preparados al momento.
+        </p>
+        <button onclick="alert('Abrir modal con historia, horarios y ubicación')" class="mt-4 text-xs text-brand-gold uppercase tracking-widest border-b border-brand-gold pb-1">Conoce más</button>
+    </section>
 
-            <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl space-y-6">
-                <form id="repair-search-form" class="space-y-4">
-                    <div>
-                        <label for="repair-code" class="block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">Código de Ticket</label>
-                        <div class="relative">
-                            <i class="ph ph-hash absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-lg"></i>
-                            <input 
-                                type="text" 
-                                id="repair-code" 
-                                placeholder="Ej: TX-1045" 
-                                class="w-full bg-gray-950 border border-gray-800 rounded-xl pl-11 pr-4 py-3.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition placeholder-gray-700 font-mono uppercase text-lg"
-                                required
-                            >
-                        </div>
+    <!-- MENÚ SECTION -->
+    <main class="max-w-3xl mx-auto px-4 py-16">
+        <div class="text-center mb-16">
+            <p class="text-gray-500 uppercase tracking-widest text-xs mb-2">Ristorante</p>
+            <h2 class="font-serif text-4xl text-white tracking-widest flex items-center justify-center gap-4">
+                <span class="w-8 h-[1px] bg-brand-gold"></span>
+                PIZZA MENU
+                <span class="w-8 h-[1px] bg-brand-gold"></span>
+            </h2>
+        </div>
+
+        <!-- LISTA DE PRODUCTOS (Basado en la imagen) -->
+        <div class="space-y-16">
+            
+            <!-- Producto 1 -->
+            <div class="flex flex-col md:flex-row items-center gap-8 group">
+                <div class="w-48 h-48 rounded-full overflow-hidden border-2 border-brand-gray group-hover:border-brand-gold transition duration-500 flex-shrink-0 shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=800&auto=format&fit=crop" alt="Margherita" class="w-full h-full object-cover">
+                </div>
+                <div class="text-center md:text-left flex-1">
+                    <h3 class="font-serif text-2xl mb-2 text-white">Margherita</h3>
+                    <p class="text-gray-400 text-sm font-light italic mb-4">Tomato sauce, Mozzarella cheese, oregano and fresh basil.</p>
+                    <div class="flex items-center justify-center md:justify-start gap-4 mb-4">
+                        <div class="flex items-center gap-2"><span class="text-xs uppercase border border-gray-600 px-2 py-1 text-gray-400">Regular</span> <span class="font-serif text-xl">$19</span></div>
+                        <div class="flex items-center gap-2"><span class="text-xs uppercase border border-gray-600 px-2 py-1 text-gray-400">Medium</span> <span class="font-serif text-xl text-brand-gold">$25</span></div>
                     </div>
-                    
-                    <button 
-                        type="submit" 
-                        id="btn-search-repair"
-                        class="w-full bg-teal-500 hover:bg-teal-400 text-gray-950 font-bold py-3.5 px-4 rounded-xl transition duration-200 flex items-center justify-center space-x-2 disabled:opacity-50"
-                    >
-                        <i class="ph ph-magnifying-glass font-bold"></i>
-                        <span>Buscar Estado</span>
+                    <button onclick="addToCart('Margherita')" class="bg-transparent border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-brand-black px-6 py-2 rounded-full text-sm tracking-wider uppercase transition">
+                        Añadir
                     </button>
-                </form>
-
-                <div id="repair-result-container" class="hidden border-t border-gray-800 pt-6">
-                    </div>
-            </div>
-        </section>
-
-
-        <section id="section-shop" class="space-y-8 hidden">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
-                <div>
-                    <h1 class="text-3xl font-extrabold tracking-tight text-white">Catálogo de Equipos</h1>
-                    <p class="text-gray-400 text-sm">Dispositivos garantizados y accesorios originales en stock.</p>
-                </div>
-                <div class="flex space-x-2">
-                    <button class="px-4 py-1.5 rounded-full text-xs font-semibold bg-teal-500 text-gray-950">Todos</button>
-                    <button class="px-4 py-1.5 rounded-full text-xs font-semibold bg-gray-800 text-gray-400 hover:text-white">Celulares</button>
-                    <button class="px-4 py-1.5 rounded-full text-xs font-semibold bg-gray-800 text-gray-400 hover:text-white">Accesorios</button>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden shadow-lg flex flex-col">
-                    <div class="h-48 bg-gray-950 flex items-center justify-center p-6 relative">
-                        <span class="absolute top-3 left-3 bg-teal-500/10 text-teal-400 text-[10px] font-bold px-2 py-1 rounded">Seminuevo A+</span>
-                        <i class="ph ph-device-mobile text-6xl text-gray-700"></i>
-                    </div>
-                    <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
-                        <div>
-                            <h3 class="font-bold text-lg text-white">Samsung Galaxy S25 Ultra</h3>
-                            <p class="text-xs text-gray-500">256GB | Titanium Black | Pantalla Dynamic</p>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xl font-mono font-bold text-teal-400">$899.00</span>
-                            <button class="bg-gray-800 hover:bg-gray-700 text-white p-2.5 rounded-xl transition">
-                                <i class="ph ph-shopping-cart-simple text-lg"></i>
-                            </button>
-                        </div>
-                    </div>
+            <!-- Producto 2 (Alternado) -->
+            <div class="flex flex-col md:flex-row-reverse items-center gap-8 group">
+                <div class="w-48 h-48 rounded-full overflow-hidden border-2 border-brand-gray group-hover:border-brand-gold transition duration-500 flex-shrink-0 shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop" alt="Classic Burrata" class="w-full h-full object-cover">
                 </div>
-
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden shadow-lg flex flex-col">
-                    <div class="h-48 bg-gray-950 flex items-center justify-center p-6 relative">
-                        <span class="absolute top-3 left-3 bg-purple-500/10 text-purple-400 text-[10px] font-bold px-2 py-1 rounded">Original</span>
-                        <i class="ph ph-earphones text-6xl text-gray-700"></i>
+                <div class="text-center md:text-right flex-1">
+                    <h3 class="font-serif text-2xl mb-2 text-white">Classic Burrata</h3>
+                    <p class="text-gray-400 text-sm font-light italic mb-4">Tomato sauce, Burrata, Parmesan & mozzarella cheese, Fresh Arugula, Ricotta cheese.</p>
+                    <div class="flex items-center justify-center md:justify-end gap-4 mb-4">
+                        <div class="flex items-center gap-2"><span class="text-xs uppercase border border-gray-600 px-2 py-1 text-gray-400">Regular</span> <span class="font-serif text-xl">$29</span></div>
+                        <div class="flex items-center gap-2"><span class="text-xs uppercase border border-gray-600 px-2 py-1 text-gray-400">Medium</span> <span class="font-serif text-xl text-brand-gold">$35</span></div>
                     </div>
-                    <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
-                        <div>
-                            <h3 class="font-bold text-lg text-white">Cargador Rápido 45W</h3>
-                            <p class="text-xs text-gray-500">Tipo C | Carga Súper Rápida 2.0</p>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-xl font-mono font-bold text-teal-400">$25.00</span>
-                            <button class="bg-gray-800 hover:bg-gray-700 text-white p-2.5 rounded-xl transition">
-                                <i class="ph ph-shopping-cart-simple text-lg"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <section id="section-quote" class="space-y-8 max-w-2xl mx-auto hidden">
-            <div class="text-center space-y-2">
-                <h1 class="text-3xl font-extrabold tracking-tight text-white">Cotiza tu Reparación</h1>
-                <p class="text-gray-400 text-sm">Obtén un estimado instantáneo del costo de reparación para tu dispositivo.</p>
-            </div>
-
-            <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl">
-                <form id="quote-form" class="space-y-6">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Marca</label>
-                            <select class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-teal-500 transition">
-                                <option>Apple</option>
-                                <option>Samsung</option>
-                                <option>Honor</option>
-                                <option>Google</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Modelo</label>
-                            <input type="text" placeholder="Ej: iPhone 15 Pro Max" class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-teal-500 transition placeholder-gray-700">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">¿Qué tipo de daño presenta?</label>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <label class="border border-gray-800 hover:border-teal-500/50 bg-gray-950/50 p-4 rounded-xl cursor-pointer flex items-center space-x-3 transition">
-                                <input type="radio" name="damage-type" class="text-teal-500 focus:ring-0 bg-gray-900 border-gray-700">
-                                <span class="text-sm font-medium text-gray-300">Pantalla rota / Rayada</span>
-                            </label>
-                            <label class="border border-gray-800 hover:border-teal-500/50 bg-gray-950/50 p-4 rounded-xl cursor-pointer flex items-center space-x-3 transition">
-                                <input type="radio" name="damage-type" class="text-teal-500 focus:ring-0 bg-gray-900 border-gray-700">
-                                <span class="text-sm font-medium text-gray-300">Cambio de Batería</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <button class="w-full bg-teal-500 hover:bg-teal-400 text-gray-950 font-bold py-3.5 rounded-xl transition">
-                        Calcular Estimado
+                    <button onclick="addToCart('Classic Burrata')" class="bg-transparent border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-brand-black px-6 py-2 rounded-full text-sm tracking-wider uppercase transition">
+                        Añadir
                     </button>
-                </form>
-            </div>
-        </section>
-
-
-        <section id="section-info" class="space-y-8 max-w-4xl mx-auto hidden">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="space-y-6">
-                    <h2 class="text-3xl font-extrabold text-white">Encuéntranos en Panamá</h2>
-                    <p class="text-gray-400 text-sm">Visita nuestra sucursal física. Ofrecemos diagnóstico de hardware al instante y asesoría personalizada para la compra, venta e intercambio de tus equipos.</p>
-                    
-                    <div class="space-y-4">
-                        <div class="flex items-center space-x-3 text-gray-300">
-                            <i class="ph ph-map-pin text-teal-400 text-xl"></i>
-                            <span class="text-sm">Ubicación física estratégica en la Ciudad de Panamá (Líneas de Metro / Malls)</span>
-                        </div>
-                        <div class="flex items-center space-x-3 text-gray-300">
-                            <i class="ph ph-clock text-teal-400 text-xl"></i>
-                            <span class="text-sm">Lunes a Sábado: 9:00 AM - 7:00 PM</span>
-                        </div>
-                    </div>
-
-                    <div class="flex space-x-4 pt-4">
-                        <a href="https://instagram.com" target="_blank" class="bg-gray-900 hover:bg-gray-800 border border-gray-800 px-4 py-2 rounded-xl text-sm font-medium flex items-center space-x-2 transition">
-                            <i class="ph ph-instagram-logo text-pink-500 text-lg"></i>
-                            <span>Instagram</span>
-                        </a>
-                        <a href="https://wa.me" target="_blank" class="bg-gray-900 hover:bg-gray-800 border border-gray-800 px-4 py-2 rounded-xl text-sm font-medium flex items-center space-x-2 transition">
-                            <i class="ph ph-whatsapp-logo text-green-500 text-lg"></i>
-                            <span>WhatsApp</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl h-64 md:h-full min-h-[300px] flex flex-col items-center justify-center p-6 text-center space-y-4">
-                    <i class="ph ph-map-trifold text-4xl text-gray-600"></i>
-                    <div>
-                        <h4 class="font-bold text-white">Mapa de Ubicación</h4>
-                        <p class="text-xs text-gray-500 max-w-xs mt-1">Conectando Tecnotrade y Mobile Hub con todo Panamá.</p>
-                    </div>
                 </div>
             </div>
-        </section>
 
+        </div>
     </main>
 
-    <footer class="border-t border-gray-800 bg-gray-950 py-6 text-center text-xs text-gray-600">
-        <p>&copy; 2026 TechExchange PTY. Todos los derechos reservados. Diseñado bajo estándares de arquitectura limpia.</p>
+    <!-- FEEDBACK SECTION -->
+    <section class="bg-[#111] py-12 text-center px-4">
+        <h3 class="font-serif text-xl mb-3">¿Qué tal tu experiencia?</h3>
+        <p class="text-gray-400 text-sm mb-6 max-w-md mx-auto">Tu opinión nos ayuda a mejorar. Califícanos y obtén 50 puntos de fidelidad.</p>
+        <div class="flex justify-center gap-4 text-2xl text-gray-600 mb-6">
+            <i class="fa-solid fa-star hover:text-brand-gold cursor-pointer transition"></i>
+            <i class="fa-solid fa-star hover:text-brand-gold cursor-pointer transition"></i>
+            <i class="fa-solid fa-star hover:text-brand-gold cursor-pointer transition"></i>
+            <i class="fa-solid fa-star hover:text-brand-gold cursor-pointer transition"></i>
+            <i class="fa-solid fa-star hover:text-brand-gold cursor-pointer transition"></i>
+        </div>
+        <button onclick="alert('¡Gracias por tu feedback! Se han sumado 50 pts a tu cuenta.')" class="bg-brand-gray text-white px-6 py-2 rounded-full text-sm">Enviar Reseña</button>
+    </section>
+
+    <!-- FOOTER PITCH -->
+    <footer class="text-center py-8 text-xs text-gray-600 bg-black">
+        <p>Menú interactivo impulsado por <strong class="text-gray-400">TechExchange PTY</strong></p>
     </footer>
 
-    <script type="module" src="js/app.js"></script>
+    <!-- BOTONES FLOTANTES DE ACCIÓN (Carrito y Pagar) -->
+    <div class="fixed bottom-6 left-0 w-full px-4 flex justify-between items-end pointer-events-none z-50">
+        <!-- Llamar Mesero -->
+        <button onclick="alert('Opciones: 1. Pedir cuenta en efectivo. 2. Limpiar mesa. 3. Ayuda con el menú.')" class="pointer-events-auto bg-brand-gray/90 backdrop-blur text-white w-14 h-14 rounded-full shadow-lg border border-gray-700 flex items-center justify-center hover:bg-brand-gray transition">
+            <i class="fa-solid fa-concierge-bell text-xl text-brand-gold"></i>
+        </button>
+        
+        <!-- Carrito / Pagar -->
+        <button onclick="alert('Abriendo pasarela de pago... Aquí verán su cuenta total y podrán pagar con tarjeta o Yappy.')" class="pointer-events-auto bg-brand-gold text-brand-black px-6 py-4 rounded-full shadow-lg font-bold flex items-center gap-3 hover:bg-yellow-500 transition transform hover:scale-105">
+            <div class="relative">
+                <i class="fa-solid fa-basket-shopping text-xl"></i>
+                <span id="cart-count" class="absolute -top-2 -right-3 bg-red-600 text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full">0</span>
+            </div>
+            <span>Ver Pedido / Pagar</span>
+        </button>
+    </div>
+
+    <!-- LOGICA JS DE PROTOTIPO -->
+    <script>
+        let cartItems = 0;
+        function addToCart(item) {
+            cartItems++;
+            document.getElementById('cart-count').innerText = cartItems;
+            
+            // Efecto visual rápido
+            const btn = event.currentTarget;
+            const originalText = btn.innerText;
+            btn.innerText = '¡Añadido!';
+            btn.classList.add('bg-brand-gold', 'text-brand-black');
+            
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.classList.remove('bg-brand-gold', 'text-brand-black');
+            }, 1000);
+        }
+    </script>
 </body>
 </html>
