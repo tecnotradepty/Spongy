@@ -3,82 +3,216 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Checkout Conectado - PagueloFacil Sandbox</title>
+  <title>Pasarela PagueloFacil - Demo GitHub Pages</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
-    body { background: #f4f6f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-    .card { background: #ffffff; max-width: 440px; width: 100%; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); overflow: hidden; }
-    .header { background: #0052cc; color: white; padding: 24px; text-align: center; }
-    .header h2 { font-size: 1.25rem; margin-bottom: 4px; }
-    .header p { font-size: 0.85rem; opacity: 0.9; }
-    .amount { font-size: 1.75rem; font-weight: bold; margin-top: 10px; }
-    .form { padding: 24px; }
-    .form-group { margin-bottom: 16px; }
-    label { display: block; font-size: 0.85rem; font-weight: 600; color: #334155; margin-bottom: 6px; }
-    input { width: 100%; padding: 11px 13px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; outline: none; }
-    input:focus { border-color: #0052cc; box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.15); }
-    .row { display: flex; gap: 12px; }
-    .row .form-group { flex: 1; }
-    .btn { width: 100%; background: #0052cc; color: white; border: none; padding: 13px; font-size: 1rem; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-    .btn:hover { background: #003e99; }
-    .btn:disabled { background: #94a3b8; cursor: not-allowed; }
-    .response-box { margin-top: 16px; padding: 14px; border-radius: 8px; font-size: 0.875rem; display: none; line-height: 1.5; }
-    .response-box.success { background: #dcfce7; color: #14532d; border: 1px solid #bbf7d0; }
-    .response-box.error { background: #fee2e2; color: #7f1d1d; border: 1px solid #fecaca; }
-    .status-step { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b; margin-top: 10px; text-align: center; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .checkout-card {
+      background: #1e293b;
+      max-width: 440px;
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+      border: 1px solid #334155;
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .badge-sandbox {
+      display: inline-block;
+      background: #f59e0b;
+      color: #78350f;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .header h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .amount {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-top: 8px;
+    }
+
+    .form-body {
+      padding: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #94a3b8;
+      margin-bottom: 6px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      color: #ffffff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus {
+      border-color: #3b82f6;
+    }
+
+    .row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .row .form-group {
+      flex: 1;
+    }
+
+    .btn-pay {
+      width: 100%;
+      background: #2563eb;
+      color: #ffffff;
+      border: none;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 8px;
+    }
+
+    .btn-pay:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-pay:disabled {
+      background: #475569;
+      cursor: not-allowed;
+    }
+
+    .status-msg {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      text-align: center;
+      margin-top: 10px;
+      min-height: 18px;
+    }
+
+    .response-box {
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      display: none;
+      line-height: 1.5;
+    }
+
+    .response-box.success {
+      background: #064e3b;
+      color: #a7f3d0;
+      border: 1px solid #047857;
+    }
+
+    .response-box.error {
+      background: #7f1d1d;
+      color: #fecaca;
+      border: 1px solid #b91c1c;
+    }
   </style>
 </head>
 <body>
 
-  <div class="card">
+  <div class="checkout-card">
     <div class="header">
-      <h2>PagueloFacil Sandbox</h2>
-      <p>Procesamiento Real de Prueba</p>
-      <div class="amount">$5.00 USD</div>
+      <span class="badge-sandbox">GitHub Pages Sandbox</span>
+      <h2>Prueba de Pago Demo</h2>
+      <div class="amount">$2.50 USD</div>
     </div>
 
-    <form id="paymentForm" class="form">
+    <form id="paymentForm" class="form-body">
       <div class="form-group">
-        <label>Nombre en la Tarjeta</label>
+        <label for="cardHolder">Nombre del Titular</label>
         <input type="text" id="cardHolder" value="Juan Perez" required />
       </div>
 
       <div class="form-group">
-        <label>Correo del Cliente</label>
-        <input type="email" id="email" value="cliente.prueba@ejemplo.com" required />
+        <label for="email">Correo Electrónico</label>
+        <input type="email" id="email" value="cliente@prueba.com" required />
       </div>
 
       <div class="form-group">
-        <label>Número de Tarjeta (Sandbox)</label>
+        <label for="cardNumber">Tarjeta (Visa Sandbox)</label>
         <input type="text" id="cardNumber" value="4000 0000 0000 0002" maxlength="19" required />
       </div>
 
       <div class="row">
         <div class="form-group">
-          <label>Expiración (MM/AA)</label>
+          <label for="expDate">Exp (MM/AA)</label>
           <input type="text" id="expDate" value="12/28" placeholder="MM/AA" maxlength="5" required />
         </div>
         <div class="form-group">
-          <label>CVV</label>
+          <label for="cvv">CVV</label>
           <input type="password" id="cvv" value="123" maxlength="4" required />
         </div>
       </div>
 
-      <button type="submit" id="payBtn" class="btn">Pagar $5.00 USD</button>
-      <div id="statusStep" class="status-step"></div>
+      <button type="submit" id="payBtn" class="btn-pay">Pagar $2.50 USD</button>
+      <div id="statusMsg" class="status-msg"></div>
       <div id="responseBox" class="response-box"></div>
     </form>
   </div>
 
   <script>
-    // Tu API Key / Credencial de PagueloFacil
+    // Credenciales e endpoints con Proxy para GitHub Pages
     const API_KEY = "brEyQRSzMm2UwQa5v0NsobRa3U8nH5xT|DIRvYTAsfkYf6DEfxKR14BSgr";
+    const PROXY = "https://corsproxy.io/?";
     const BASE_URL = "https://sandbox.paguelofacil.com/rest/v1.1";
 
     const form = document.getElementById('paymentForm');
     const payBtn = document.getElementById('payBtn');
-    const statusStep = document.getElementById('statusStep');
+    const statusMsg = document.getElementById('statusMsg');
     const responseBox = document.getElementById('responseBox');
+
+    // Formatear número de tarjeta en bloques
+    document.getElementById('cardNumber').addEventListener('input', (e) => {
+      let value = e.target.value.replace(/\D/g, '');
+      e.target.value = value.replace(/(.{4})/g, '$1 ').trim();
+    });
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -86,16 +220,16 @@
       payBtn.disabled = true;
       payBtn.textContent = "Procesando...";
       responseBox.style.display = "none";
-      
-      const expValue = document.getElementById('expDate').value.split('/');
-      const month = expValue[0]?.trim();
-      const year = expValue[1]?.trim();
+      statusMsg.textContent = "Conectando con PagueloFacil...";
+
+      const [month, year] = document.getElementById('expDate').value.split('/').map(s => s.trim());
 
       try {
-        // PASO 1: Autenticación para obtener el Token de Sesión
-        statusStep.textContent = "Paso 1/2: Autenticando con PagueloFacil...";
+        // PASO 1: Autenticación vía Proxy
+        statusMsg.textContent = "1/2: Autenticando credenciales...";
+        const authUrl = PROXY + encodeURIComponent(`${BASE_URL}/auth/relogin`);
         
-        const authResponse = await fetch(`${BASE_URL}/auth/relogin`, {
+        const authRes = await fetch(authUrl, {
           method: 'POST',
           headers: {
             'Authorization': API_KEY,
@@ -103,20 +237,21 @@
           }
         });
 
-        const authData = await authResponse.json();
+        const authData = await authRes.json();
 
         if (!authData.success || !authData.data?.token) {
-          throw new Error(authData.message || "Error al autenticar credenciales con PagueloFacil.");
+          throw new Error(authData.message || "No se pudo autenticar con PagueloFacil Sandbox.");
         }
 
         const sessionToken = authData.data.token;
 
-        // PASO 2: Procesar la transacción con el Token obtenido
-        statusStep.textContent = "Paso 2/2: Enviando cobro a Sandbox...";
+        // PASO 2: Procesar Cobro vía Proxy
+        statusMsg.textContent = "2/2: Enviando cobro a Sandbox...";
+        const chargeUrl = PROXY + encodeURIComponent(`${BASE_URL}/charge`);
 
         const chargePayload = {
-          amount: 5.00,
-          description: "Prueba de Integración HTML",
+          amount: 2.50,
+          description: "Cobro de Prueba desde GitHub Pages",
           cardHolder: document.getElementById('cardHolder').value,
           cardNumber: document.getElementById('cardNumber').value.replace(/\s/g, ''),
           expMonth: month,
@@ -126,7 +261,7 @@
           phone: "60000000"
         };
 
-        const chargeResponse = await fetch(`${BASE_URL}/charge`, {
+        const chargeRes = await fetch(chargeUrl, {
           method: 'POST',
           headers: {
             'Authorization': sessionToken,
@@ -135,41 +270,40 @@
           body: JSON.stringify(chargePayload)
         });
 
-        const chargeData = await chargeResponse.json();
+        const chargeData = await chargeRes.json();
 
-        // Finalización
+        // Limpieza de UI
         payBtn.disabled = false;
-        payBtn.textContent = "Pagar $5.00 USD";
-        statusStep.textContent = "";
+        payBtn.textContent = "Pagar $2.50 USD";
+        statusMsg.textContent = "";
         responseBox.style.display = "block";
 
         if (chargeData.success || chargeData.headerStatus?.code === 200) {
+          const opId = chargeData.data?.codOper || chargeData.data?.idTransation || 'OK';
           responseBox.className = "response-box success";
           responseBox.innerHTML = `
-            <strong>¡Transacción Aprobada y Reflejada!</strong><br>
-            • ID Operación: <strong>${chargeData.data?.codOper || chargeData.data?.idTransation || 'OK'}</strong><br>
-            • Estado: Aprobado en Sandbox<br>
-            • Monto: $5.00 USD<br><br>
-            <em>Abre tu Dashboard en Sandbox PagueloFacil para ver esta venta.</em>
+            <strong>¡Cobro Exitoso!</strong><br>
+            • ID Operación: <strong>${opId}</strong><br>
+            • Monto: $2.50 USD<br><br>
+            <em>Abre tu Dashboard en Sandbox PagueloFacil para confirmar la transacción.</em>
           `;
         } else {
           responseBox.className = "response-box error";
           responseBox.innerHTML = `
-            <strong>Respuesta de PagueloFacil:</strong><br>
+            <strong>Rechazado por PagueloFacil:</strong><br>
             ${chargeData.message || JSON.stringify(chargeData)}
           `;
         }
 
       } catch (err) {
         payBtn.disabled = false;
-        payBtn.textContent = "Pagar $5.00 USD";
-        statusStep.textContent = "";
+        payBtn.textContent = "Pagar $2.50 USD";
+        statusMsg.textContent = "";
         responseBox.style.display = "block";
         responseBox.className = "response-box error";
         responseBox.innerHTML = `
-          <strong>Error de Procesamiento / Red:</strong><br>
-          ${err.message}<br><br>
-          <small><em>Tip: Asegúrate de ejecutar este archivo desde un servidor web local (ej. Live Server en VS Code) para evitar bloqueos de seguridad del navegador (CORS).</em></small>
+          <strong>Error en la llamada:</strong><br>
+          ${err.message}
         `;
       }
     });
