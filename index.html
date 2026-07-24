@@ -1,396 +1,287 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú Interactivo Premium - techexchange</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pasarela de Pagos - Demo PagueloFacil</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'poster': ['Anton', 'sans-serif'],
-                        'sans': ['Poppins', 'sans-serif'],
-                    },
-                    colors: {
-                        'bg-main': '#B71C1C', /* Un rojo más profundo y elegante */
-                        'bg-accent': '#FF5252',
-                        'text-light': '#F8F9FA', 
-                        'text-dark': '#0a0a0a',
-                        'gold': '#FFD700'
-                    }
-                }
-            }
-        }
-    </script>
+    body {
+      background-color: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
 
-    <style>
-        body { 
-            background-color: #B71C1C; 
-            color: #F8F9FA; 
-            overflow-x: hidden; 
-            /* Textura de ruido sutil para look de póster impreso */
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-        }
-        
-        /* Texto gigante integrado con blend mode */
-        .bg-text {
-            position: absolute; top: 0px; left: 50%; transform: translateX(-50%);
-            font-size: clamp(120px, 35vw, 300px); line-height: 0.85; color: #ffffff;
-            z-index: 0; white-space: nowrap; text-align: center; opacity: 0.15;
-            mix-blend-mode: overlay;
-        }
+    .checkout-card {
+      background: #ffffff;
+      max-width: 450px;
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
 
-        /* Sombras suaves y resplandores */
-        .plate-shadow { box-shadow: 0 30px 50px -10px rgba(0, 0, 0, 0.7); }
-        .glow-effect { box-shadow: 0 0 20px rgba(255, 82, 82, 0.4); }
-        
-        /* Glassmorphism premium */
-        .glass-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
+    .header {
+      background: linear-gradient(135deg, #0052cc, #002e7a);
+      color: #ffffff;
+      padding: 24px;
+      text-align: center;
+    }
 
-        .hide-scroll::-webkit-scrollbar { display: none; }
-        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        .slide-up { animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-        .fade-in { animation: fadeIn 0.3s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
-        /* Efecto de latido para el carrito */
-        .pulse-soft { animation: pulseSoft 2s infinite; }
-        @keyframes pulseSoft {
-            0% { transform: scale(1) translateX(-50%); }
-            50% { transform: scale(1.02) translateX(-49%); }
-            100% { transform: scale(1) translateX(-50%); }
-        }
-    </style>
+    .header h2 {
+      font-size: 1.25rem;
+      margin-bottom: 6px;
+    }
+
+    .header p {
+      font-size: 0.875rem;
+      opacity: 0.85;
+    }
+
+    .badge-demo {
+      display: inline-block;
+      background: #ffab00;
+      color: #172b4d;
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 4px 10px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .amount-box {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 15px;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .form-body {
+      padding: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #344054;
+      margin-bottom: 6px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #d0d5dd;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border 0.2s;
+    }
+
+    .form-group input:focus {
+      border-color: #0052cc;
+      box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.15);
+    }
+
+    .row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .row .form-group {
+      flex: 1;
+    }
+
+    .btn-pay {
+      width: 100%;
+      background-color: #0052cc;
+      color: #ffffff;
+      border: none;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-pay:hover {
+      background-color: #003d99;
+    }
+
+    .btn-pay:disabled {
+      background-color: #a5adba;
+      cursor: not-allowed;
+    }
+
+    .response-box {
+      margin-top: 20px;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      display: none;
+    }
+
+    .response-box.success {
+      background-color: #d1e7dd;
+      color: #0f5132;
+      border: 1px solid #badbcc;
+    }
+
+    .response-box.error {
+      background-color: #f8d7da;
+      color: #842029;
+      border: 1px solid #f5c2c7;
+    }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 0.8s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
-<body class="font-sans antialiased pb-36 relative">
+<body>
 
-    <!-- NAV -->
-    <nav class="relative z-40 flex flex-col p-6 text-text-light bg-gradient-to-b from-black/80 via-black/40 to-transparent">
-        <div class="flex justify-between items-center mb-2">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-white text-bg-main rounded-full flex items-center justify-center font-poster text-xl">5</div>
-                <div class="font-poster text-xl tracking-wider">MESA</div>
-            </div>
-            <div class="flex gap-4">
-                <button onclick="alert('Llamando al mesero...')" class="bg-black/40 backdrop-blur w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:bg-black/60 transition border border-white/10">
-                    <i class="fa-solid fa-bell text-gold"></i>
-                </button>
-            </div>
-        </div>
-        <div class="flex items-center gap-2 text-[11px] font-semibold text-text-light/70 tracking-wider uppercase">
-            <i class="fa-solid fa-location-dot"></i>
-            <span>Casco Antiguo, Ciudad de Panamá</span>
-        </div>
-    </nav>
-
-    <!-- HERO SECTION -->
-    <header class="relative w-full min-h-[50vh] flex flex-col items-center justify-start pt-2">
-        <div class="font-poster bg-text uppercase select-none pointer-events-none flex flex-col mt-6">
-            <span>TO</span><span>KIO</span>
-        </div>
-
-        <div class="relative z-10 mt-8 mb-6 group">
-            <div class="w-60 h-60 md:w-80 md:h-80 rounded-full overflow-hidden border-[6px] border-text-light plate-shadow transform transition duration-700 group-hover:scale-105 group-hover:rotate-6">
-                <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=1000&auto=format&fit=crop" alt="Sushi Platter" class="w-full h-full object-cover">
-            </div>
-            <!-- Etiqueta flotante premium -->
-            <div class="absolute -bottom-4 right-0 bg-text-dark text-text-light font-poster text-3xl px-6 py-2 rounded-full shadow-2xl border border-white/20">
-                $35<span class="text-lg text-text-light/70">.00</span>
-            </div>
-        </div>
-
-        <div class="relative z-10 text-center px-4">
-            <div class="inline-flex items-center gap-2 bg-black/30 backdrop-blur-sm px-3 py-1 rounded-full mb-3 border border-white/10">
-                <i class="fa-solid fa-fire text-gold text-xs"></i>
-                <span class="text-[10px] font-bold tracking-widest uppercase text-text-light">Recomendación del Chef</span>
-            </div>
-            <h2 class="font-poster text-5xl tracking-wide mb-4 text-text-light drop-shadow-lg">TOKIO PLATTER</h2>
-            <button onclick="addToCart('tokio', 'Tokio Platter', 35.00)" class="bg-text-light text-text-dark px-10 py-4 rounded-full text-sm font-bold uppercase tracking-widest hover:scale-105 transition transform shadow-[0_10px_25px_rgba(0,0,0,0.5)]">
-                Añadir al pedido
-            </button>
-        </div>
-    </header>
-
-    <!-- CATEGORÍAS -->
-    <div class="relative z-20 mt-12 px-2 sticky top-0 bg-gradient-to-b from-bg-main to-transparent pt-4 pb-2">
-        <div class="flex overflow-x-auto hide-scroll gap-3 px-4">
-            <button onclick="filterCategory('all')" class="cat-btn bg-text-light text-text-dark whitespace-nowrap px-6 py-2.5 rounded-full font-poster text-lg tracking-wider transition shadow-lg" data-target="all">TODO</button>
-            <button onclick="filterCategory('sushi')" class="cat-btn glass-card text-text-light whitespace-nowrap px-6 py-2.5 rounded-full font-poster text-lg tracking-wider hover:bg-white/20 transition" data-target="sushi">SUSHI</button>
-            <button onclick="filterCategory('fastfood')" class="cat-btn glass-card text-text-light whitespace-nowrap px-6 py-2.5 rounded-full font-poster text-lg tracking-wider hover:bg-white/20 transition" data-target="fastfood">COMIDA RÁPIDA</button>
-            <button onclick="filterCategory('tragos')" class="cat-btn glass-card text-text-light whitespace-nowrap px-6 py-2.5 rounded-full font-poster text-lg tracking-wider hover:bg-white/20 transition" data-target="tragos">TRAGOS</button>
-        </div>
+  <div class="checkout-card">
+    <div class="header">
+      <span class="badge-demo">Entorno Sandbox / Demo</span>
+      <h2>Checkout de Pago</h2>
+      <p>Procesamiento de prueba mediante PagueloFacil</p>
+      <div class="amount-box">
+        $25.00 <span style="font-size: 0.85rem; font-weight: normal;">USD</span>
+      </div>
     </div>
 
-    <!-- PRODUCTOS -->
-    <main class="relative z-10 max-w-md mx-auto px-5 mt-6 space-y-5" id="menu-container">
-        
-        <!-- ITEM 1 -->
-        <div class="menu-item glass-card rounded-3xl p-3 flex items-center gap-4 transition transform hover:-translate-y-1 hover:shadow-2xl" data-category="sushi">
-            <div class="relative w-24 h-24 flex-shrink-0">
-                <img src="https://images.unsplash.com/photo-1611143669185-af224c5e3252?q=80&w=400&auto=format&fit=crop" class="w-full h-full rounded-full object-cover plate-shadow border-2 border-text-light absolute -left-2" alt="Roll">
-            </div>
-            <div class="flex-1 py-2">
-                <h3 class="font-poster text-2xl text-text-light leading-none mb-1">GANGNAM CRUNCH</h3>
-                <p class="text-[11px] text-text-light/80 mb-3 font-light leading-tight">Camarón tempura, aguacate, spicy mayo, lechuga.</p>
-                <div class="flex justify-between items-end">
-                    <span class="font-poster text-xl text-gold">$12.00</span>
-                    <button onclick="addToCart('gangnam', 'Gangnam Crunch', 12.00)" class="bg-text-light/10 hover:bg-text-light hover:text-text-dark text-text-light border border-text-light/30 w-8 h-8 rounded-full flex items-center justify-center transition">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
-                </div>
-            </div>
+    <form id="paymentForm" class="form-body">
+      <div class="form-group">
+        <label for="cardHolder">Nombre del Titular</label>
+        <input type="text" id="cardHolder" placeholder="Ej. Juan Pérez" required />
+      </div>
+
+      <div class="form-group">
+        <label for="cardNumber">Número de Tarjeta (Demo)</label>
+        <input type="text" id="cardNumber" placeholder="4000 0000 0000 0002" maxlength="19" required />
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label for="expDate">Expira (MM/AA)</label>
+          <input type="text" id="expDate" placeholder="12/28" maxlength="5" required />
         </div>
-
-        <!-- ITEM 2 -->
-        <div class="menu-item glass-card rounded-3xl p-3 flex items-center gap-4 transition transform hover:-translate-y-1 hover:shadow-2xl" data-category="sushi">
-            <div class="relative w-24 h-24 flex-shrink-0">
-                <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&w=400&auto=format&fit=crop" class="w-full h-full rounded-full object-cover plate-shadow border-2 border-text-light absolute -left-2" alt="Roll">
-            </div>
-            <div class="flex-1 py-2">
-                <h3 class="font-poster text-2xl text-text-light leading-none mb-1">NORI CLASSIC</h3>
-                <p class="text-[11px] text-text-light/80 mb-3 font-light leading-tight">Atún fresco, pepino, cebollina, toque de wasabi.</p>
-                <div class="flex justify-between items-end">
-                    <span class="font-poster text-xl text-gold">$10.50</span>
-                    <button onclick="addToCart('nori', 'Nori Classic', 10.50)" class="bg-text-light/10 hover:bg-text-light hover:text-text-dark text-text-light border border-text-light/30 w-8 h-8 rounded-full flex items-center justify-center transition">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
-                </div>
-            </div>
+        <div class="form-group">
+          <label for="cvv">CVV</label>
+          <input type="password" id="cvv" placeholder="123" maxlength="4" required />
         </div>
+      </div>
 
-        <!-- ITEM 3 -->
-        <div class="menu-item glass-card rounded-3xl p-3 flex items-center gap-4 transition transform hover:-translate-y-1 hover:shadow-2xl hidden" data-category="fastfood">
-            <div class="relative w-24 h-24 flex-shrink-0">
-                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=400&auto=format&fit=crop" class="w-full h-full rounded-full object-cover plate-shadow border-2 border-text-light absolute -left-2" alt="Burger">
-            </div>
-            <div class="flex-1 py-2">
-                <div class="flex items-center gap-2 mb-1">
-                    <h3 class="font-poster text-2xl text-text-light leading-none">SMASH BACON</h3>
-                    <i class="fa-solid fa-star text-gold text-[10px]"></i>
-                </div>
-                <p class="text-[11px] text-text-light/80 mb-3 font-light leading-tight">Doble carne, queso cheddar, bacon ahumado.</p>
-                <div class="flex justify-between items-end">
-                    <span class="font-poster text-xl text-gold">$10.00</span>
-                    <button onclick="addToCart('smash', 'Smash Bacon', 10.00)" class="bg-text-light/10 hover:bg-text-light hover:text-text-dark text-text-light border border-text-light/30 w-8 h-8 rounded-full flex items-center justify-center transition">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+      <button type="submit" id="payBtn" class="btn-pay">
+        <span id="btnText">Pagar $25.00</span>
+        <div class="spinner" id="btnSpinner"></div>
+      </button>
 
-        <!-- ITEM 4 -->
-        <div class="menu-item glass-card rounded-3xl p-3 flex items-center gap-4 transition transform hover:-translate-y-1 hover:shadow-2xl hidden" data-category="tragos">
-            <div class="relative w-24 h-24 flex-shrink-0">
-                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=400&auto=format&fit=crop" class="w-full h-full rounded-full object-cover plate-shadow border-2 border-text-light absolute -left-2" alt="Mojito">
-            </div>
-            <div class="flex-1 py-2">
-                <h3 class="font-poster text-2xl text-text-light leading-none mb-1">MOJITO CLÁSICO</h3>
-                <p class="text-[11px] text-text-light/80 mb-3 font-light leading-tight">Ron blanco, limón fresco, hierbabuena.</p>
-                <div class="flex justify-between items-end">
-                    <span class="font-poster text-xl text-gold">$7.00</span>
-                    <button onclick="addToCart('mojito', 'Mojito Clásico', 7.00)" class="bg-text-light/10 hover:bg-text-light hover:text-text-dark text-text-light border border-text-light/30 w-8 h-8 rounded-full flex items-center justify-center transition">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </main>
+      <div id="responseBox" class="response-box"></div>
+    </form>
+  </div>
 
-    <!-- FOOTER -->
-    <footer class="relative z-10 mt-20 text-center px-4 pb-10">
-        <div class="w-16 h-[1px] bg-white/20 mx-auto mb-8"></div>
-        <div class="flex justify-center gap-5 mb-8">
-            <a href="javascript:alert('Redirigiendo a Instagram...')" class="w-10 h-10 glass-card rounded-full flex items-center justify-center text-lg hover:bg-white hover:text-bg-main transition"><i class="fa-brands fa-instagram"></i></a>
-            <a href="javascript:alert('Redirigiendo a TikTok...')" class="w-10 h-10 glass-card rounded-full flex items-center justify-center text-lg hover:bg-white hover:text-bg-main transition"><i class="fa-brands fa-tiktok"></i></a>
-        </div>
-        <p class="text-[10px] font-semibold tracking-widest text-white/50 uppercase">
-            Powered by <span class="text-white">techexchange</span>
-        </p>
-    </footer>
+  <script>
+    const form = document.getElementById('paymentForm');
+    const payBtn = document.getElementById('payBtn');
+    const btnText = document.getElementById('btnText');
+    const btnSpinner = document.getElementById('btnSpinner');
+    const responseBox = document.getElementById('responseBox');
 
-    <!-- BOTÓN DE PAGO (Mejorado) -->
-    <div id="cart-button-container" class="fixed bottom-8 left-1/2 w-[90%] max-w-sm z-40 hidden opacity-0 transition-opacity duration-300 pulse-soft" style="transform: translateX(-50%);">
-        <button onclick="openCart()" class="w-full bg-text-light text-text-dark flex justify-between items-center px-6 py-4 rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.6)] border border-white/40 overflow-hidden group">
-            <div class="flex items-center gap-3 relative z-10">
-                <div class="w-10 h-10 bg-bg-main rounded-full flex items-center justify-center text-text-light">
-                    <i class="fa-solid fa-basket-shopping"></i>
-                </div>
-                <div class="text-left">
-                    <span class="block font-bold text-[10px] uppercase tracking-widest text-text-dark/60">Ver Pedido</span>
-                    <span id="cart-items-count" class="block font-bold text-sm">0 items</span>
-                </div>
-            </div>
-            <div class="flex items-center gap-3 relative z-10">
-                <span id="cart-total-btn" class="font-poster text-2xl text-bg-main">$0.00</span>
-            </div>
-        </button>
-    </div>
+    // Formatear número de tarjeta en bloques de 4 dígitos
+    document.getElementById('cardNumber').addEventListener('input', (e) => {
+      let value = e.target.value.replace(/\D/g, '');
+      value = value.replace(/(.{4})/g, '$1 ').trim();
+      e.target.value = value;
+    });
 
-    <!-- MODALES JS (Ocultos) -->
-    <!-- Carrito -->
-    <div id="cart-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex-col justify-end backdrop-blur-md fade-in">
-        <div class="bg-text-light w-full h-[85vh] rounded-t-[40px] p-8 flex flex-col slide-up relative text-text-dark">
-            <button onclick="closeCart()" class="absolute top-6 right-8 text-text-dark/40 hover:text-text-dark text-2xl"><i class="fa-solid fa-times"></i></button>
-            <h2 class="font-poster text-4xl text-bg-main mb-6">TU ORDEN</h2>
-            
-            <div id="cart-items" class="flex-1 overflow-y-auto space-y-4 pr-2 hide-scroll"></div>
+    // Formatear fecha MM/AA
+    document.getElementById('expDate').addEventListener('input', (e) => {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length >= 2) {
+        value = value.substring(0, 2) + '/' + value.substring(2, 4);
+      }
+      e.target.value = value;
+    });
 
-            <div class="mt-4 pt-6 border-t border-black/10">
-                <div class="flex justify-between items-end mb-6">
-                    <span class="font-bold text-sm tracking-widest uppercase text-text-dark/60">Total a Pagar</span>
-                    <span id="cart-total-modal" class="font-poster text-4xl text-bg-main">$0.00</span>
-                </div>
-                <button onclick="showPayment()" class="w-full bg-text-dark text-text-light font-poster text-2xl py-5 rounded-2xl shadow-xl hover:bg-black transition tracking-widest">
-                    PROCESAR PAGO
-                </button>
-            </div>
-        </div>
-    </div>
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-    <!-- Pagos -->
-    <div id="payment-modal" class="fixed inset-0 bg-bg-main z-[60] hidden flex-col items-center justify-center fade-in px-6">
-        <h2 class="font-poster text-4xl text-text-light mb-10 text-center">SELECCIONA MÉTODO</h2>
-        
-        <div class="w-full max-w-sm space-y-4">
-            <button onclick="confirmPayment('Yappy')" class="w-full bg-white text-[#002B5C] flex items-center justify-between p-6 rounded-3xl hover:scale-105 transition transform shadow-xl">
-                <span class="font-poster text-2xl tracking-wider">YAPPY</span>
-                <i class="fa-solid fa-mobile-screen-button text-2xl"></i>
-            </button>
-            
-            <button onclick="confirmPayment('Tarjeta')" class="w-full bg-text-dark text-text-light flex items-center justify-between p-6 rounded-3xl hover:scale-105 transition transform shadow-xl">
-                <span class="font-poster text-2xl tracking-wider">TARJETA</span>
-                <i class="fa-regular fa-credit-card text-2xl"></i>
-            </button>
+      // UI Loading state
+      payBtn.disabled = true;
+      btnText.textContent = "Procesando...";
+      btnSpinner.style.display = "block";
+      responseBox.style.display = "none";
 
-            <button onclick="cancelPayment()" class="w-full text-center text-text-light/70 font-bold text-sm uppercase tracking-widest mt-8 py-2">
-                Cancelar
-            </button>
-        </div>
-    </div>
+      const cardData = {
+        holder: document.getElementById('cardHolder').value,
+        number: document.getElementById('cardNumber').value.replace(/\s/g, ''),
+        exp: document.getElementById('expDate').value,
+        cvv: document.getElementById('cvv').value,
+        amount: 25.00
+      };
 
-    <!-- Confirmación -->
-    <div id="success-modal" class="fixed inset-0 bg-text-dark z-[70] hidden flex-col items-center justify-center fade-in px-6 text-center">
-        <div class="w-28 h-28 bg-bg-main rounded-full flex items-center justify-center mb-8 shadow-[0_0_40px_rgba(224,42,42,0.5)]">
-            <i class="fa-solid fa-check text-6xl text-text-light"></i>
-        </div>
-        <h2 class="font-poster text-5xl text-text-light mb-4 leading-tight">¡ORDEN<br>RECIBIDA!</h2>
-        <p id="success-message" class="text-sm font-light text-text-light/70 mb-10 max-w-xs mx-auto">
-            Pago confirmado. La cocina del Casco Antiguo ya está preparando tu comida.
-        </p>
-        <button onclick="resetApp()" class="bg-text-light text-text-dark px-10 py-4 rounded-full font-bold uppercase tracking-widest shadow-lg">
-            Nuevo Pedido
-        </button>
-    </div>
+      // Simulación de llamada a API Sandbox de PagueloFacil
+      setTimeout(() => {
+        // En PagueloFacil Sandbox, cualquier tarjeta válida que empiece en 4000 pasa como exitosa
+        const isSuccess = cardData.number.length >= 15;
 
-    <script>
-        let cart = {};
+        payBtn.disabled = false;
+        btnText.textContent = "Pagar $25.00";
+        btnSpinner.style.display = "none";
+        responseBox.style.display = "block";
 
-        function filterCategory(cat) {
-            document.querySelectorAll('.menu-item').forEach(el => {
-                if (cat === 'all' || el.dataset.category === cat) {
-                    el.classList.remove('hidden'); el.classList.add('flex');
-                } else {
-                    el.classList.add('hidden'); el.classList.remove('flex');
-                }
-            });
-            
-            document.querySelectorAll('.cat-btn').forEach(btn => {
-                btn.classList.remove('bg-text-light', 'text-text-dark');
-                btn.classList.add('glass-card', 'text-text-light');
-                if (btn.dataset.target === cat) {
-                    btn.classList.remove('glass-card', 'text-text-light');
-                    btn.classList.add('bg-text-light', 'text-text-dark');
-                }
-            });
-            if(cat === 'all') {
-                document.querySelectorAll('.menu-item').forEach(el => { el.classList.remove('hidden'); el.classList.add('flex'); });
-            }
+        if (isSuccess) {
+          const mockAuthCode = Math.floor(100000 + Math.random() * 900000);
+          const mockTxId = "PF-DEMO-" + Date.now().toString().slice(-6);
+
+          responseBox.className = "response-box success";
+          responseBox.innerHTML = `
+            <strong>¡Pago Aprobado!</strong><br>
+            • ID Transacción: <strong>${mockTxId}</strong><br>
+            • Código Autorización: <strong>${mockAuthCode}</strong><br>
+            • Monto: $${cardData.amount.toFixed(2)} USD
+          `;
+        } else {
+          responseBox.className = "response-box error";
+          responseBox.innerHTML = `
+            <strong>Pago Rechazado</strong><br>
+            El número de tarjeta de prueba ingresado no es válido.
+          `;
         }
-        window.onload = () => filterCategory('all');
-
-        function addToCart(id, name, price) {
-            if (cart[id]) { cart[id].qty++; } else { cart[id] = { name, price, qty: 1 }; }
-            updateApp();
-            
-            const btn = event.currentTarget;
-            if(btn.tagName === 'BUTTON' && btn.innerText.trim() !== 'AÑADIR AL PEDIDO') {
-                const originalHTML = btn.innerHTML;
-                btn.innerHTML = '<i class="fa-solid fa-check text-bg-main"></i>';
-                btn.classList.add('bg-white');
-                setTimeout(() => { btn.innerHTML = originalHTML; btn.classList.remove('bg-white'); }, 500);
-            }
-        }
-
-        function changeQty(id, delta) {
-            if (cart[id]) {
-                cart[id].qty += delta;
-                if (cart[id].qty <= 0) delete cart[id];
-                updateApp();
-            }
-        }
-
-        function updateApp() {
-            let total = 0; let itemCount = 0;
-            const cartItemsContainer = document.getElementById('cart-items');
-            cartItemsContainer.innerHTML = '';
-
-            for (let id in cart) {
-                const item = cart[id];
-                total += item.price * item.qty;
-                itemCount += item.qty;
-
-                cartItemsContainer.innerHTML += `
-                    <div class="flex justify-between items-center bg-black/5 p-4 rounded-2xl border border-black/5">
-                        <div class="flex-1">
-                            <h4 class="font-poster text-2xl text-text-dark">${item.name}</h4>
-                            <div class="text-text-dark/60 font-bold text-sm">$${item.price.toFixed(2)}</div>
-                        </div>
-                        <div class="flex items-center gap-3 bg-white shadow-sm rounded-full px-2 py-1 border border-black/10">
-                            <button onclick="changeQty('${id}', -1)" class="w-8 h-8 flex items-center justify-center text-text-dark/50 hover:text-bg-main"><i class="fa-solid fa-minus"></i></button>
-                            <span class="font-bold text-lg text-text-dark w-4 text-center">${item.qty}</span>
-                            <button onclick="changeQty('${id}', 1)" class="w-8 h-8 flex items-center justify-center text-text-dark/50 hover:text-bg-main"><i class="fa-solid fa-plus"></i></button>
-                        </div>
-                    </div>
-                `;
-            }
-
-            document.getElementById('cart-total-btn').innerText = `$${total.toFixed(2)}`;
-            document.getElementById('cart-total-modal').innerText = `$${total.toFixed(2)}`;
-            document.getElementById('cart-items-count').innerText = `${itemCount} item${itemCount !== 1 ? 's' : ''}`;
-
-            const cartBtn = document.getElementById('cart-button-container');
-            if (itemCount > 0) {
-                cartBtn.classList.remove('hidden');
-                setTimeout(() => cartBtn.classList.remove('opacity-0'), 10);
-            } else {
-                cartBtn.classList.add('opacity-0');
-                setTimeout(() => cartBtn.classList.add('hidden'), 300);
-                closeCart();
-            }
-        }
-
-        function openCart() { document.getElementById('cart-modal').classList.remove('hidden'); document.getElementById('cart-modal').classList.add('flex'); }
-        function closeCart() { document.getElementById('cart-modal').classList.add('hidden'); document.getElementById('cart-modal').classList.remove('flex'); }
-        function showPayment() { closeCart(); document.getElementById('payment-modal').classList.remove('hidden'); document.getElementById('payment-modal').classList.add('flex'); }
-        function cancelPayment() { document.getElementById('payment-modal').classList.add('hidden'); document.getElementById('payment-modal').classList.remove('flex'); openCart(); }
-        function confirmPayment(method) {
-            document.getElementById('payment-modal').classList.add('hidden'); document.getElementById('payment-modal').classList.remove('flex');
-            document.getElementById('success-modal').classList.remove('hidden'); document.getElementById('success-modal').classList.add('flex');
-        }
-        function resetApp() { cart = {}; updateApp(); document.getElementById('success-modal').classList.add('hidden'); document.getElementById('success-modal').classList.remove('flex'); }
-    </script>
+      }, 1500);
+    });
+  </script>
 </body>
 </html>
