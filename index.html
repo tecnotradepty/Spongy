@@ -1,312 +1,135 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pasarela PagueloFacil - Demo GitHub Pages</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-
-    body {
-      background-color: #0f172a;
-      color: #f8fafc;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-
-    .checkout-card {
-      background: #1e293b;
-      max-width: 440px;
-      width: 100%;
-      border-radius: 16px;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-      border: 1px solid #334155;
-      overflow: hidden;
-    }
-
-    .header {
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
-      padding: 24px;
-      text-align: center;
-    }
-
-    .badge-sandbox {
-      display: inline-block;
-      background: #f59e0b;
-      color: #78350f;
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 12px;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    .header h2 {
-      font-size: 1.25rem;
-      font-weight: 600;
-    }
-
-    .amount {
-      font-size: 2rem;
-      font-weight: 800;
-      margin-top: 8px;
-    }
-
-    .form-body {
-      padding: 24px;
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: #94a3b8;
-      margin-bottom: 6px;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 12px;
-      background: #0f172a;
-      border: 1px solid #334155;
-      border-radius: 8px;
-      color: #ffffff;
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .form-group input:focus {
-      border-color: #3b82f6;
-    }
-
-    .row {
-      display: flex;
-      gap: 12px;
-    }
-
-    .row .form-group {
-      flex: 1;
-    }
-
-    .btn-pay {
-      width: 100%;
-      background: #2563eb;
-      color: #ffffff;
-      border: none;
-      padding: 14px;
-      font-size: 1rem;
-      font-weight: 600;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.2s;
-      margin-top: 8px;
-    }
-
-    .btn-pay:hover {
-      background: #1d4ed8;
-    }
-
-    .btn-pay:disabled {
-      background: #475569;
-      cursor: not-allowed;
-    }
-
-    .status-msg {
-      font-size: 0.8rem;
-      color: #94a3b8;
-      text-align: center;
-      margin-top: 10px;
-      min-height: 18px;
-    }
-
-    .response-box {
-      margin-top: 16px;
-      padding: 14px;
-      border-radius: 8px;
-      font-size: 0.875rem;
-      display: none;
-      line-height: 1.5;
-    }
-
-    .response-box.success {
-      background: #064e3b;
-      color: #a7f3d0;
-      border: 1px solid #047857;
-    }
-
-    .response-box.error {
-      background: #7f1d1d;
-      color: #fecaca;
-      border: 1px solid #b91c1c;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Joselyne</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        h1, h2, .serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .bg-overlay {
+            background: linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.9) 100%);
+        }
+        .snap-container {
+            scroll-snap-type: y mandatory;
+            height: 100vh;
+            overflow-y: scroll;
+        }
+        .snap-section {
+            scroll-snap-align: start;
+            height: 100vh;
+        }
+    </style>
 </head>
-<body>
+<body class="antialiased">
 
-  <div class="checkout-card">
-    <div class="header">
-      <span class="badge-sandbox">GitHub Pages Sandbox</span>
-      <h2>Prueba de Pago Demo</h2>
-      <div class="amount">$2.50 USD</div>
+    <div class="snap-container">
+        
+        <section class="snap-section relative flex items-center justify-center text-center p-6">
+            <img src="foto1.jpg" alt="Nosotros" class="absolute inset-0 w-full h-full object-cover opacity-40">
+            <div class="absolute inset-0 bg-overlay"></div>
+            <div class="relative z-10" data-aos="fade-up" data-aos-duration="2000">
+                <h1 class="text-5xl md:text-7xl font-bold mb-4 tracking-wide text-white">Joselyne</h1>
+                <p class="text-lg md:text-2xl font-light italic text-gray-300">Feliz día de la novia.</p>
+                <div class="mt-12 animate-bounce opacity-50">
+                    <p class="text-sm">Desliza hacia abajo</p>
+                    <span>↓</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="snap-section flex flex-col items-center justify-center p-8 text-center bg-[#0a0a0a]">
+            <div class="max-w-2xl" data-aos="fade-up" data-aos-duration="1500">
+                <p class="text-xl md:text-3xl leading-relaxed font-light mb-6">
+                    Un año ya desde que me atreví a pedirte que fueras mi novia. Un año que pasó en un parpadeo, teniendo en cuenta que quizás pasemos toda la vida juntos (yo sé que sí).
+                </p>
+                <p class="text-lg md:text-xl text-gray-400 italic">Siempre te he seguido, no sé por qué, sé que te necesito. Me atraes como la luz a los insectos.</p>
+            </div>
+        </section>
+
+        <section class="snap-section relative flex items-center justify-center">
+            <img src="foto2.jpg" alt="Recuerdo" class="absolute inset-0 w-full h-full object-cover opacity-50">
+            <div class="absolute inset-0 bg-overlay"></div>
+            <div class="relative z-10 p-8 max-w-3xl text-center" data-aos="zoom-in" data-aos-duration="1500">
+                <p class="text-2xl md:text-4xl serif italic leading-snug">
+                    "Eres un sinónimo de paz para mi alma. Me gustaría que estés conmigo en todos mis proyectos y darte lo mejor de lo mejor."
+                </p>
+            </div>
+        </section>
+
+        <section class="snap-section flex flex-col items-center justify-center p-8 text-center bg-[#111]">
+            <div class="max-w-2xl" data-aos="fade-up">
+                <p class="text-lg md:text-2xl font-light leading-relaxed mb-6 text-gray-300">
+                    Estar detrás de una pantalla hablando con una IA todo el día mata mi necesidad de interacción por internet. Voltear a ver WhatsApp o Instagram me genera rechazo. 
+                </p>
+                <p class="text-lg md:text-2xl font-light leading-relaxed text-gray-300">
+                    No interpretes mi falta de acciones como un mensaje de lo que siento, mi silencio es un mensaje de "no puedo". Me aferro al trabajo porque quiero darnos la vida que merecemos.
+                </p>
+            </div>
+        </section>
+
+        <section class="snap-section flex flex-col items-center justify-center p-6 bg-gradient-to-b from-[#111] to-[#1a1a1a]">
+            <div class="max-w-4xl w-full" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl mb-12 text-center text-[#1db954] font-bold tracking-tighter">NUESTRO 2026 WRAPPED</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 transform hover:scale-105 transition">
+                        <h3 class="text-gray-400 text-sm uppercase tracking-widest mb-2">Frecuencia cardíaca</h3>
+                        <p class="text-3xl font-bold text-white mb-2">Casi cada semana juntos</p>
+                        <p class="text-gray-400">Vistos de 1 a 4 días por semana durante todo un año.</p>
+                    </div>
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 transform hover:scale-105 transition">
+                        <h3 class="text-gray-400 text-sm uppercase tracking-widest mb-2">Nuestro Tour de Comida</h3>
+                        <p class="text-2xl font-bold text-white mb-2">Modo Degustación</p>
+                        <p class="text-sm text-gray-400">Subway, Nación Sushi, Wendy's, Burger King, McDonald's, Asados Victoria, Casa Santana, Lucca, Esa Flaca Rica, Montaños Burger y más.</p>
+                    </div>
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 transform hover:scale-105 transition">
+                        <h3 class="text-gray-400 text-sm uppercase tracking-widest mb-2">Kilómetros Recorridos</h3>
+                        <p class="text-2xl font-bold text-white mb-2">De Casco a Chiriquí</p>
+                        <p class="text-sm text-gray-400">Esa pregunta en Casco nos llevó a Taboga, la playa en Río Hato, el río en San Miguel, Boquete, Alanje y Puerto Armuelles.</p>
+                    </div>
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 transform hover:scale-105 transition">
+                        <h3 class="text-gray-400 text-sm uppercase tracking-widest mb-2">Top Actividades</h3>
+                        <p class="text-2xl font-bold text-white mb-2">Adrenalina y Cine</p>
+                        <p class="text-sm text-gray-400">Pocas visitas al cine, pero derrapando en Go Karts Racing.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="snap-section relative flex flex-col items-center justify-center text-center p-8">
+            <img src="foto3.jpg" alt="El final" class="absolute inset-0 w-full h-full object-cover opacity-30">
+            <div class="absolute inset-0 bg-overlay"></div>
+            <div class="relative z-10 max-w-2xl" data-aos="fade-up">
+                <h2 class="text-3xl md:text-5xl serif mb-6">Eres una chica maravillosa.</h2>
+                <p class="text-lg md:text-xl font-light text-gray-300 mb-8">
+                    Tu cabello, tu piel, tú... vibras como el sol. Verte se siente como una sonrisa al amanecer. 
+                </p>
+                <p class="text-md md:text-lg italic text-gray-400 mb-12">
+                    Perdón por hacerte aguantar mis tonterías, gracias por aguantarlas. El siguiente año te haré algo 10 veces mejor.<br>Te quiero más que a nadie en mi futuro.
+                </p>
+                <p class="text-2xl font-bold">Feliz Primer Año.</p>
+            </div>
+        </section>
+
     </div>
 
-    <form id="paymentForm" class="form-body">
-      <div class="form-group">
-        <label for="cardHolder">Nombre del Titular</label>
-        <input type="text" id="cardHolder" value="Juan Perez" required />
-      </div>
-
-      <div class="form-group">
-        <label for="email">Correo Electrónico</label>
-        <input type="email" id="email" value="cliente@prueba.com" required />
-      </div>
-
-      <div class="form-group">
-        <label for="cardNumber">Tarjeta (Visa Sandbox)</label>
-        <input type="text" id="cardNumber" value="4000 0000 0000 0002" maxlength="19" required />
-      </div>
-
-      <div class="row">
-        <div class="form-group">
-          <label for="expDate">Exp (MM/AA)</label>
-          <input type="text" id="expDate" value="12/28" placeholder="MM/AA" maxlength="5" required />
-        </div>
-        <div class="form-group">
-          <label for="cvv">CVV</label>
-          <input type="password" id="cvv" value="123" maxlength="4" required />
-        </div>
-      </div>
-
-      <button type="submit" id="payBtn" class="btn-pay">Pagar $2.50 USD</button>
-      <div id="statusMsg" class="status-msg"></div>
-      <div id="responseBox" class="response-box"></div>
-    </form>
-  </div>
-
-  <script>
-    // Credenciales e endpoints con Proxy para GitHub Pages
-    const API_KEY = "brEyQRSzMm2UwQa5v0NsobRa3U8nH5xT|DIRvYTAsfkYf6DEfxKR14BSgr";
-    const PROXY = "https://corsproxy.io/?";
-    const BASE_URL = "https://sandbox.paguelofacil.com/rest/v1.1";
-
-    const form = document.getElementById('paymentForm');
-    const payBtn = document.getElementById('payBtn');
-    const statusMsg = document.getElementById('statusMsg');
-    const responseBox = document.getElementById('responseBox');
-
-    // Formatear número de tarjeta en bloques
-    document.getElementById('cardNumber').addEventListener('input', (e) => {
-      let value = e.target.value.replace(/\D/g, '');
-      e.target.value = value.replace(/(.{4})/g, '$1 ').trim();
-    });
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      payBtn.disabled = true;
-      payBtn.textContent = "Procesando...";
-      responseBox.style.display = "none";
-      statusMsg.textContent = "Conectando con PagueloFacil...";
-
-      const [month, year] = document.getElementById('expDate').value.split('/').map(s => s.trim());
-
-      try {
-        // PASO 1: Autenticación vía Proxy
-        statusMsg.textContent = "1/2: Autenticando credenciales...";
-        const authUrl = PROXY + encodeURIComponent(`${BASE_URL}/auth/relogin`);
-        
-        const authRes = await fetch(authUrl, {
-          method: 'POST',
-          headers: {
-            'Authorization': API_KEY,
-            'Content-Type': 'application/json'
-          }
+    <script>
+        AOS.init({
+            once: false,
+            mirror: true,
         });
-
-        const authData = await authRes.json();
-
-        if (!authData.success || !authData.data?.token) {
-          throw new Error(authData.message || "No se pudo autenticar con PagueloFacil Sandbox.");
-        }
-
-        const sessionToken = authData.data.token;
-
-        // PASO 2: Procesar Cobro vía Proxy
-        statusMsg.textContent = "2/2: Enviando cobro a Sandbox...";
-        const chargeUrl = PROXY + encodeURIComponent(`${BASE_URL}/charge`);
-
-        const chargePayload = {
-          amount: 2.50,
-          description: "Cobro de Prueba desde GitHub Pages",
-          cardHolder: document.getElementById('cardHolder').value,
-          cardNumber: document.getElementById('cardNumber').value.replace(/\s/g, ''),
-          expMonth: month,
-          expYear: year,
-          cvv: document.getElementById('cvv').value,
-          email: document.getElementById('email').value,
-          phone: "60000000"
-        };
-
-        const chargeRes = await fetch(chargeUrl, {
-          method: 'POST',
-          headers: {
-            'Authorization': sessionToken,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(chargePayload)
-        });
-
-        const chargeData = await chargeRes.json();
-
-        // Limpieza de UI
-        payBtn.disabled = false;
-        payBtn.textContent = "Pagar $2.50 USD";
-        statusMsg.textContent = "";
-        responseBox.style.display = "block";
-
-        if (chargeData.success || chargeData.headerStatus?.code === 200) {
-          const opId = chargeData.data?.codOper || chargeData.data?.idTransation || 'OK';
-          responseBox.className = "response-box success";
-          responseBox.innerHTML = `
-            <strong>¡Cobro Exitoso!</strong><br>
-            • ID Operación: <strong>${opId}</strong><br>
-            • Monto: $2.50 USD<br><br>
-            <em>Abre tu Dashboard en Sandbox PagueloFacil para confirmar la transacción.</em>
-          `;
-        } else {
-          responseBox.className = "response-box error";
-          responseBox.innerHTML = `
-            <strong>Rechazado por PagueloFacil:</strong><br>
-            ${chargeData.message || JSON.stringify(chargeData)}
-          `;
-        }
-
-      } catch (err) {
-        payBtn.disabled = false;
-        payBtn.textContent = "Pagar $2.50 USD";
-        statusMsg.textContent = "";
-        responseBox.style.display = "block";
-        responseBox.className = "response-box error";
-        responseBox.innerHTML = `
-          <strong>Error en la llamada:</strong><br>
-          ${err.message}
-        `;
-      }
-    });
-  </script>
+    </script>
 </body>
 </html>
