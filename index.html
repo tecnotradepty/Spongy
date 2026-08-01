@@ -3,158 +3,337 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Joselyne</title>
+    <title>Para mi amor, Joselyne</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- AOS Animation Library para el efecto inmersivo -->
+    <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Aesthetic Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Nothing+You+Could+Do&family=Permanent+Marker&display=swap" rel="stylesheet">
+    
     <style>
+        /* Base y Texturas */
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0a0a0a;
-            color: #f3f4f6;
+            background-color: #F4F0EB;
+            /* Textura de papel granulado sutil usando CSS */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            color: #2b2b2b;
             overflow-x: hidden;
+            font-family: 'Cormorant Garamond', serif;
         }
-        h1, h2, .serif {
-            font-family: 'Playfair Display', serif;
+
+        /* Tipografías */
+        .font-cursive { font-family: 'Nothing You Could Do', cursive; }
+        .font-typewriter { font-family: 'Courier Prime', monospace; }
+        .font-marker { font-family: 'Permanent Marker', cursive; }
+        .font-serif { font-family: 'Cormorant Garamond', serif; }
+
+        /* Contenedor móvil */
+        .mobile-container {
+            max-width: 480px;
+            margin: 0 auto;
+            position: relative;
+            background-color: transparent;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            min-height: 100vh;
         }
-        .bg-overlay {
-            background: linear-gradient(to bottom, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0.95) 100%);
+
+        /* Efecto Polaroid */
+        .polaroid {
+            background: #fff;
+            padding: 10px 10px 40px 10px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            position: relative;
+            filter: sepia(0.2) contrast(1.1);
         }
-        .bg-overlay-dark {
-            background: rgba(10,10,10,0.7);
+
+        /* Efecto Washi Tape (Cinta Adhesiva) */
+        .tape {
+            background-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-left: 1px dashed rgba(0,0,0,0.1);
+            border-right: 1px dashed rgba(0,0,0,0.1);
+            backdrop-filter: blur(2px);
+            position: absolute;
+            z-index: 10;
         }
-        /* Custom Scrollbar para que se vea más clean */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        .tape-1 { width: 100px; height: 30px; top: -10px; left: 50%; transform: translateX(-50%) rotate(-3deg); }
+        .tape-2 { width: 80px; height: 25px; top: -10px; right: -10px; transform: rotate(45deg); }
+        .tape-3 { width: 90px; height: 28px; bottom: -10px; left: 10px; transform: rotate(-15deg); }
+
+        /* Papel Rasgado / Nota */
+        .torn-paper {
+            background: #fff;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        .torn-paper::before, .torn-paper::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background-image: radial-gradient(circle at 10px 0, transparent 10px, #fff 11px);
+            background-size: 20px 20px;
+        }
+        .torn-paper::before { top: -10px; transform: rotate(180deg); }
+        .torn-paper::after { bottom: -10px; }
+
+        /* Cuadrícula de Corazón con CSS Grid */
+        .heart-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+            gap: 4px;
+            width: 100%;
+            aspect-ratio: 1;
+            padding: 20px;
+        }
+        .heart-grid div {
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(100%) contrast(1.2);
+            transition: all 0.5s ease;
+        }
+        .heart-grid div:hover { filter: grayscale(0%); transform: scale(1.1); z-index: 10; border-radius: 8px;}
+        /* Posicionamiento para formar el corazón */
+        .h-1 { grid-area: 1 / 2 / 2 / 4; }
+        .h-2 { grid-area: 1 / 5 / 2 / 7; }
+        .h-3 { grid-area: 2 / 1 / 4 / 3; }
+        .h-4 { grid-area: 2 / 3 / 4 / 6; }
+        .h-5 { grid-area: 2 / 6 / 4 / 8; }
+        .h-6 { grid-area: 4 / 2 / 5 / 4; }
+        .h-7 { grid-area: 4 / 4 / 6 / 7; }
+        .h-8 { grid-area: 5 / 3 / 6 / 5; }
+        .h-9 { grid-area: 6 / 4 / 7 / 5; }
+
+        /* Estilo Recibo / Ticket Vintage (Para el Wrapped) */
+        .receipt {
+            background: #fff;
+            padding: 30px 20px;
+            border: 1px solid #ddd;
+            border-top: 2px dashed #bbb;
+            border-bottom: 2px dashed #bbb;
+            font-family: 'Courier Prime', monospace;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        /* Ransom Note Style */
+        .ransom-word span {
+            display: inline-block;
+            padding: 2px 8px;
+            margin: 2px;
+            background: #8b0000;
+            color: #F4F0EB;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        /* Corazones flotantes de fondo */
+        .floating-heart {
+            position: absolute;
+            color: rgba(139, 0, 0, 0.15);
+            animation: float 8s linear infinite;
+            z-index: 0;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg) scale(0.5); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(-20vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased selection:bg-red-200">
 
-    <!-- Hero Section -->
-    <section class="min-h-screen relative flex items-center justify-center text-center p-6">
-        <!-- Foto 1 (JPG desde Github) -->
-        <img src="https://raw.githubusercontent.com/tecnotradepty/Spongy/fc45eb5db9b6b12fd412aeca2a431dada3ca2922/imagenes/20260726_133515.jpg" alt="Nosotros" class="absolute inset-0 w-full h-full object-cover opacity-50">
-        <div class="absolute inset-0 bg-overlay"></div>
-        <div class="relative z-10" data-aos="fade-up" data-aos-duration="2000">
-            <h1 class="text-6xl md:text-8xl font-bold mb-4 tracking-wide text-white drop-shadow-lg">Mi Gordita</h1>
-            <p class="text-xl md:text-3xl font-light italic text-gray-200">Feliz día de la novia.</p>
-            <div class="mt-16 animate-bounce opacity-70">
-                <p class="text-sm tracking-widest uppercase mb-2">Desliza hacia abajo</p>
-                <span class="text-2xl">↓</span>
+    <!-- Animación de corazones de fondo -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="floating-heart text-4xl left-[10%]" style="animation-delay: 0s;">♥</div>
+        <div class="floating-heart text-2xl left-[30%]" style="animation-delay: 2s;">♥</div>
+        <div class="floating-heart text-5xl left-[60%]" style="animation-delay: 4s;">♥</div>
+        <div class="floating-heart text-3xl left-[80%]" style="animation-delay: 1s;">♥</div>
+    </div>
+
+    <!-- Contenedor Principal (Estilo Móvil) -->
+    <div class="mobile-container pb-20 z-10 relative">
+
+        <!-- 1. HERO SECTION (Estilo Scrapbook) -->
+        <section class="pt-20 px-6 pb-12 relative">
+            <p class="font-typewriter text-xs text-gray-500 tracking-widest uppercase mb-4" data-aos="fade-down">Date: Hoy / Location: Nuestro Mundo</p>
+            <h1 class="font-cursive text-6xl text-[#8b0000] mb-8 leading-tight" data-aos="fade-right">
+                Mi gordita, <br>
+                <span class="text-4xl text-gray-800">feliz día.</span>
+            </h1>
+
+            <div class="relative w-full max-w-sm mx-auto mt-10" data-aos="fade-up" data-aos-duration="1500">
+                <div class="tape tape-1"></div>
+                <div class="polaroid transform rotate-[-2deg]">
+                    <img src="https://raw.githubusercontent.com/tecnotradepty/Spongy/fc45eb5db9b6b12fd412aeca2a431dada3ca2922/imagenes/20260726_133515.jpg" alt="Nosotros" class="w-full h-80 object-cover grayscale-[20%]">
+                    <p class="font-cursive text-xl text-center mt-4 text-gray-700">Tú & Yo</p>
+                </div>
+                <div class="absolute -bottom-6 -right-4 font-marker text-3xl text-red-700 transform rotate-[-10deg]">
+                    XOXO
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Bloque de texto 1 -->
-    <section class="min-h-[80vh] flex flex-col items-center justify-center p-8 text-center bg-[#0a0a0a]">
-        <div class="max-w-3xl" data-aos="fade-up" data-aos-duration="1500">
-            <p class="text-2xl md:text-4xl leading-relaxed font-light mb-8 text-white">
-                Un año ya desde que me atreví a pedirte que fueras mi novia. Un año que pasó en un parpadeo, teniendo en cuenta que quizás pasemos toda la vida juntos <span class="italic text-gray-400">(yo sé que sí).</span>
-            </p>
-            <p class="text-lg md:text-2xl text-gray-400 italic font-serif">"Siempre te he seguido, no sé por qué, sé que te necesito. Me atraes como la luz a los insectos."</p>
-        </div>
-    </section>
+        <!-- 2. LA CARTA (Papel Rasgado / Typewriter) -->
+        <section class="px-6 py-12 relative z-10" data-aos="fade-up">
+            <div class="torn-paper rotate-[1deg]">
+                <p class="font-cursive text-3xl text-[#8b0000] mb-4">Un año ya...</p>
+                <div class="font-typewriter text-sm text-gray-700 leading-relaxed space-y-4">
+                    <p>
+                        Desde que me atreví a pedirte que fueras mi novia. Un año que pasó en un parpadeo, teniendo en cuenta que quizás pasemos toda la vida juntos <span class="font-cursive text-lg text-black">(yo sé que sí)</span>.
+                    </p>
+                    <p>
+                        Siempre te he seguido, no sé por qué, sé que te necesito. <mark class="bg-red-100 px-1">Me atraes como la luz a los insectos.</mark> Me derrumbo si dejas de estar.
+                    </p>
+                    <p class="italic">
+                        Eres un sinónimo de paz para mi alma.
+                    </p>
+                </div>
+            </div>
+        </section>
 
-    <!-- Foto Intermedia -->
-    <section class="min-h-screen relative flex items-center justify-center py-20">
-        <!-- Foto 2 (JPG desde Github) -->
-        <img src="https://raw.githubusercontent.com/tecnotradepty/Spongy/fc45eb5db9b6b12fd412aeca2a431dada3ca2922/imagenes/20250906_181053.jpg" alt="Recuerdo" class="absolute inset-0 w-full h-full object-cover opacity-40 fixed">
-        <div class="absolute inset-0 bg-overlay-dark"></div>
-        <div class="relative z-10 p-8 max-w-4xl text-center" data-aos="zoom-in" data-aos-duration="1500">
-            <p class="text-3xl md:text-5xl serif italic leading-relaxed text-white drop-shadow-xl">
-                "Eres un sinónimo de paz para mi alma. Me gustaría que estés conmigo en todos mis proyectos y darte lo mejor de lo mejor, te lo mereces."
-            </p>
-        </div>
-    </section>
-
-    <!-- La Confesión (El trabajo y la IA) -->
-    <section class="min-h-screen flex flex-col items-center justify-center p-8 text-center bg-[#0f0f0f]">
-        <div class="max-w-3xl space-y-8" data-aos="fade-up">
-            <p class="text-xl md:text-3xl font-light leading-relaxed text-gray-300">
-                Sé que no soy el mejor novio, pero eso no quita que te ame. Estar detrás de una pantalla hablando con una IA todo el día mata mi necesidad de interacción por internet. Voltear a ver WhatsApp o Instagram me genera rechazo. 
-            </p>
-            <p class="text-xl md:text-3xl font-light leading-relaxed text-gray-300">
-                No interpretes mi falta de acciones como un mensaje de lo que siento, mi silencio es un mensaje de <span class="font-bold text-white">"no puedo"</span>. Me aferro al trabajo porque quiero darnos la vida que merecemos. Estaré para siempre junto a ti, si no te aburres de mí.
-            </p>
-        </div>
-    </section>
-
-    <!-- El Spotify Wrapped -->
-    <section class="min-h-screen flex flex-col items-center justify-center p-8 bg-gradient-to-b from-[#0f0f0f] to-[#1a1a1a] py-24">
-        <div class="max-w-6xl w-full" data-aos="fade-up">
-            <h2 class="text-4xl md:text-6xl mb-16 text-center text-[#1db954] font-bold tracking-tighter">NUESTRO 2026 WRAPPED</h2>
+        <!-- 3. COLLAGE CORAZÓN B&W -->
+        <section class="py-10 flex flex-col items-center" data-aos="zoom-in">
+            <h2 class="font-cursive text-4xl mb-2">My soulmate</h2>
+            <p class="font-typewriter text-xs tracking-widest uppercase text-gray-400 mb-6">fragmentos de ti</p>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Tarjeta 1 -->
-                <div class="bg-gray-900/80 p-8 rounded-2xl border border-gray-800 transform hover:-translate-y-2 transition duration-300 shadow-xl">
-                    <h3 class="text-gray-400 text-sm uppercase tracking-widest mb-3">Top Artista</h3>
-                    <p class="text-2xl font-bold text-white mb-3">A$AP Rocky</p>
-                    <p class="text-base text-gray-400 leading-relaxed">Sonando de fondo mientras estás en tu mundo con los audífonos puestos (como siempre).</p>
-                </div>
-                <!-- Tarjeta 2 -->
-                <div class="bg-gray-900/80 p-8 rounded-2xl border border-gray-800 transform hover:-translate-y-2 transition duration-300 shadow-xl">
-                    <h3 class="text-gray-400 text-sm uppercase tracking-widest mb-3">El mayor Crimen</h3>
-                    <p class="text-2xl font-bold text-white mb-3">Robo de Patacones</p>
-                    <p class="text-base text-gray-400 leading-relaxed">Escarbar mi comida para robarte los patacones delgados y dejarme los gruesos. ¡Tramposa!</p>
-                </div>
-                <!-- Tarjeta 3 -->
-                <div class="bg-gray-900/80 p-8 rounded-2xl border border-gray-800 transform hover:-translate-y-2 transition duration-300 shadow-xl">
-                    <h3 class="text-gray-400 text-sm uppercase tracking-widest mb-3">Costumbre Favorita</h3>
-                    <p class="text-2xl font-bold text-white mb-3">Dejarme comida</p>
-                    <p class="text-base text-gray-400 leading-relaxed">Casi siempre me dejas comida... es muy chistoso cuando no lo haces (evento canónico).</p>
-                </div>
-                <!-- Tarjeta 4 -->
-                <div class="bg-gray-900/80 p-8 rounded-2xl border border-gray-800 transform hover:-translate-y-2 transition duration-300 shadow-xl">
-                    <h3 class="text-gray-400 text-sm uppercase tracking-widest mb-3">Top Palabras</h3>
-                    <p class="text-2xl font-bold text-white mb-3">Gordita & Gordito</p>
-                    <p class="text-base text-gray-400 leading-relaxed">Casi cada semana juntos, de 1 a 4 días llamándonos así sin parar.</p>
-                </div>
-                <!-- Tarjeta 5 -->
-                <div class="bg-gray-900/80 p-8 rounded-2xl border border-gray-800 transform hover:-translate-y-2 transition duration-300 shadow-xl">
-                    <h3 class="text-gray-400 text-sm uppercase tracking-widest mb-3">Tour Gastronómico</h3>
-                    <p class="text-2xl font-bold text-white mb-3">Modo Degustación</p>
-                    <p class="text-base text-gray-400 leading-relaxed">Subway, Nación Sushi, Wendy's, Asados Victoria, Casa Santana, Lucca, Esa Flaca Rica y más.</p>
-                </div>
-                <!-- Tarjeta 6 -->
-                <div class="bg-gray-900/80 p-8 rounded-2xl border border-gray-800 transform hover:-translate-y-2 transition duration-300 shadow-xl">
-                    <h3 class="text-gray-400 text-sm uppercase tracking-widest mb-3">Kilómetros Recorridos</h3>
-                    <p class="text-2xl font-bold text-white mb-3">De Casco a Chiriquí</p>
-                    <p class="text-base text-gray-400 leading-relaxed">Taboga, Río Hato, San Miguel, Boquete. Viajar al lugar donde me crié contigo, lo llevaré en el alma.</p>
+            <div class="heart-grid">
+                <!-- Usamos las 3 fotos jpg disponibles, cambiando el object-position para simular distintas fotos -->
+                <div class="h-1" style="background-image: url('https://raw.githubusercontent.com/tecnotradepty/Spongy/fc45eb5db9b6b12fd412aeca2a431dada3ca2922/imagenes/IMG_20260618_200107.jpg'); background-position: top;"></div>
+                <div class="h-2" style="background-image: url('https://raw.githubusercontent.com/tecnotradepty/Spongy/fc45eb5db9b6b12fd412aeca2a431dada3ca2922/imagenes/20250906_181053.jpg'); background-position: center;"></div>
+                <div class="h-3" style="background-image: url('https://raw.githubusercontent.com/tecnotradepty/Spongy/fc45eb5db9b6b12fd412aeca2a431dada3ca2922/imagenes/20260726_133515.jpg'); background-position: left;"></div>
+                <div class="h-4" style="background-image: url('https://raw.githubusercontent.com/tecnotradepty/Spongy/fc45eb5db9b6b12fd412aeca2a431dada3ca2922/imagenes/IMG_20260618_200107.jpg'); background-position: center;"></div>
+                <div class="h-5" style="background-image: url('https://raw.githubusercontent.com/tecnotradepty/Spongy/fc45eb5db9b6b12fd412aeca2a431dada3ca2922/imagenes/20250906_181053.jpg'); background-position: right;"></div>
+                <div class="h-6" style="background-image: url('https://raw.githubusercontent.com/tecnotradepty/Spongy/fc45eb5db9b6b12fd412aeca2a431dada3ca2922/imagenes/20260726_133515.jpg'); background-position: bottom;"></div>
+                <div class="h-7" style="background-image: url('https://raw.githubusercontent.com/tecnotradepty/Spongy/fc45eb5db9b6b12fd412aeca2a431dada3ca2922/imagenes/IMG_20260618_200107.jpg'); background-position: bottom left;"></div>
+                <div class="h-8" style="background-image: url('https://raw.githubusercontent.com/tecnotradepty/Spongy/fc45eb5db9b6b12fd412aeca2a431dada3ca2922/imagenes/20250906_181053.jpg'); background-position: top right;"></div>
+                <div class="h-9" style="background-image: url('https://raw.githubusercontent.com/tecnotradepty/Spongy/fc45eb5db9b6b12fd412aeca2a431dada3ca2922/imagenes/20260726_133515.jpg'); background-position: center;"></div>
+            </div>
+        </section>
+
+        <!-- 4. LA CONFESIÓN (Estilo superposición / overthinking) -->
+        <section class="px-6 py-16 relative" data-aos="fade-up">
+            <div class="absolute -top-10 right-4 font-marker text-2xl text-gray-400 rotate-[15deg]">overthinking...</div>
+            
+            <p class="font-serif text-2xl italic leading-relaxed text-gray-800 relative z-10 mix-blend-multiply">
+                Estar detrás de una pantalla hablando con una IA, créeme que mata la necesidad de interacción humana. Voltear a ver WhatsApp o Instagram me genera rechazo, estoy empalagado de tecnología...
+            </p>
+            
+            <div class="relative mt-8" data-aos="fade-left">
+                <div class="tape tape-3"></div>
+                <div class="bg-[#2a2a2a] text-gray-200 p-6 shadow-xl transform rotate-[2deg]">
+                    <p class="font-typewriter text-sm leading-loose">
+                        No interpretes mi falta de acciones como un mensaje de lo que siento, mi silencio es un mensaje de <span class="bg-red-900 px-1 text-white uppercase font-bold">"no puedo"</span>.<br><br>
+                        Me aferro al trabajo porque quiero darnos la vida que merecemos. Estaré para siempre junto a ti, si no te aburres de mí.
+                    </p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Final -->
-    <section class="min-h-screen relative flex flex-col items-center justify-center text-center p-8">
-        <!-- Foto 3 (JPG desde Github) -->
-        <img src="https://raw.githubusercontent.com/tecnotradepty/Spongy/fc45eb5db9b6b12fd412aeca2a431dada3ca2922/imagenes/IMG_20260618_200107.jpg" alt="El final" class="absolute inset-0 w-full h-full object-cover opacity-40">
-        <div class="absolute inset-0 bg-overlay"></div>
-        <div class="relative z-10 max-w-3xl" data-aos="fade-up" data-aos-duration="1500">
-            <h2 class="text-4xl md:text-6xl serif mb-8 text-white drop-shadow-lg">Eres una chica maravillosa.</h2>
-            <p class="text-xl md:text-2xl font-light text-gray-200 mb-8 leading-relaxed">
-                Tu cabello, tu piel, tú... vibras como el sol. Verte se siente como una sonrisa al amanecer. 
+        <!-- 5. WRAPPED: TICKET DE COMPRA VINTAGE -->
+        <section class="px-6 py-12" data-aos="fade-up">
+            <div class="receipt mx-auto max-w-sm">
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl font-bold tracking-tighter">OUR 2026</h3>
+                    <h3 class="text-xl tracking-widest">WRAPPED</h3>
+                    <p class="text-xs mt-2 text-gray-500">DATE: 2025 - 2026</p>
+                    <p class="text-xs text-gray-500">CASHIER: EL DESTINO</p>
+                </div>
+                
+                <div class="border-t border-dashed border-gray-400 py-4 space-y-4">
+                    
+                    <div class="flex justify-between items-start">
+                        <div class="w-2/3">
+                            <p class="font-bold text-sm">01. TOP ARTIST</p>
+                            <p class="text-xs text-gray-500">A$AP Rocky (en tus audífonos)</p>
+                        </div>
+                        <p class="text-sm">∞ PTS</p>
+                    </div>
+
+                    <div class="flex justify-between items-start">
+                        <div class="w-2/3">
+                            <p class="font-bold text-sm">02. MAYOR CRIMEN</p>
+                            <p class="text-xs text-gray-500">Robarme los patacones delgados</p>
+                        </div>
+                        <p class="text-sm">GUILTY</p>
+                    </div>
+
+                    <div class="flex justify-between items-start">
+                        <div class="w-2/3">
+                            <p class="font-bold text-sm">03. COSTUMBRE</p>
+                            <p class="text-xs text-gray-500">Dejarme tu comida (evento canónico)</p>
+                        </div>
+                        <p class="text-sm">100%</p>
+                    </div>
+
+                    <div class="flex justify-between items-start">
+                        <div class="w-2/3">
+                            <p class="font-bold text-sm">04. TOP WORDS</p>
+                            <p class="text-xs text-gray-500">Gordita & Gordito</p>
+                        </div>
+                        <p class="text-sm">DAILY</p>
+                    </div>
+
+                    <div class="flex justify-between items-start">
+                        <div class="w-2/3">
+                            <p class="font-bold text-sm">05. TOUR GASTRONÓMICO</p>
+                            <p class="text-xs text-gray-500">Subway, Nación Sushi, Wendy's, Asados Victoria, Casa Santana...</p>
+                        </div>
+                        <p class="text-sm">YUM</p>
+                    </div>
+
+                    <div class="flex justify-between items-start">
+                        <div class="w-2/3">
+                            <p class="font-bold text-sm">06. RUTA</p>
+                            <p class="text-xs text-gray-500">Casco > Taboga > Río Hato > Boquete > Pto Armuelles</p>
+                        </div>
+                        <p class="text-sm">KM's</p>
+                    </div>
+
+                </div>
+
+                <div class="border-t border-dashed border-gray-400 pt-4 text-center">
+                    <p class="text-xs mb-2">TOTAL MEMORIES....... PRICELESS</p>
+                    <p class="text-[10px] text-gray-400">* Viajar contigo a donde me crié es algo que llevaré siempre en mi alma.</p>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Code_128_barcode.svg" alt="Barcode" class="w-32 mx-auto mt-4 opacity-50 mix-blend-multiply">
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. CIERRE (Estilo Revista / Ransom Note) -->
+        <section class="px-6 py-16 text-center" data-aos="zoom-in">
+            
+            <p class="font-typewriter text-sm mb-6 text-gray-600">
+                Perdón por hacerte aguantar mis tonterías, gracias por aguantarlas. El siguiente año te haré algo 10 veces mejor.
             </p>
-            <p class="text-lg md:text-xl italic text-gray-400 mb-12">
-                Perdón por hacerte aguantar mis tonterías, gracias por aguantarlas. El siguiente año te haré algo 10 veces mejor.<br><br>
-                <span class="text-white font-serif">Te quiero más que a nadie en mi futuro.</span>
-            </p>
-            <p class="text-3xl md:text-4xl font-bold text-white tracking-wide">Feliz Primer Año, Gordita.</p>
-        </div>
-    </section>
+
+            <div class="ransom-word text-4xl md:text-5xl flex flex-wrap justify-center gap-1 mb-8 transform -rotate-3">
+                <span class="transform rotate-2 text-6xl">T</span>
+                <span class="transform -rotate-6 font-serif">E</span>
+                <span class="bg-transparent text-[#8b0000] font-cursive w-4"></span>
+                <span class="transform rotate-12 text-black bg-[#d5caba]">A</span>
+                <span class="transform -rotate-2 font-typewriter">M</span>
+                <span class="transform rotate-6 rounded-full">O</span>
+            </div>
+
+            <p class="font-cursive text-3xl text-gray-800">más que a nadie en mi futuro.</p>
+            <p class="font-serif text-lg mt-10 tracking-widest uppercase">Feliz Primer Año, Gordita.</p>
+
+        </section>
+
+    </div>
 
     <script>
-        // Inicialización de AOS arreglada para funcionar con el scroll nativo
+        // Inicializar animaciones
         AOS.init({
+            duration: 1000,
             once: false,
-            mirror: true,
-            offset: 50,
-            duration: 1000
+            offset: 50
         });
     </script>
 </body>
