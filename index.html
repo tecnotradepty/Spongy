@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para Joselyne</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS Animation Library para el efecto inmersivo -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
@@ -19,7 +22,7 @@
             font-family: 'Playfair Display', serif;
         }
         .bg-overlay {
-            background: linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.9) 100%);
+            background: linear-gradient(to bottom, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0.9) 100%);
         }
         .snap-container {
             scroll-snap-type: y mandatory;
@@ -30,17 +33,23 @@
             scroll-snap-align: start;
             height: 100vh;
         }
+        /* Custom Scrollbar para que se vea más clean */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
     </style>
 </head>
 <body class="antialiased">
 
     <div class="snap-container">
         
+        <!-- Hero Section -->
         <section class="snap-section relative flex items-center justify-center text-center p-6">
-            <img src="foto1.jpg" alt="Nosotros" class="absolute inset-0 w-full h-full object-cover opacity-40">
+            <!-- Foto 1 (JPG desde Github) -->
+            <img src="https://raw.githubusercontent.com/tecnotradepty/Spongy/fc45eb5db9b6b12fd412aeca2a431dada3ca2922/imagenes/20260726_133515.jpg" alt="Nosotros" class="absolute inset-0 w-full h-full object-cover opacity-40">
             <div class="absolute inset-0 bg-overlay"></div>
             <div class="relative z-10" data-aos="fade-up" data-aos-duration="2000">
-                <h1 class="text-5xl md:text-7xl font-bold mb-4 tracking-wide text-white">Joselyne</h1>
+                <h1 class="text-5xl md:text-7xl font-bold mb-4 tracking-wide text-white">Mi Gordita</h1>
                 <p class="text-lg md:text-2xl font-light italic text-gray-300">Feliz día de la novia.</p>
                 <div class="mt-12 animate-bounce opacity-50">
                     <p class="text-sm">Desliza hacia abajo</p>
@@ -49,6 +58,7 @@
             </div>
         </section>
 
+        <!-- Bloque de texto 1 -->
         <section class="snap-section flex flex-col items-center justify-center p-8 text-center bg-[#0a0a0a]">
             <div class="max-w-2xl" data-aos="fade-up" data-aos-duration="1500">
                 <p class="text-xl md:text-3xl leading-relaxed font-light mb-6">
@@ -58,58 +68,80 @@
             </div>
         </section>
 
+        <!-- Foto Intermedia -->
         <section class="snap-section relative flex items-center justify-center">
-            <img src="foto2.jpg" alt="Recuerdo" class="absolute inset-0 w-full h-full object-cover opacity-50">
+            <!-- Foto 2 (JPG desde Github) -->
+            <img src="https://raw.githubusercontent.com/tecnotradepty/Spongy/fc45eb5db9b6b12fd412aeca2a431dada3ca2922/imagenes/20250906_181053.jpg" alt="Recuerdo" class="absolute inset-0 w-full h-full object-cover opacity-50">
             <div class="absolute inset-0 bg-overlay"></div>
             <div class="relative z-10 p-8 max-w-3xl text-center" data-aos="zoom-in" data-aos-duration="1500">
                 <p class="text-2xl md:text-4xl serif italic leading-snug">
-                    "Eres un sinónimo de paz para mi alma. Me gustaría que estés conmigo en todos mis proyectos y darte lo mejor de lo mejor."
+                    "Eres un sinónimo de paz para mi alma. Me gustaría que estés conmigo en todos mis proyectos y darte lo mejor de lo mejor, te lo mereces."
                 </p>
             </div>
         </section>
 
+        <!-- La Confesión (El trabajo y la IA) -->
         <section class="snap-section flex flex-col items-center justify-center p-8 text-center bg-[#111]">
             <div class="max-w-2xl" data-aos="fade-up">
                 <p class="text-lg md:text-2xl font-light leading-relaxed mb-6 text-gray-300">
-                    Estar detrás de una pantalla hablando con una IA todo el día mata mi necesidad de interacción por internet. Voltear a ver WhatsApp o Instagram me genera rechazo. 
+                    Sé que no soy el mejor novio, pero eso no quita que te ame. Estar detrás de una pantalla hablando con una IA todo el día mata mi necesidad de interacción por internet. Voltear a ver WhatsApp o Instagram me genera rechazo. 
                 </p>
                 <p class="text-lg md:text-2xl font-light leading-relaxed text-gray-300">
-                    No interpretes mi falta de acciones como un mensaje de lo que siento, mi silencio es un mensaje de "no puedo". Me aferro al trabajo porque quiero darnos la vida que merecemos.
+                    No interpretes mi falta de acciones como un mensaje de lo que siento, mi silencio es un mensaje de "no puedo". Me aferro al trabajo porque quiero darnos la vida que merecemos. Estaré para siempre junto a ti, si no te aburres de mí.
                 </p>
             </div>
         </section>
 
-        <section class="snap-section flex flex-col items-center justify-center p-6 bg-gradient-to-b from-[#111] to-[#1a1a1a]">
-            <div class="max-w-4xl w-full" data-aos="fade-up">
-                <h2 class="text-4xl md:text-5xl mb-12 text-center text-[#1db954] font-bold tracking-tighter">NUESTRO 2026 WRAPPED</h2>
+        <!-- El Spotify Wrapped -->
+        <section class="snap-section flex flex-col items-center justify-center p-6 bg-gradient-to-b from-[#111] to-[#1a1a1a]" style="height: auto; min-height: 100vh; padding-top: 4rem; padding-bottom: 4rem;">
+            <div class="max-w-5xl w-full" data-aos="fade-up">
+                <h2 class="text-3xl md:text-5xl mb-10 text-center text-[#1db954] font-bold tracking-tighter">NUESTRO 2026 WRAPPED</h2>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 transform hover:scale-105 transition">
-                        <h3 class="text-gray-400 text-sm uppercase tracking-widest mb-2">Frecuencia cardíaca</h3>
-                        <p class="text-3xl font-bold text-white mb-2">Casi cada semana juntos</p>
-                        <p class="text-gray-400">Vistos de 1 a 4 días por semana durante todo un año.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                    <!-- Tarjeta 1 -->
+                    <div class="bg-gray-900 p-5 rounded-xl border border-gray-800 transform hover:scale-105 transition">
+                        <h3 class="text-gray-400 text-xs uppercase tracking-widest mb-2">Top Artista</h3>
+                        <p class="text-xl font-bold text-white mb-2">A$AP Rocky</p>
+                        <p class="text-sm text-gray-400">Sonando de fondo mientras estás en tu mundo con los audífonos puestos (como siempre).</p>
                     </div>
-                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 transform hover:scale-105 transition">
-                        <h3 class="text-gray-400 text-sm uppercase tracking-widest mb-2">Nuestro Tour de Comida</h3>
-                        <p class="text-2xl font-bold text-white mb-2">Modo Degustación</p>
-                        <p class="text-sm text-gray-400">Subway, Nación Sushi, Wendy's, Burger King, McDonald's, Asados Victoria, Casa Santana, Lucca, Esa Flaca Rica, Montaños Burger y más.</p>
+                    <!-- Tarjeta 2 -->
+                    <div class="bg-gray-900 p-5 rounded-xl border border-gray-800 transform hover:scale-105 transition">
+                        <h3 class="text-gray-400 text-xs uppercase tracking-widest mb-2">El mayor Crimen</h3>
+                        <p class="text-xl font-bold text-white mb-2">Robo de Patacones</p>
+                        <p class="text-sm text-gray-400">Escarbar mi comida para robarte los patacones delgados y dejarme los gruesos. ¡Tramposa!</p>
                     </div>
-                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 transform hover:scale-105 transition">
-                        <h3 class="text-gray-400 text-sm uppercase tracking-widest mb-2">Kilómetros Recorridos</h3>
-                        <p class="text-2xl font-bold text-white mb-2">De Casco a Chiriquí</p>
-                        <p class="text-sm text-gray-400">Esa pregunta en Casco nos llevó a Taboga, la playa en Río Hato, el río en San Miguel, Boquete, Alanje y Puerto Armuelles.</p>
+                    <!-- Tarjeta 3 -->
+                    <div class="bg-gray-900 p-5 rounded-xl border border-gray-800 transform hover:scale-105 transition">
+                        <h3 class="text-gray-400 text-xs uppercase tracking-widest mb-2">Costumbre Favorita</h3>
+                        <p class="text-xl font-bold text-white mb-2">Dejarme comida</p>
+                        <p class="text-sm text-gray-400">Casi siempre me dejas comida... es muy chistoso cuando no lo haces (evento canónico).</p>
                     </div>
-                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 transform hover:scale-105 transition">
-                        <h3 class="text-gray-400 text-sm uppercase tracking-widest mb-2">Top Actividades</h3>
-                        <p class="text-2xl font-bold text-white mb-2">Adrenalina y Cine</p>
-                        <p class="text-sm text-gray-400">Pocas visitas al cine, pero derrapando en Go Karts Racing.</p>
+                    <!-- Tarjeta 4 -->
+                    <div class="bg-gray-900 p-5 rounded-xl border border-gray-800 transform hover:scale-105 transition">
+                        <h3 class="text-gray-400 text-xs uppercase tracking-widest mb-2">Top Palabras</h3>
+                        <p class="text-xl font-bold text-white mb-2">Gordita & Gordito</p>
+                        <p class="text-sm text-gray-400">Casi cada semana juntos, de 1 a 4 días llamándonos así.</p>
+                    </div>
+                    <!-- Tarjeta 5 -->
+                    <div class="bg-gray-900 p-5 rounded-xl border border-gray-800 transform hover:scale-105 transition">
+                        <h3 class="text-gray-400 text-xs uppercase tracking-widest mb-2">Tour Gastronómico</h3>
+                        <p class="text-xl font-bold text-white mb-2">Modo Degustación</p>
+                        <p class="text-sm text-gray-400">Subway, Nación Sushi, Wendy's, Asados Victoria, Casa Santana, Lucca, Esa Flaca Rica y más.</p>
+                    </div>
+                    <!-- Tarjeta 6 -->
+                    <div class="bg-gray-900 p-5 rounded-xl border border-gray-800 transform hover:scale-105 transition">
+                        <h3 class="text-gray-400 text-xs uppercase tracking-widest mb-2">Kilómetros Recorridos</h3>
+                        <p class="text-xl font-bold text-white mb-2">De Casco a Chiriquí</p>
+                        <p class="text-sm text-gray-400">Taboga, Río Hato, San Miguel, Boquete, Alanje y Puerto Armuelles. Viajar al lugar donde me crié contigo, lo llevaré en el alma.</p>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Final -->
         <section class="snap-section relative flex flex-col items-center justify-center text-center p-8">
-            <img src="foto3.jpg" alt="El final" class="absolute inset-0 w-full h-full object-cover opacity-30">
+            <!-- Foto 3 (JPG desde Github) -->
+            <img src="https://raw.githubusercontent.com/tecnotradepty/Spongy/fc45eb5db9b6b12fd412aeca2a431dada3ca2922/imagenes/IMG_20260618_200107.jpg" alt="El final" class="absolute inset-0 w-full h-full object-cover opacity-30">
             <div class="absolute inset-0 bg-overlay"></div>
             <div class="relative z-10 max-w-2xl" data-aos="fade-up">
                 <h2 class="text-3xl md:text-5xl serif mb-6">Eres una chica maravillosa.</h2>
@@ -119,7 +151,7 @@
                 <p class="text-md md:text-lg italic text-gray-400 mb-12">
                     Perdón por hacerte aguantar mis tonterías, gracias por aguantarlas. El siguiente año te haré algo 10 veces mejor.<br>Te quiero más que a nadie en mi futuro.
                 </p>
-                <p class="text-2xl font-bold">Feliz Primer Año.</p>
+                <p class="text-2xl font-bold">Feliz Primer Año, Gordita.</p>
             </div>
         </section>
 
