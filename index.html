@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para mi Gordita</title>
     
-    <!-- Google Fonts: Estilo Caricaturesco y Divertido -->
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Comic+Neue:ital,wght@0,400;0,700;1,400&family=Fredoka:wght@400;500;600&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Courier+Prime:wght@400;700&family=Lora:ital,wght@0,400;0,500;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Reenie+Beanie&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     
     <style>
@@ -14,23 +14,21 @@
             --bg-paper: #FBF9F6;
             --text-main: #332F2E;
             --dark-red: #8B2626;
-            --tape-color: rgba(245, 240, 225, 0.9);
-            --highlight: rgba(235, 219, 147, 0.6); 
+            --tape-color: rgba(245, 240, 225, 0.85);
+            --highlight: rgba(235, 219, 147, 0.5); /* Color de resaltador estilo diario */
         }
         
         body {
             background-color: var(--bg-paper);
             color: var(--text-main);
-            /* Tipografía de cuerpo tipo cómic/cuaderno */
-            font-family: 'Comic Neue', cursive, sans-serif;
-            font-size: 1.1rem;
+            font-family: 'Lora', serif;
             overflow-x: hidden;
             background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
             -webkit-font-smoothing: antialiased;
         }
 
+        /* Pantalla Interactiva Inicial */
         .no-scroll { overflow: hidden; height: 100vh; }
-        
         #intro-screen {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -45,10 +43,12 @@
         }
 
         /* Tipografías Especiales */
-        h1, h2, h3, .font-title { font-family: 'Fredoka', sans-serif; font-weight: 600; }
+        h1, h2, h3, .font-title { font-family: 'Playfair Display', serif; }
         .font-handwriting { font-family: 'Caveat', cursive; color: var(--dark-red); }
         .font-typewriter { font-family: 'Courier Prime', monospace; }
+        .font-doodle { font-family: 'Reenie Beanie', cursive; } /* Nueva fuente para notas informales */
 
+        /* Ruido Fotográfico sutil */
         body::before {
             content: "";
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -61,20 +61,18 @@
         .highlight {
             background: linear-gradient(120deg, var(--highlight) 0%, var(--highlight) 100%);
             background-repeat: no-repeat;
-            background-size: 100% 40%;
-            background-position: 0 85%;
-            padding: 0 2px;
-            font-weight: bold;
+            background-size: 100% 35%;
+            background-position: 0 88%;
+            padding: 0 4px;
         }
 
-        /* Polaroid Creativa */
+        /* Polaroid Creativa (Superposiciones) */
         .polaroid {
             background: #FAFAFA;
             padding: 12px 12px 45px 12px;
             box-shadow: 0 15px 35px rgba(60, 20, 20, 0.08), 0 3px 10px rgba(0,0,0,0.03);
             position: relative;
             border: 1px solid rgba(0,0,0,0.04);
-            border-radius: 4px; /* Un poco más redondo para el estilo cartoon */
             display: inline-block;
             transition: transform 0.4s ease;
         }
@@ -87,15 +85,15 @@
             background-color: var(--tape-color);
             box-shadow: 0 2px 5px rgba(0,0,0,0.1), inset 0 0 5px rgba(255,255,255,0.6);
             backdrop-filter: blur(2px);
+            opacity: 0.95;
             z-index: 10;
         }
 
-        /* Pegatinas completamente visibles */
+        /* Pegatinas */
         .sticker {
             position: absolute; pointer-events: none;
-            filter: drop-shadow(3px 6px 8px rgba(60,20,20,0.25));
-            z-index: 30;
-            opacity: 1 !important; /* Asegura que no se oculten */
+            filter: drop-shadow(3px 6px 10px rgba(60,20,20,0.18));
+            z-index: 20;
         }
 
         /* Recibo Wrapped */
@@ -105,27 +103,27 @@
             box-shadow: 0 20px 40px rgba(60,20,20,0.06);
             position: relative;
             transform: rotate(-1.5deg);
-            border-radius: 2px;
         }
         .receipt::before, .receipt::after {
             content: ""; position: absolute; left: 0; width: 100%; height: 5px; background-size: 10px 10px;
         }
         .receipt::before { top: -2px; background-image: radial-gradient(circle at 5px 0, transparent 5px, #FFFDF9 6px); }
         .receipt::after { bottom: -2px; background-image: radial-gradient(circle at 5px 5px, transparent 5px, #FFFDF9 6px); }
-        .receipt-line { border-bottom: 2px dotted rgba(0,0,0,0.2); margin: 20px 0; }
+        .receipt-line { border-bottom: 1px dashed rgba(0,0,0,0.2); margin: 20px 0; }
 
-        /* Cupón Divertido */
+        /* Cupón Rediseñado */
         .coupon-box {
             position: relative;
             background: #FDFDFB;
-            border: 3px dashed #D4A3A3;
-            border-radius: 16px;
+            border: 2px dashed #D4A3A3;
+            border-radius: 12px;
             padding: 24px 20px;
-            box-shadow: 0 8px 25px rgba(139,38,38,0.08);
+            box-shadow: 0 5px 20px rgba(139,38,38,0.05);
             transition: transform 0.2s ease;
         }
-        .coupon-box:active { transform: scale(0.95); }
+        .coupon-box:active { transform: scale(0.97); }
 
+        /* Scroll Revelado */
         .reveal {
             opacity: 0; transform: translateY(25px);
             transition: opacity 1s cubic-bezier(0.2, 0.6, 0.3, 1), transform 1s cubic-bezier(0.2, 0.6, 0.3, 1);
@@ -143,12 +141,12 @@
 
     <!-- PANTALLA DE INICIO INTERACTIVA -->
     <div id="intro-screen">
-        <h1 class="font-title text-4xl md:text-5xl mb-6 px-6 text-center leading-snug" style="color: var(--dark-red);">Hola Joselyne,<br>amor de mi vida.</h1>
-        <p class="text-xl text-gray-700 mb-12 px-8 text-center tracking-wide font-bold">¿Aceptas leer esta carta del Día de la Novia?</p>
+        <h1 class="font-title text-3xl md:text-4xl italic mb-6 px-6 text-center leading-snug" style="color: var(--dark-red);">Hola Joselyne,<br>amor de mi vida.</h1>
+        <p class="text-lg text-gray-700 mb-12 px-8 text-center italic tracking-wide">¿Aceptas leer esta carta del Día de la Novia?</p>
         
         <div class="flex gap-6 relative">
-            <button id="btn-si" class="px-10 py-3 bg-[#8B2626] text-white hover:bg-[#6c1c1c] transition-colors shadow-lg rounded-xl font-title tracking-widest text-lg uppercase">Sí</button>
-            <button id="btn-no" class="px-10 py-3 border-2 border-gray-400 text-gray-500 rounded-xl font-title tracking-widest text-lg uppercase bg-transparent relative z-50">No</button>
+            <button id="btn-si" class="px-10 py-3 bg-[#8B2626] text-white hover:bg-[#6c1c1c] transition-colors shadow-lg rounded font-serif tracking-widest text-sm uppercase">Sí</button>
+            <button id="btn-no" class="px-10 py-3 border border-gray-400 text-gray-500 rounded font-serif tracking-widest text-sm uppercase bg-transparent relative z-50">No</button>
         </div>
     </div>
 
@@ -157,25 +155,26 @@
         
         <!-- HEADER -->
         <header class="text-center mb-20 reveal relative">
-            <img src="https://raw.githubusercontent.com/tecnotradepty/Spongy/bdc333d321b9cebae83ec6b76efe5e317130b5b7/imagenes/1785622639255.png" class="sticker" style="top: -20px; right: 0px; width: 120px; transform: rotate(10deg);" alt="My Sunshine">
+            <img src="https://raw.githubusercontent.com/tecnotradepty/Spongy/bdc333d321b9cebae83ec6b76efe5e317130b5b7/imagenes/1785622639255.png" class="sticker" style="top: -20px; right: 0px; width: 110px; transform: rotate(10deg);" alt="My Sunshine">
             
-            <p class="font-typewriter text-[12px] mb-3 text-gray-500 tracking-[0.25em] uppercase font-bold">01 de Agosto, 2026</p>
-            <h1 class="font-title text-6xl text-gray-900 mb-1" style="color: var(--dark-red);">Para Joselyne</h1>
+            <p class="font-typewriter text-[10px] mb-3 text-gray-500 tracking-[0.25em] uppercase">01 de Agosto, 2026</p>
+            <h1 class="font-title text-6xl italic text-gray-900 mb-1" style="color: var(--dark-red);">Para Joselyne</h1>
             <p class="font-handwriting text-3xl mt-1 text-gray-700">Feliz primer año, Gordita</p>
         </header>
 
-        <!-- BLOQUE 1: Texto + Foto superpuesta -->
+        <!-- BLOQUE CREATIVO 1: Texto + Foto superpuesta -->
         <section class="mb-32 reveal relative">
-            
-            <div class="prose prose-lg text-[#332F2E] leading-relaxed relative z-10 w-11/12 font-bold">
-                <p class="mb-6"><span class="font-title text-6xl float-left mr-3 mt-1" style="color: var(--dark-red);">¿Q</span>ué más te puedo decir? Que tú eres.</p>
+            <!-- El ojo de fondo -->
+            <img src="https://raw.githubusercontent.com/tecnotradepty/Spongy/bdc333d321b9cebae83ec6b76efe5e317130b5b7/imagenes/1785622726051.png" class="absolute pointer-events-none opacity-[0.06]" style="top: 0px; left: -30px; width: 160px; transform: rotate(-10deg); z-index: -1;" alt="Eye">
+
+            <div class="prose prose-lg text-[#332F2E] leading-relaxed relative z-10 w-11/12">
+                <p class="mb-6"><span class="font-title text-5xl float-left mr-3 mt-1" style="color: var(--dark-red);">¿Q</span>ué más te puedo decir? Que tú eres.</p>
                 <p class="mb-6">Si quisiera preguntarme por qué estoy contigo, donde vea encontraré respuestas. Si quisiera cuestionarme por qué empezamos tan mal, <span class="highlight">tendría que ignorar que mejoramos como pareja.</span></p>
                 <p class="mb-12">Si dudo del futuro, en especial de lo que haré, nada se cumplirá. ¿Por qué me perdería en preguntas con respuestas? Yo sé que tú eres.</p>
             </div>
 
-            <!-- El Ojo: Ya no está oculto, ahora está súper visible anclado a esta polaroid -->
+            <!-- Polaroid pisando el texto -->
             <figure class="absolute -bottom-20 -right-4 z-20">
-                <img src="https://raw.githubusercontent.com/tecnotradepty/Spongy/bdc333d321b9cebae83ec6b76efe5e317130b5b7/imagenes/1785622726051.png" class="sticker" style="top: -30px; right: -20px; width: 90px; transform: rotate(15deg); z-index: 40;" alt="Eye">
                 <img src="https://raw.githubusercontent.com/tecnotradepty/Spongy/bdc333d321b9cebae83ec6b76efe5e317130b5b7/imagenes/1785622537660.png" class="sticker" style="bottom: -20px; left: -25px; width: 120px; transform: rotate(-15deg); z-index: 30;" alt="Flores">
 
                 <div class="polaroid transform rotate-[4deg]">
@@ -186,120 +185,132 @@
         </section>
 
         <!-- ESPACIO VISUAL PARA COMPENSAR EL OVERLAP -->
-        <div class="h-20"></div>
+        <div class="h-16"></div>
 
-        <!-- BLOQUE 2 -->
+        <!-- BLOQUE CREATIVO 2 -->
         <section class="mb-28 reveal relative">
+            <!-- Título integrado con sticker -->
             <div class="relative inline-block mb-6 w-full text-right pr-4">
-                <h2 class="font-title text-3xl text-gray-600">¿Qué significa?</h2>
+                <h2 class="font-title text-2xl italic text-gray-500">¿Qué significa?</h2>
                 <img src="https://raw.githubusercontent.com/tecnotradepty/Spongy/bdc333d321b9cebae83ec6b76efe5e317130b5b7/imagenes/1785622701314.png" class="sticker" style="top: -25px; right: -5px; width: 50px; transform: rotate(15deg);" alt="Corazon">
             </div>
 
-            <div class="prose prose-lg text-[#332F2E] leading-relaxed relative z-10 w-11/12 ml-auto text-right font-bold">
+            <div class="prose prose-lg text-[#332F2E] leading-relaxed relative z-10 w-11/12 ml-auto text-right">
                 <p class="mb-6">La respuesta no es más que me pareces una chica maravillosa, tienes un potencial muy grande y sé que tienes voluntad para hacer las cosas.</p>
                 <p class="mb-6">Eres inteligente y <span class="highlight">eres la mujer más genuina que pude tener</span>, créeme que te aprecio como no tienes idea.</p>
             </div>
             
-            <!-- Fragmento suelto corregido ortográficamente pero con el estilo auténtico -->
-            <div class="mt-10 ml-2 flex flex-col items-start gap-1">
-                <span class="font-handwriting text-4xl text-[#8B2626] transform -rotate-2 block leading-tight">Sé que eres diskkk el amor de mi vida hasta el fin del mundo &lt;3</span>
-                <img src="https://raw.githubusercontent.com/tecnotradepty/Spongy/bdc333d321b9cebae83ec6b76efe5e317130b5b7/imagenes/1785622615125.png" class="w-20 h-auto drop-shadow-md ml-6 mt-2" alt="My Girl">
+            <!-- Fragmento suelto tipo nota -->
+            <div class="mt-8 ml-4 flex items-center gap-3">
+                <span class="font-doodle text-4xl text-[#8B2626] transform -rotate-3 block">Sé que eres disk...</span>
+                <img src="https://raw.githubusercontent.com/tecnotradepty/Spongy/bdc333d321b9cebae83ec6b76efe5e317130b5b7/imagenes/1785622615125.png" class="w-16 h-auto drop-shadow-md" alt="My Girl">
             </div>
         </section>
 
-        <!-- WRAPPED -->
-        <section class="mb-32 flex flex-col items-center reveal">
-            <!-- Transición solicitada -->
-            <h2 class="font-title text-3xl mb-12 text-center" style="color: var(--dark-red);">Aquí un resumen del año:</h2>
-            
+        <!-- WRAPPED (Mantenido intacto, es un gran elemento) -->
+        <section class="mb-32 flex justify-center reveal">
             <figure class="relative w-full max-w-sm">
                 <img src="https://raw.githubusercontent.com/tecnotradepty/Spongy/bdc333d321b9cebae83ec6b76efe5e317130b5b7/imagenes/1785622496396.png" class="absolute -bottom-12 -left-8 w-44 rotate-[-12deg] opacity-90" style="z-index: 0;" alt="Bouquet Periodico">
 
                 <div class="receipt z-10 font-typewriter">
                     <div class="text-center mb-8">
-                        <h3 class="font-title text-2xl font-bold tracking-widest text-gray-900">OUR 2026 WRAPPED</h3>
-                        <p class="text-[12px] mt-2 text-gray-500 font-bold tracking-[0.2em]">TICKET NO. 0001</p>
+                        <h3 class="font-title text-xl font-bold tracking-widest text-gray-900">OUR 2026 WRAPPED</h3>
+                        <p class="text-[10px] mt-2 text-gray-400 tracking-[0.2em]">TICKET NO. 0001</p>
                     </div>
 
                     <div class="receipt-line"></div>
 
                     <div class="mb-5">
-                        <div class="flex justify-between text-sm mb-1 text-gray-800">
+                        <div class="flex justify-between text-xs mb-1 text-gray-800">
                             <span class="font-bold">FRECUENCIA</span>
-                            <span class="font-bold">1 a 4 días/Sem</span>
+                            <span>1 a 4 días/Sem</span>
                         </div>
-                        <p class="text-[11px] text-gray-500 font-sans italic">Casi todas las semanas juntos.</p>
+                        <p class="text-[10px] text-gray-500 font-sans italic">Casi todas las semanas juntos.</p>
                     </div>
 
                     <div class="mb-5">
-                        <div class="flex justify-between text-sm mb-1 text-gray-800">
+                        <div class="flex justify-between text-xs mb-1 text-gray-800">
                             <span class="font-bold">TOP ARTISTA</span>
-                            <span class="font-bold">A$AP ROCKY</span>
+                            <span>A$AP ROCKY</span>
                         </div>
-                        <p class="text-[11px] text-gray-500 font-sans italic">Mientras estás en tu mundo con audífonos.</p>
+                        <p class="text-[10px] text-gray-500 font-sans italic">Mientras estás en tu mundo con audífonos.</p>
                     </div>
 
                     <div class="mb-5">
-                        <div class="flex justify-between text-sm mb-1 text-red-800">
+                        <div class="flex justify-between text-xs mb-1 text-red-800">
                             <span class="font-bold">DELITO MAYOR</span>
                             <span class="font-bold">ROBO PATACONES</span>
                         </div>
-                        <p class="text-[11px] text-gray-500 font-sans italic">Escarbar mi comida por los delgados.</p>
+                        <p class="text-[10px] text-gray-500 font-sans italic">Escarbar mi comida por los delgados.</p>
                     </div>
 
                     <div class="mb-5">
-                        <p class="text-sm font-bold mb-1 text-gray-800">TOUR GASTRONÓMICO</p>
-                        <p class="text-[11px] leading-relaxed text-gray-600 font-sans font-bold">Subway, Nación Sushi, Wendy's, Asados Victoria, Casa Santana, Lucca, Esa Flaca Rica y más.</p>
+                        <p class="text-xs font-bold mb-1 text-gray-800">TOUR GASTRONÓMICO</p>
+                        <p class="text-[10px] leading-relaxed text-gray-600 font-sans">Subway, Nación Sushi, Wendy's, Asados Victoria, Casa Santana, Lucca, Esa Flaca Rica y más.</p>
                     </div>
                     
                     <div class="mb-4">
-                        <p class="text-sm font-bold mb-1 text-gray-800">RUTAS RECORRIDAS</p>
-                        <p class="text-[11px] leading-relaxed text-gray-600 font-sans font-bold">Taboga, Río Hato, San Miguel, Boquete, Alanje, Puerto Armuelles y derrapes en Go Karts.</p>
+                        <p class="text-xs font-bold mb-1 text-gray-800">RUTAS RECORRIDAS</p>
+                        <p class="text-[10px] leading-relaxed text-gray-600 font-sans">Taboga, Río Hato, San Miguel, Boquete, Alanje, Puerto Armuelles y derrapes en Go Karts.</p>
                     </div>
 
                     <div class="receipt-line"></div>
 
                     <div class="text-center mt-8">
-                        <p class="text-lg font-bold text-gray-900 tracking-wider">TOTAL: INVALUABLE</p>
+                        <p class="text-sm font-bold text-gray-900 tracking-wider">TOTAL: INVALUABLE</p>
                     </div>
                 </div>
             </figure>
         </section>
 
-        <!-- TEXTO FINAL -->
-        <section class="mb-16 reveal">
-            <div class="prose prose-lg text-[#332F2E] leading-relaxed relative z-10 text-center font-bold">
-                <p class="mb-6">Me gustaría que sepas que atesoro cada momento juntos, y si me ves como alguien que no te quiere, estás loka o yo estoy pasándola mal en algo.</p>
-                <p class="mb-6">Yo no te hablo de mí a diario pq qué porquería abrumarte, <span class="highlight">pero paso estrés hasta inconscientemente.</span></p>
-                <p class="mb-10 text-xl" style="color: var(--dark-red);">Te digo esto porque quiero que sepas que tengo mucha fe en ti, en mí y en Dios. Espero lo mejor para nosotros y de verdad te quiero en mi vida &lt;3</p>
-            </div>
-        </section>
-
-        <!-- FOTO FINAL Y CUPÓN -->
-        <section class="mb-16 reveal flex flex-col items-center">
+        <!-- BLOQUE FINAL: La vulnerabilidad (Foto secundaria arriba del texto) -->
+        <section class="mb-20 reveal">
             
-            <figure class="relative mb-20 inline-block">
-                <img src="https://raw.githubusercontent.com/tecnotradepty/Spongy/bdc333d321b9cebae83ec6b76efe5e317130b5b7/imagenes/1785622585569.png" class="absolute -bottom-8 -right-10 w-28 rotate-[20deg]" style="z-index: 0;" alt="Girasoles">
-                
-                <div class="polaroid transform rotate-[1deg] relative z-10 w-64">
-                    <div class="tape" style="width: 70px;"></div>
-                    <img src="https://raw.githubusercontent.com/tecnotradepty/Spongy/fc45eb5db9b6b12fd412aeca2a431dada3ca2922/imagenes/IMG_20260618_200107.jpg" alt="Beso Final" class="w-full h-64 object-cover" style="filter: sepia(0.08) contrast(0.95);">
+            <figure class="w-full flex justify-center mb-10 relative">
+                <div class="polaroid transform rotate-[-2deg] w-72">
+                    <div class="tape" style="width: 80px;"></div>
+                    <img src="https://raw.githubusercontent.com/tecnotradepty/Spongy/fc45eb5db9b6b12fd412aeca2a431dada3ca2922/imagenes/20250906_181053.jpg" alt="Joselyne" class="w-full h-48 object-cover object-top" style="filter: sepia(0.1) contrast(0.95);">
                 </div>
             </figure>
 
-            <div class="w-full max-w-xs reveal">
+            <div class="prose prose-lg text-[#332F2E] leading-relaxed relative z-10 text-center px-2">
+                <p class="mb-6">Me gustaría que sepas que atesoro cada momento juntos, y si me ves como alguien que no te quiere, estás loka o yo estoy pasándola mal en algo.</p>
+                <p class="mb-6">Yo no te hablo de mí a diario pq qué porquería abrumarte, <span class="highlight">pero paso estrés hasta inconscientemente.</span></p>
+                <p class="mb-8 font-medium">Te digo esto porque quiero que sepas que tengo mucha fe en ti, en mí y en Dios. Espero lo mejor para nosotros y de verdad te quiero en mi vida &lt;3</p>
+            </div>
+        </section>
+
+        <!-- DESPEDIDA, FIRMA Y CUPÓN -->
+        <section class="mb-16 reveal flex flex-col items-center">
+            
+            <figure class="relative mb-24 inline-block">
+                <img src="https://raw.githubusercontent.com/tecnotradepty/Spongy/bdc333d321b9cebae83ec6b76efe5e317130b5b7/imagenes/1785622585569.png" class="absolute -bottom-8 -right-12 w-32 rotate-[25deg]" style="z-index: 0;" alt="Girasoles">
+                
+                <div class="polaroid transform rotate-[2deg] relative z-10 w-56">
+                    <div class="tape" style="width: 70px;"></div>
+                    <img src="https://raw.githubusercontent.com/tecnotradepty/Spongy/fc45eb5db9b6b12fd412aeca2a431dada3ca2922/imagenes/IMG_20260618_200107.jpg" alt="Beso Final" class="w-full h-56 object-cover" style="filter: sepia(0.08) contrast(0.95);">
+                    
+                    <!-- Firma con estilo -->
+                    <div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2 flex items-center justify-center gap-2 z-20 whitespace-nowrap bg-white/60 backdrop-blur-md px-4 py-2 rounded-full border border-gray-100 shadow-sm">
+                        <p class="font-handwriting text-5xl mt-1">tkmmm</p>
+                        <span class="text-3xl">❤️</span>
+                    </div>
+                </div>
+            </figure>
+
+            <div class="w-full max-w-sm reveal">
                 <div class="coupon-box text-center">
                     <div class="flex items-center justify-center gap-2 mb-4">
-                        <span class="text-[#D4A3A3] text-sm">🎟️</span>
-                        <p class="font-title tracking-widest text-[11px] font-bold text-[#D4A3A3] uppercase">Cupón Válido Para</p>
-                        <span class="text-[#D4A3A3] text-sm">🎟️</span>
+                        <span class="text-[#D4A3A3] text-xs">🎟️</span>
+                        <p class="uppercase tracking-widest text-[9px] font-bold text-[#D4A3A3]">Cupón Válido Para</p>
+                        <span class="text-[#D4A3A3] text-xs">🎟️</span>
                     </div>
                     
                     <p class="font-title text-2xl mb-4 font-bold" style="color: var(--dark-red);">Una cita donde tú quieras</p>
                     
-                    <p class="text-[12px] text-gray-500 font-sans italic mb-6 font-bold">(Sujeto a disponibilidad de fondos en el momento, xd)</p>
+                    <p class="text-[10px] text-gray-500 font-sans italic mb-6">(Sujeto a disponibilidad de fondos en el momento, xd)</p>
                     
-                    <button id="claim-btn" class="w-full py-4 bg-transparent border-2 border-[#8B2626] text-[#8B2626] font-title text-[14px] uppercase tracking-widest rounded-xl hover:bg-[#8B2626] hover:text-white transition-colors duration-300">
+                    <button id="claim-btn" class="w-full py-4 bg-transparent border-2 border-[#8B2626] text-[#8B2626] font-sans text-[11px] font-bold uppercase tracking-widest rounded-lg hover:bg-[#8B2626] hover:text-white transition-colors duration-300">
                         Guardar Cupón
                     </button>
                 </div>
@@ -370,7 +381,7 @@
                 this.textContent = "¡CUPÓN GUARDADO! 💖";
                 this.style.backgroundColor = "var(--dark-red)";
                 this.style.color = "white";
-                this.style.transform = "scale(0.96)";
+                this.style.transform = "scale(0.98)";
                 setTimeout(() => this.style.transform = "scale(1)", 150);
             });
         });
